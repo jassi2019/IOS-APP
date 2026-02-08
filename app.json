@@ -22,7 +22,6 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.taiyarineetki.educationapp",
       "buildNumber": "1.0.3",
-      "deploymentTarget": "15.1",
       "jsEngine": "jsc",
       "infoPlist": {
         "NSPhotoLibraryUsageDescription": "This app needs access to your photo library to attach images.",

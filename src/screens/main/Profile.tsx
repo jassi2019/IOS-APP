@@ -230,6 +230,8 @@ export const Profile = ({ navigation }: AccountProps) => {
       .slice(0, 2);
   };
 
+  const profileImageUri = localProfilePicture || profile?.data?.profilePicture || undefined;
+
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
@@ -241,9 +243,9 @@ export const Profile = ({ navigation }: AccountProps) => {
           <View style={styles.profileSection}>
             <View style={styles.profileImageWrapper}>
               <View style={styles.profileImageContainer}>
-                {(localProfilePicture || profile?.data?.profilePicture) ? (
+                {profileImageUri ? (
                   <Image
-                    source={{ uri: localProfilePicture || profile?.data?.profilePicture }}
+                    source={{ uri: profileImageUri }}
                     style={styles.profileImage}
                     resizeMode="cover"
                   />

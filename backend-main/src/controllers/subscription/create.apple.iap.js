@@ -145,6 +145,20 @@ const createAppleIapV1 = async (req, res, next) => {
       });
     }
 
+    if (env.APPLE_BUNDLE_ID) {
+      const receiptBundleId = verifyResponse?.receipt?.bundle_id;
+      if (!receiptBundleId) {
+        return res.status(400).json({
+          message: "Receipt is missing bundle_id",
+        });
+      }
+      if (receiptBundleId !== env.APPLE_BUNDLE_ID) {
+        return res.status(400).json({
+          message: "Receipt bundle_id does not match this app",
+        });
+      }
+    }
+
     const expectedProductId = plan.appleProductId;
     if (!receiptContainsProduct(verifyResponse, expectedProductId)) {
       return res.status(400).json({

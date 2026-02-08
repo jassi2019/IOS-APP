@@ -36,3 +36,9 @@ yarn-error.*
 *.tsbuildinfo
 
 .env
+
+# Accidental XML copies of iOS XML-based files (Xcode expects the canonical extensions)
+ios/**/*.entitlements.xml
+ios/**/*.storyboard.xml
+ios/**/*.xcprivacy.xml
+ios/**/*.xcworkspacedata.xml

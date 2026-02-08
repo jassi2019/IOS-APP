@@ -102,7 +102,9 @@ export const OTPVerification = ({ navigation, route }: OTPVerificationProps) => 
               {[0, 1, 2, 3, 4, 5].map((index) => (
                 <React.Fragment key={index}>
                   <TextInput
-                    ref={(ref) => (inputRefs.current[index] = ref)}
+                    ref={(ref) => {
+                      inputRefs.current[index] = ref;
+                    }}
                     className="bg-white w-14 h-14 border border-gray-200 rounded-xl text-center text-xl text-black"
                     maxLength={1}
                     keyboardType="numeric"

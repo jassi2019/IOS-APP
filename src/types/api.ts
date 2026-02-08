@@ -1,4 +1,4 @@
-import { UseMutationOptions, UseQueryOptions } from '@tanstack/react-query';
+import type { UseMutationOptions, UseQueryOptions } from '@tanstack/react-query';
 
 export type TApiPromise<TData = undefined> = Promise<TSuccess<TData>> | Promise<TError>;
 

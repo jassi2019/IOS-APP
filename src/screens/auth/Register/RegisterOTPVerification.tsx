@@ -138,7 +138,9 @@ export const RegisterOTPVerification = ({ navigation, route }: OTPVerificationPr
               {[0, 1, 2, 3, 4, 5].map((index) => (
                 <TextInput
                   key={index}
-                  ref={(ref) => (inputRefs.current[index] = ref)}
+                  ref={(ref) => {
+                    inputRefs.current[index] = ref;
+                  }}
                   style={[
                     styles.otpInput,
                     focusedIndex === index ? styles.otpInputFocused : styles.otpInputBlurred

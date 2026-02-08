@@ -28,15 +28,35 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 type PaymentScreenProps = {
   navigation: any;
-  route: {
-    params: {
-      plan: TPlan;
+  route?: {
+    params?: {
+      plan?: TPlan;
     };
   };
 };
 
 export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
-  const { plan } = route.params;
+  const plan = route?.params?.plan;
+
+  if (!plan) {
+    return (
+      <SafeAreaView style={styles.container} edges={['top']}>
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+            <ChevronLeft size={24} color="#1F2937" />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>Payment</Text>
+          <View style={styles.headerSpacer} />
+        </View>
+
+        <View style={{ padding: 16 }}>
+          <Text style={{ color: '#B91C1C', fontSize: 14, lineHeight: 18 }}>
+            Plan details not found. Please go back and select a plan again.
+          </Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
   const { setUser } = useAuth();
   const { refetch: fetchProfile } = useGetProfile({ enabled: false });
   const { mutateAsync: createAppleSubscriptionAsync, isPending: isCreatingSubscription } =

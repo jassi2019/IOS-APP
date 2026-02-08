@@ -4,12 +4,13 @@ export type TUser = {
   id: string;
   name: string;
   email: string;
-  profilePicture: string;
-  bio: string;
+  profilePicture: string | null;
+  bio: string | null;
   role: string;
   registrationSource: string;
-  password: string;
+  // Not returned from profile endpoints; only used for auth inputs.
+  password?: string;
   createdAt: string;
   updatedAt: string;
-  subscription: TSubscription;
+  subscription: TSubscription | null;
 };

@@ -6,6 +6,7 @@ dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 
 module.exports = {
   NODE_ENV: process.env.NODE_ENV,
+  APPLE_BUNDLE_ID: process.env.APPLE_BUNDLE_ID,
   DB_HOST: process.env.DB_HOST,
   DB_PORT: process.env.DB_PORT,
   DB_USER: process.env.DB_USER,

@@ -1,0 +1,11 @@
+services:
+  portal:
+    image: kartarenterprises/apps:taiyari-neet-ki-portal
+    pull_policy: always
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3000:3000"
+    deploy:
+      resources:
+        limits:
+          memory: 256M

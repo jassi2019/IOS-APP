@@ -1,0 +1,16 @@
+services:
+  api:
+    image: kartarenterprises/apps:tyari-neet-ki-backend-release1
+    pull_policy: always
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - 8000:8000
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: "ap-south-1"
+        awslogs-group: "TaiyariNEETkiProduction"
+        awslogs-stream: "api"
+        awslogs-create-group: "true"

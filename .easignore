@@ -1,0 +1,6 @@
+# Ignore files for EAS Build
+.git
+.expo
+node_modules/.cache
+*.log
+.DS_Store

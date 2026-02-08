@@ -1,0 +1,40 @@
+#!/bin/bash
+
+echo "========================================"
+echo "Building iOS Development Build"
+echo "========================================"
+echo ""
+echo "This will create a custom IPA with Apple In-App Purchase (IAP) subscription support for iOS."
+echo "The build will take approximately 15-20 minutes."
+echo ""
+echo "Prerequisites:"
+echo "- EAS CLI installed (npm install -g eas-cli)"
+echo "- Logged into Expo (eas login)"
+echo "- Apple Developer account"
+echo ""
+read -p "Press Enter to continue..."
+
+echo ""
+echo "Starting build..."
+echo ""
+
+eas build --profile development --platform ios
+
+echo ""
+echo "========================================"
+echo "Build Complete!"
+echo "========================================"
+echo ""
+echo "Next Steps:"
+echo "1. Download the IPA from the link above"
+echo "2. Install it on your iPhone using:"
+echo "   - Apple Configurator (Mac)"
+echo "   - Xcode Devices window (Mac)"
+echo "   - Or open link in Safari on iPhone"
+echo "3. Trust developer certificate in Settings"
+echo "4. Run: npx expo start --dev-client"
+echo "5. Scan QR code with your development build app"
+echo ""
+echo "In-app purchase functionality will now work on iOS!"
+echo ""
+

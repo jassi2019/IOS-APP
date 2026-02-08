@@ -1,0 +1,57 @@
+{
+  "expo": {
+    "name": "Education App",
+    "slug": "education-app",
+    "version": "1.0.3",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "plugins": ["react-native-iap"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.taiyarineetki.educationapp",
+      "buildNumber": "1.0.3",
+      "deploymentTarget": "15.1",
+      "jsEngine": "jsc",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "This app needs access to your photo library to attach images.",
+        "UIBackgroundModes": [
+          "fetch"
+        ]
+      },
+      "config": {
+        "usesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "com.taiyarineetki.app",
+      "versionCode": 2,
+      "jsEngine": "jsc",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "permissions": [
+        "INTERNET",
+        "ACCESS_NETWORK_STATE",
+        "READ_EXTERNAL_STORAGE"
+      ]
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f2744d0e-f1ed-4511-96a2-3afc6a10cbe6"
+      }
+    }
+  }
+}

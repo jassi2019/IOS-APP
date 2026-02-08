@@ -1,0 +1,1762 @@
+{
+  "generatedAt": "2026-02-07T06:32:51.894Z",
+  "baseUrl": "https://api.taiyarineetki.com",
+  "subjects": [
+    {
+      "id": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "name": "BOTANY ",
+      "description": "Study of plants, their structure and functions.",
+      "createdAt": "2025-01-27T12:05:37.710Z",
+      "updatedAt": "2025-08-03T18:21:33.706Z"
+    },
+    {
+      "id": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "name": "CHEMISTRY ",
+      "description": "⚗️ Chemistry – Where Atoms Bond Easily, But You Struggle to Connect! 😵‍💫\n\nThe Periodic Table feels like a giant reunion where elements keep changing properties just to confuse you! Organic Chemistry is a never-ending drama starring Carbon, forming and breaking bonds like a pro! 🧪😂 And Thermodynamics? It proves energy is always conserved – except in your brain before exams! 🌡️😆\n\nBut remember, every reaction needs activation energy – so stay charged, stay balanced, and keep going! 🔥🚀",
+      "createdAt": "2025-01-27T12:05:45.197Z",
+      "updatedAt": "2025-01-27T13:24:38.240Z"
+    },
+    {
+      "id": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "name": "PHYSICS ",
+      "description": "⚡ Physics – Where Numbers Have Feelings, and Your Brain Enters Another Dimension! 😵‍💫\n\nOne moment, you’re dropping a ball with Newton, the next, you're lost in Einstein’s time warp! ⏳⚡ Gravity pulls you down, friction slows you down, and exams? Well, they just break you down! 😂 Meanwhile, waves behave like particles, and electrons refuse to tell you their exact location! 🌊🔬\n\nBut don’t worry—Physics isn’t about getting every answer right, it’s about questioning everything! Stay curious, trust the process, and remember— even time is relative, but your hard work will always count! 🚀🔥",
+      "createdAt": "2025-01-27T12:05:17.860Z",
+      "updatedAt": "2025-01-27T13:26:50.811Z"
+    },
+    {
+      "id": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+      "name": "ZOOLOGY ",
+      "description": "🦴 Zoology – Where You Study Animals, But Feel Like One During Exams! 😵‍💫\n\nZoology makes you realize that your own body is more complicated than you thought! From neurons firing in your brain (or at least trying to) to your heart pumping faster before exams, everything is a scientific mystery! 🧠💓 You’ll learn how frogs can breathe through their skin (and wish you had the same ability during stressful viva sessions)! 🐸😂\nZoology isn’t just about animals, it’s about understanding yourself – and realizing that even after studying so much, you still can’t control your own sleep cycle! 😆🔥",
+      "createdAt": "2025-01-27T12:05:28.527Z",
+      "updatedAt": "2025-01-27T13:21:36.471Z"
+    }
+  ],
+  "classes": [
+    {
+      "id": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "name": "Class 11",
+      "description": "🚀 Welcome to Class 11 PCB – Where Science Gets Real! 🔬✨\n\n📖 Physics will break your intuition, Chemistry will test your patience, and Biology will make you question how you're even alive! 😵‍💫⚗️🧬\n\n💡 In Physics, you’ll fight gravity, play with forces, and wonder why things fall but marks don’t rise! 📉😂\n🔥 Chemistry will make you a master of reactions (except the ones in your exam hall! 😆).\n🌱 Biology will remind you that even the tiniest cell is working harder than you! 🦠💪\n\n📚 This journey won’t be easy, but remember – those who understand science, understand life! So buckle up, future doctors and scientists, because the universe isn’t going to explain itself! 🚀🌍",
+      "createdAt": "2025-01-27T08:40:53.309Z",
+      "updatedAt": "2025-01-27T13:12:03.230Z"
+    },
+    {
+      "id": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "name": "Class 12",
+      "description": "🚀 Class 12 PCB – The Final Lap of School Science! 🔬✨\n\n📖 Physics will twist your brain, Chemistry will test your balancing skills, and Biology will remind you that you’re just a bundle of biochemical reactions! 😵‍💫⚗️🧬\n\n🔥 It’s tough, but so are you! Stay focused, stay curious, and make this year count – because your dreams won’t chase themselves! 💪🚀",
+      "createdAt": "2025-01-27T12:03:49.893Z",
+      "updatedAt": "2025-01-27T13:13:18.787Z"
+    }
+  ],
+  "chapters": [
+    {
+      "id": "80707135-02b4-457a-9cc9-09469e246869",
+      "number": 0,
+      "name": "Vectors",
+      "description": "\" Vectors : Quantities with magnitude and direction \"",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-06-28T12:44:51.699Z",
+      "updatedAt": "2025-07-04T08:39:35.399Z"
+    },
+    {
+      "id": "b435c063-60be-494f-9d3d-1c99ac514648",
+      "number": 0,
+      "name": "Basic Mathematics ",
+      "description": "\"Basic mathematics for NEET: Essential algebra and calculus.\"",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-06-28T05:09:45.606Z",
+      "updatedAt": "2025-06-28T05:09:45.606Z"
+    },
+    {
+      "id": "482a7a51-93cf-43d7-8851-8c3b83f8abfb",
+      "number": 1,
+      "name": "Some basic concepts of chemistry ",
+      "description": "Matter, its properties, units, and mole concept form chemistry’s foundation.",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "createdAt": "2025-04-03T23:37:57.016Z",
+      "updatedAt": "2025-04-03T23:37:57.016Z"
+    },
+    {
+      "id": "bb7a36db-888a-47d4-8501-aeec57009518",
+      "number": 1,
+      "name": "Unit and measurement ",
+      "description": "\"Understanding units and measurements is fundamentally crucial.\"",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-03-07T21:26:12.146Z",
+      "updatedAt": "2025-07-04T08:39:54.008Z"
+    },
+    {
+      "id": "6fcd2810-5661-456f-bde4-529a57c4c610",
+      "number": 1,
+      "name": "Electric Charges and Fields",
+      "description": "\"Electric charges generate fields around themselves always.\"",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-07-10T22:57:26.069Z",
+      "updatedAt": "2025-07-10T22:57:26.069Z"
+    },
+    {
+      "id": "cdae781d-8c47-4220-89a6-c0472ac96887",
+      "number": 1,
+      "name": "Solutions",
+      "description": "Homogeneous mixtures of solute and solvent particles.",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "createdAt": "2025-08-14T02:16:04.203Z",
+      "updatedAt": "2025-08-14T02:16:04.203Z"
+    },
+    {
+      "id": "4524af6b-846c-4961-b47e-03ec3dfb07e5",
+      "number": 1,
+      "name": "The living world ",
+      "description": "Diversity, classification, nomenclature, taxonomy, species, identification, biosphere.",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "createdAt": "2025-01-27T12:17:16.300Z",
+      "updatedAt": "2025-07-29T19:16:57.656Z"
+    },
+    {
+      "id": "3a1c8eaa-2c82-4d50-844f-8c0fb12b9e42",
+      "number": 2,
+      "name": "Biological classification ",
+      "description": "Grouping organisms based on shared structural characteristics.",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "createdAt": "2025-01-27T14:31:14.570Z",
+      "updatedAt": "2025-08-03T17:42:35.246Z"
+    },
+    {
+      "id": "332c1aab-221c-4f55-adc9-883aad267313",
+      "number": 2,
+      "name": "Sexual reproduction in flowering plants ",
+      "description": "Process of gamete formation, fertilisation, and seed development.",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "createdAt": "2025-02-04T20:33:18.450Z",
+      "updatedAt": "2025-08-03T17:45:20.224Z"
+    },
+    {
+      "id": "59b1df24-51fd-46c8-87db-e1c6f75c160b",
+      "number": 2,
+      "name": "Human reproduction ",
+      "description": "“Process of producing offspring through reproductive organs.”",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+      "createdAt": "2025-01-27T14:22:50.135Z",
+      "updatedAt": "2025-10-06T16:34:23.267Z"
+    },
+    {
+      "id": "7bd0ab99-8288-46d0-86e5-49b91b14e9ed",
+      "number": 2,
+      "name": "Electrostatic Potential and Capacitance",
+      "description": "Electric potential and capacitance: storing energy per charge.",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-07-10T23:00:30.310Z",
+      "updatedAt": "2025-07-10T23:00:30.310Z"
+    },
+    {
+      "id": "a7ebd8c2-6172-4398-a7c8-c44abd74fa39",
+      "number": 2,
+      "name": "Motion in a straight line ",
+      "description": "\"Movement of objects along a linear path.\"",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-03-08T19:17:20.857Z",
+      "updatedAt": "2025-07-09T09:00:49.345Z"
+    },
+    {
+      "id": "c3ba241f-dad4-4c56-bb29-89d2156a0e46",
+      "number": 2,
+      "name": "Structure of Atom",
+      "description": "Structure of atom explains arrangement of subatomic particles.",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "createdAt": "2025-08-14T02:08:04.496Z",
+      "updatedAt": "2025-08-14T02:08:04.496Z"
+    },
+    {
+      "id": "35420e6a-992a-4a62-af48-5c8e81ba5673",
+      "number": 2,
+      "name": "Electrochemistry ",
+      "description": "Study of chemical reactions involving electricity generation.",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "createdAt": "2025-08-14T02:16:39.367Z",
+      "updatedAt": "2025-08-14T02:16:39.367Z"
+    },
+    {
+      "id": "6fd51753-f8fb-4cde-8e29-48c0aca386b2",
+      "number": 3,
+      "name": "Motion in a Plane",
+      "description": "\"Movement of objects in two dimensional space.\"",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-03-08T19:18:10.372Z",
+      "updatedAt": "2025-07-09T09:00:08.526Z"
+    },
+    {
+      "id": "c09f059b-64a9-4c6c-89c0-9ded4ff3f7d7",
+      "number": 3,
+      "name": "Current Electricity ",
+      "description": "Electric current: flow of electric charge per second.\n\n\n\n\n\n\n\n",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-07-10T23:01:30.467Z",
+      "updatedAt": "2025-07-10T23:01:30.467Z"
+    },
+    {
+      "id": "62b3a5e9-e854-4a95-b8a5-467879d9c58e",
+      "number": 3,
+      "name": "Chemical Kinetics ",
+      "description": "Study of rates and mechanisms of chemical reactions.",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "createdAt": "2025-08-14T02:17:11.728Z",
+      "updatedAt": "2025-08-14T02:17:11.728Z"
+    },
+    {
+      "id": "0b261b67-26b2-42a0-88e6-3eb462500fb6",
+      "number": 3,
+      "name": "Plant Kingdom ",
+      "description": "Classification of plants based on evolutionary features.",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "createdAt": "2025-01-27T14:34:09.093Z",
+      "updatedAt": "2025-08-03T17:43:42.699Z"
+    },
+    {
+      "id": "2d575ebc-602f-4402-9c81-20a21e0a42b3",
+      "number": 3,
+      "name": "Classification of elements and periodicity in properties ",
+      "description": "Arrangement of elements based on repeating chemical properties.",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "createdAt": "2025-08-14T02:09:19.267Z",
+      "updatedAt": "2025-08-14T02:09:19.267Z"
+    },
+    {
+      "id": "d1f862e4-c0cf-43f0-9e59-9e6740df06dd",
+      "number": 3,
+      "name": "Reproductive health ",
+      "description": "Maintaining physical, emotional, and social reproductive well-being",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+      "createdAt": "2025-01-27T14:23:51.959Z",
+      "updatedAt": "2025-10-06T16:36:25.183Z"
+    },
+    {
+      "id": "37eca5e2-3a5a-4b2c-aa19-c18a917031b9",
+      "number": 4,
+      "name": "Animal kingdom",
+      "description": "All multicellular animals classified by body structure",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+      "createdAt": "2025-01-27T12:07:37.529Z",
+      "updatedAt": "2025-10-06T16:15:32.707Z"
+    },
+    {
+      "id": "019b9995-0513-45c1-ae74-021f7d4c0f9d",
+      "number": 4,
+      "name": "Laws of motion ",
+      "description": "\"Motion governed by Newton's three fundamental laws.\"",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-07-04T08:40:52.651Z",
+      "updatedAt": "2025-07-04T08:40:52.651Z"
+    },
+    {
+      "id": "bca6f7a9-8589-418a-b5fe-d0ba759a5f3f",
+      "number": 4,
+      "name": "Chemical Bonding and Molecular Structure ",
+      "description": "Atoms join by sharing or transferring electrons to form molecules.",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "createdAt": "2025-04-03T22:11:50.292Z",
+      "updatedAt": "2025-04-03T22:11:50.292Z"
+    },
+    {
+      "id": "263d3a71-4969-4c9a-b447-6d3d6035242d",
+      "number": 4,
+      "name": "P - block elements ",
+      "description": "Elements with valence electrons in the p-orbital.",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "createdAt": "2025-08-14T02:17:49.056Z",
+      "updatedAt": "2025-08-14T02:17:49.056Z"
+    },
+    {
+      "id": "f8f8f1c3-b594-413f-b692-889148fbddce",
+      "number": 4,
+      "name": "Moving charges and Magnetism",
+      "description": "Electric charges in motion create magnetic effects.",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-07-10T23:02:25.612Z",
+      "updatedAt": "2025-07-10T23:02:25.612Z"
+    },
+    {
+      "id": "14839ad2-838f-496e-a14a-cff44ba1125d",
+      "number": 5,
+      "name": "Magnetism and Matter",
+      "description": "Materials respond to magnetic fields with alignment.",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-07-10T23:03:05.928Z",
+      "updatedAt": "2025-07-10T23:03:05.928Z"
+    },
+    {
+      "id": "5362e65d-a8e9-44a3-8be1-9f77a158c13e",
+      "number": 5,
+      "name": "D and F block elements ",
+      "description": "Elements with valence electrons in d or f orbitals.",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "createdAt": "2025-08-14T02:18:29.785Z",
+      "updatedAt": "2025-08-14T02:18:29.785Z"
+    },
+    {
+      "id": "59ab641a-b372-4435-823c-6612f46ff309",
+      "number": 5,
+      "name": "Chemical Thermodynamics ",
+      "description": "Study of energy changes during chemical reaction processes.",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "createdAt": "2025-08-14T02:10:54.035Z",
+      "updatedAt": "2025-08-14T02:10:54.035Z"
+    },
+    {
+      "id": "ee12aa80-d079-4fba-bb5b-fbb674edb9fd",
+      "number": 5,
+      "name": "Work energy and power ",
+      "description": "\"Understand work, energy, and power through force, motion, and energy transfer concepts.\"",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-01-30T15:14:46.620Z",
+      "updatedAt": "2025-07-04T08:41:25.350Z"
+    },
+    {
+      "id": "7a634c4f-de90-403d-bca2-50b0eba0e9bb",
+      "number": 5,
+      "name": "Principles of Inheritance and Variations ",
+      "description": "Study of genetic traits passed through generations.",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "createdAt": "2025-02-04T20:34:56.090Z",
+      "updatedAt": "2025-08-03T17:44:37.305Z"
+    },
+    {
+      "id": "16fd3023-0fc9-4abf-a353-9a93cd96ba2a",
+      "number": 5,
+      "name": "Morphology of flowering plants ",
+      "description": "Study of external structure of flowering plants.",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "createdAt": "2025-02-04T20:26:23.313Z",
+      "updatedAt": "2025-08-03T17:46:01.183Z"
+    },
+    {
+      "id": "ab7ac47b-b755-4b76-bf81-cbb211e11ffd",
+      "number": 6,
+      "name": "System of particles and rotational motion ",
+      "description": "\"Motion of particles around axis of rotation.\"",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-07-09T08:57:34.253Z",
+      "updatedAt": "2025-07-09T08:57:34.253Z"
+    },
+    {
+      "id": "d5f9af82-9ba6-4799-b5d4-a955bddba700",
+      "number": 6,
+      "name": "Equilibrium ",
+      "description": "\"State where forward and reverse reactions balance.\"",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "createdAt": "2025-08-20T18:40:04.713Z",
+      "updatedAt": "2025-08-20T18:40:04.713Z"
+    },
+    {
+      "id": "54dd1a27-0581-480d-abae-5bae1437b846",
+      "number": 6,
+      "name": "Anatomy of flowering plants ",
+      "description": "Study of internal structure of flowering plants.",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "createdAt": "2025-02-04T20:27:09.228Z",
+      "updatedAt": "2025-08-03T17:46:39.544Z"
+    },
+    {
+      "id": "798ff18f-576e-43d0-9c5a-330bc1f0ce9b",
+      "number": 6,
+      "name": "Coordination compounds ",
+      "description": "Compounds with central metal atom bonded to ligands.",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "createdAt": "2025-08-14T02:19:06.871Z",
+      "updatedAt": "2025-10-31T09:14:09.664Z"
+    },
+    {
+      "id": "e0b2b22a-c3e3-476d-82ba-11a5d15cd2b2",
+      "number": 6,
+      "name": "Evolution ",
+      "description": "Gradual development of organisms from earlier life forms",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+      "createdAt": "2025-01-30T16:02:44.060Z",
+      "updatedAt": "2025-10-06T16:37:27.380Z"
+    },
+    {
+      "id": "2785a55e-0777-4aa8-a417-9a18e5aedd80",
+      "number": 6,
+      "name": "Equilibrium ",
+      "description": "State where forward and reverse reactions occur equally.",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-08-14T02:11:28.013Z",
+      "updatedAt": "2025-08-14T02:11:28.013Z"
+    },
+    {
+      "id": "3f86e64c-ec44-4736-ab69-1c3a5f7ff253",
+      "number": 6,
+      "name": "Molecular Basis Of Inheritance ",
+      "description": "Explains DNA structure, replication, transcription, and inheritance\n",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "createdAt": "2025-02-04T20:36:03.339Z",
+      "updatedAt": "2025-07-28T23:15:34.237Z"
+    },
+    {
+      "id": "e11605ae-4ee2-4b4a-879a-3c3fc4b67457",
+      "number": 6,
+      "name": "Electromagnetic Induction ",
+      "description": "Relative motion of magnet and coil induces current.",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-07-10T23:04:07.543Z",
+      "updatedAt": "2025-07-10T23:04:07.543Z"
+    },
+    {
+      "id": "657c28ae-14ca-42a4-8ae3-399ded854805",
+      "number": 7,
+      "name": "Human health and diseases ",
+      "description": "Study of body health, immunity, and diseases",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+      "createdAt": "2025-01-27T14:27:26.570Z",
+      "updatedAt": "2025-10-06T16:39:21.697Z"
+    },
+    {
+      "id": "5e289c8c-813d-4a11-acd3-86718015142e",
+      "number": 7,
+      "name": "Gravitation ",
+      "description": "\"Universal force attracting masses towards each other.\"",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-07-09T08:58:32.062Z",
+      "updatedAt": "2025-07-09T08:58:32.062Z"
+    },
+    {
+      "id": "0dedb2fb-0951-4562-8a60-01dfdfb36b10",
+      "number": 7,
+      "name": "Structural organisation in animals",
+      "description": "Study of body design and tissue organization.",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+      "createdAt": "2025-01-27T12:09:47.791Z",
+      "updatedAt": "2025-10-06T16:17:08.388Z"
+    },
+    {
+      "id": "27ffffb9-b89d-486b-90f6-b7954c1cf31d",
+      "number": 7,
+      "name": "Alternating Current ",
+      "description": "Wave-like current varying with time and frequency.",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-07-10T23:04:46.024Z",
+      "updatedAt": "2025-07-10T23:04:46.024Z"
+    },
+    {
+      "id": "2cd093e8-3d1b-4f10-b945-817ea279f949",
+      "number": 7,
+      "name": "Haloalkane and Haloarene",
+      "description": "Organic molecules containing one or more halogen atoms.",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "createdAt": "2025-08-14T02:19:50.427Z",
+      "updatedAt": "2025-10-31T14:47:28.928Z"
+    },
+    {
+      "id": "700e99e9-326d-43f5-b035-517d4f0e57a4",
+      "number": 7,
+      "name": "Redox Reactions",
+      "description": "Chemical reactions involving transfer of electrons between species.",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "createdAt": "2025-08-14T02:12:11.090Z",
+      "updatedAt": "2025-08-14T02:12:11.090Z"
+    },
+    {
+      "id": "1468a7ce-303f-4adf-a139-0a384d301230",
+      "number": 8,
+      "name": "Electromagnetic Waves ",
+      "description": "Self-propagating waves of electric and magnetic fields.",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-07-10T23:05:55.781Z",
+      "updatedAt": "2025-07-10T23:05:55.781Z"
+    },
+    {
+      "id": "17628155-ab71-4f24-a35d-7f3603c4f624",
+      "number": 8,
+      "name": "Alchols , Phenols and Ether",
+      "description": "Organic molecules containing one or more oxygen atoms.",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "createdAt": "2025-08-14T02:20:28.666Z",
+      "updatedAt": "2025-10-31T15:41:59.733Z"
+    },
+    {
+      "id": "c27eeab8-5123-48ae-bf61-409fbd93131c",
+      "number": 8,
+      "name": " Some basic principles of Organic chemistry ",
+      "description": "Fundamental concepts guiding structure and reactions of organics.",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "createdAt": "2025-02-18T11:42:33.732Z",
+      "updatedAt": "2025-08-14T02:13:48.389Z"
+    },
+    {
+      "id": "58e5ede0-f419-4c2d-a61d-586ed021fd3c",
+      "number": 8,
+      "name": "Mechanical Properties Of Solids",
+      "description": "\"Solids resist deformation under external applied forces.\"",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-07-09T09:22:45.264Z",
+      "updatedAt": "2025-07-09T09:22:45.264Z"
+    },
+    {
+      "id": "671ccfef-2b16-4afd-a468-600d11be4b97",
+      "number": 9,
+      "name": "Microbes in Human welfare ",
+      "description": "\"Microbes play a crucial role in human welfare by aiding in digestion, producing antibiotics, enhancing soil fertility, and helping in food production.\"",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "createdAt": "2025-02-04T20:37:32.785Z",
+      "updatedAt": "2025-02-04T20:37:32.785Z"
+    },
+    {
+      "id": "6498b674-0c53-4972-b0bd-9754e90f2128",
+      "number": 9,
+      "name": "Biotechnology - Principle and processes",
+      "description": "Engineering life through science for human advancement",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "createdAt": "2025-02-04T20:39:01.472Z",
+      "updatedAt": "2025-05-18T18:44:13.443Z"
+    },
+    {
+      "id": "e1438877-7da4-4030-8f84-12f4d7977a69",
+      "number": 9,
+      "name": "Cell - The unit of life",
+      "description": "Basic structural and functional unit of life.",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "createdAt": "2025-02-04T20:27:59.747Z",
+      "updatedAt": "2025-08-03T17:47:47.164Z"
+    },
+    {
+      "id": "07ca1bbc-5da5-47b3-bbd9-ccda96319d5e",
+      "number": 9,
+      "name": "Organic compounds containing Nitrogen ",
+      "description": "Organic molecules containing one or more nitrogen atoms.",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "createdAt": "2025-08-14T02:21:09.816Z",
+      "updatedAt": "2025-08-14T02:21:09.816Z"
+    },
+    {
+      "id": "fd5e0570-58ae-40b2-a8f4-c8137edfa58e",
+      "number": 9,
+      "name": "Biomolecules ",
+      "description": "Organic molecules essential for structure and function.",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+      "createdAt": "2025-01-27T13:37:05.507Z",
+      "updatedAt": "2025-10-06T16:17:28.465Z"
+    },
+    {
+      "id": "86bad2b2-0633-402a-a0a3-db38db7a899c",
+      "number": 9,
+      "name": "Aldehydes , Ketones and Carboxylic acid  ",
+      "description": "Carbonyl compounds with varied functional group properties.",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "createdAt": "2025-08-14T02:22:48.133Z",
+      "updatedAt": "2025-10-31T15:51:31.155Z"
+    },
+    {
+      "id": "709f1a19-aeba-4fa3-99cc-324d671df77b",
+      "number": 9,
+      "name": "Mechanical Properties of Fluids",
+      "description": "\"Fluids exhibit pressure, viscosity, and flow characteristics.\"",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-07-09T09:25:45.991Z",
+      "updatedAt": "2025-07-09T09:25:45.991Z"
+    },
+    {
+      "id": "d032c7e0-c616-4d93-bb82-9526829ef3ea",
+      "number": 9,
+      "name": "Ray Optics and Optical Instruments ",
+      "description": "Lenses and mirrors manipulate light for vision.",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-07-10T23:06:57.048Z",
+      "updatedAt": "2025-07-10T23:06:57.048Z"
+    },
+    {
+      "id": "df022d8f-3c1c-4084-b7e3-18b8b77f52d4",
+      "number": 9,
+      "name": "Purification and characterization of organic compounds ",
+      "description": "Methods to separate and identify organic chemical substances.",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "createdAt": "2025-08-14T02:14:52.105Z",
+      "updatedAt": "2025-08-14T02:14:52.105Z"
+    },
+    {
+      "id": "abd9efe7-4f4c-4635-9f82-9ba25ba78821",
+      "number": 10,
+      "name": "Hydrocarbons ",
+      "description": "Compounds made of only carbon and hydrogen atoms.",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "createdAt": "2025-08-14T02:15:29.394Z",
+      "updatedAt": "2025-08-14T02:15:29.394Z"
+    },
+    {
+      "id": "b9cbbdfd-7fdd-4aa9-bd73-c342f342e9ea",
+      "number": 10,
+      "name": "Wave Optics ",
+      "description": "Interference and diffraction reveal light's wave nature.",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-07-10T23:07:34.703Z",
+      "updatedAt": "2025-07-10T23:07:34.703Z"
+    },
+    {
+      "id": "d3bbdf59-c10f-41aa-b732-cdb3aec29235",
+      "number": 10,
+      "name": "Biomolecules ",
+      "description": "Organic molecules essential for structure and function of life.",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "createdAt": "2025-08-14T02:21:44.318Z",
+      "updatedAt": "2025-08-14T02:21:44.318Z"
+    },
+    {
+      "id": "ca0ec255-ca71-4b75-b822-c56cee3be38f",
+      "number": 10,
+      "name": "Thermal Properties Of Matter",
+      "description": "\"Substances respond to heat with expansion changes.\"",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-07-09T09:26:41.540Z",
+      "updatedAt": "2025-07-09T09:26:41.540Z"
+    },
+    {
+      "id": "1dd0eae9-a427-41da-85a6-0c09d3648b57",
+      "number": 10,
+      "name": "Biotechnology and its applications",
+      "description": "Genes improve health, food, environment, and industry",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "createdAt": "2025-02-04T20:40:21.250Z",
+      "updatedAt": "2025-06-02T19:30:03.149Z"
+    },
+    {
+      "id": "fd7019ce-39ad-44a5-8191-7b76595b3af0",
+      "number": 10,
+      "name": "Cell cycle and cell division ",
+      "description": "Sequence of growth and division in cells.",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "createdAt": "2025-02-04T20:28:46.307Z",
+      "updatedAt": "2025-08-03T17:48:30.067Z"
+    },
+    {
+      "id": "201fc1dc-dc83-457a-99cc-7feee22724d6",
+      "number": 11,
+      "name": "Thermodynamics ",
+      "description": "\"Heat, energy, and work interact in systems.\"",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-07-09T09:28:16.419Z",
+      "updatedAt": "2025-07-09T09:28:16.419Z"
+    },
+    {
+      "id": "d8c3469a-9538-4756-9384-6ecceb828f71",
+      "number": 11,
+      "name": "Photosynthesis in higher plants ",
+      "description": "Light-driven process converting CO₂ into food.",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "createdAt": "2025-02-04T20:48:57.122Z",
+      "updatedAt": "2025-08-03T17:52:12.285Z"
+    },
+    {
+      "id": "a415517e-cd37-4aeb-801a-b44e987125b6",
+      "number": 11,
+      "name": "Organisms and population ",
+      "description": "\"Diverse life, conserved future.\"",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "createdAt": "2025-02-04T20:41:16.338Z",
+      "updatedAt": "2025-05-02T17:40:53.671Z"
+    },
+    {
+      "id": "16e7e27b-2e5b-43e0-aa73-da8570f0459c",
+      "number": 11,
+      "name": "Dual Nature of Radiation and Matter",
+      "description": "Wave or particle? Both — nature decides when.",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-07-10T23:08:27.572Z",
+      "updatedAt": "2025-07-10T23:08:27.572Z"
+    },
+    {
+      "id": "fbce0f16-709d-4db9-bbb7-a348ea03c0c0",
+      "number": 12,
+      "name": "Kinetic Theory ",
+      "description": "\"Particles in motion explain thermal behavior perfectly.\"",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-07-09T09:29:30.609Z",
+      "updatedAt": "2025-07-09T09:29:30.609Z"
+    },
+    {
+      "id": "adcaadaf-ec2a-4f07-810f-17d419404bd3",
+      "number": 12,
+      "name": "Respiration in plants ",
+      "description": "Energy-releasing process through breakdown of food.",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "createdAt": "2025-02-04T20:30:45.303Z",
+      "updatedAt": "2025-08-03T17:51:27.852Z"
+    },
+    {
+      "id": "e91ccec0-61f5-42ee-b9e8-f51c18b23750",
+      "number": 12,
+      "name": "Atoms",
+      "description": "Electrons orbit nucleus in defined energy levels.",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-07-10T23:09:04.363Z",
+      "updatedAt": "2025-07-10T23:09:04.363Z"
+    },
+    {
+      "id": "cc3f7b48-2538-4f28-be38-f046449710f1",
+      "number": 12,
+      "name": "Ecosystem ",
+      "description": "\"Nature's balance, life's vitality.\"",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "createdAt": "2025-02-04T20:42:26.315Z",
+      "updatedAt": "2025-05-02T17:24:43.686Z"
+    },
+    {
+      "id": "222dfa81-3deb-46e7-b88c-9f8073c8e14c",
+      "number": 13,
+      "name": "Biodiversity and its conversation ",
+      "description": "Every species we save today keeps Earth smiling tomorrow.",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "createdAt": "2025-02-04T20:43:24.101Z",
+      "updatedAt": "2025-04-21T21:11:16.239Z"
+    },
+    {
+      "id": "362d3a05-33c7-443d-9af5-d83dc405c9d8",
+      "number": 13,
+      "name": "Nuclei",
+      "description": "Source of nuclear energy and atomic identity",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-07-10T23:10:05.312Z",
+      "updatedAt": "2025-07-10T23:10:05.312Z"
+    },
+    {
+      "id": "4fbc455c-c8b2-47aa-bf68-4864643e7e69",
+      "number": 13,
+      "name": "Plant Growth and development ",
+      "description": "Changes in size, form, and plant function.",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "createdAt": "2025-02-04T20:32:15.854Z",
+      "updatedAt": "2025-08-03T17:50:41.944Z"
+    },
+    {
+      "id": "a5331e2f-8a8e-4aad-bc54-908db1a8c730",
+      "number": 13,
+      "name": "Oscillations",
+      "description": "\"Repetitive motion around equilibrium point occurs regularly.\"",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-07-09T09:30:33.954Z",
+      "updatedAt": "2025-07-09T09:30:33.954Z"
+    },
+    {
+      "id": "acc6e41d-6528-40a9-bb3f-33c69ede4568",
+      "number": 14,
+      "name": "Semiconductor Electronics : Material , Device and Simple Circuits",
+      "description": "Tiny switches of technology — control current flow.",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-07-10T23:11:15.727Z",
+      "updatedAt": "2025-07-10T23:11:15.727Z"
+    },
+    {
+      "id": "3232371f-68f8-47e1-82a1-8d812e9af27f",
+      "number": 14,
+      "name": "Breathing and exchange of gases",
+      "description": "Process of oxygen intake and carbon dioxide release",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+      "createdAt": "2025-01-27T13:43:08.284Z",
+      "updatedAt": "2025-10-06T16:19:08.422Z"
+    },
+    {
+      "id": "3a30f229-2770-4e35-8d53-5ba537900797",
+      "number": 14,
+      "name": "Waves",
+      "description": "\"Energy transfer through medium via oscillations occurs.\"",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "createdAt": "2025-07-09T09:31:44.607Z",
+      "updatedAt": "2025-07-09T09:31:44.607Z"
+    },
+    {
+      "id": "d94c7aa3-722a-483f-a4c0-9d00cf58315f",
+      "number": 15,
+      "name": "Body fluids and circulation ",
+      "description": "Transport of blood, nutrients, and gases in body",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+      "createdAt": "2025-01-27T13:44:34.929Z",
+      "updatedAt": "2025-10-06T16:20:42.092Z"
+    },
+    {
+      "id": "926d0c74-8faa-4232-9584-edefe3312e61",
+      "number": 16,
+      "name": "Excretory products and their elimination ",
+      "description": "Removal of metabolic wastes from the human body.",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+      "createdAt": "2025-01-27T13:46:29.550Z",
+      "updatedAt": "2025-10-06T16:22:27.694Z"
+    },
+    {
+      "id": "86488886-545f-491a-8fbd-a9301c913abc",
+      "number": 17,
+      "name": "Locomotion and movement ",
+      "description": "Study of body movements and skeletal muscles",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+      "createdAt": "2025-01-27T14:13:51.552Z",
+      "updatedAt": "2025-10-06T16:24:09.866Z"
+    },
+    {
+      "id": "51a31b9c-e262-4150-a7e5-672887007b96",
+      "number": 18,
+      "name": " Neural control and coordination ",
+      "description": "Control and coordination through brain and nerves.",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+      "createdAt": "2025-01-27T14:17:40.226Z",
+      "updatedAt": "2025-10-06T16:26:22.738Z"
+    },
+    {
+      "id": "fe18b3f5-b3a8-4ff0-afa0-d6dc05931dbb",
+      "number": 19,
+      "name": "Chemical coordination and integration ",
+      "description": "Control and coordination through hormones and glands.",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "subjectId": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+      "createdAt": "2025-01-27T14:19:15.274Z",
+      "updatedAt": "2025-10-06T16:29:54.837Z"
+    }
+  ],
+  "freeTopics": [
+    {
+      "id": "82228736-3d0e-4f75-acd1-3b5f3a184395",
+      "name": "The experimental proof ",
+      "description": "\"Meselson and Stahl proved semiconservative DNA replication.\"",
+      "contentURL": "https://www.canva.com/design/DAGuTBRrTmg/TGTwow4fxZpLCjSz5sdRbw/view?utm_content=DAGuTBRrTmg&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hb6b3cc8338",
+      "contentThumbnail": "https://document-export.canva.com/RrTmg/DAGuTBRrTmg/90/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20260206%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260206T091716Z&X-Amz-Expires=81351&X-Amz-Signature=bc14b88f131b94d67cc868a6092f56a7dfd8a21e9f25f325767609a9a23e47a4&X-Amz-SignedHeaders=host&response-expires=Sat%2C%2007%20Feb%202026%2007%3A53%3A07%20GMT",
+      "contentId": "DAGuTBRrTmg",
+      "sequence": 36,
+      "serviceType": "FREE",
+      "chapterId": "3f86e64c-ec44-4736-ab69-1c3a5f7ff253",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "createdAt": "2025-07-26T23:44:14.119Z",
+      "updatedAt": "2026-02-07T06:00:13.587Z",
+      "Chapter": {
+        "id": "3f86e64c-ec44-4736-ab69-1c3a5f7ff253",
+        "name": "Molecular Basis Of Inheritance ",
+        "number": 6
+      },
+      "Subject": {
+        "id": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+        "name": "BOTANY "
+      },
+      "Class": {
+        "id": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+        "name": "Class 12"
+      }
+    },
+    {
+      "id": "efa5fef2-971f-4aaf-862e-0e6c6f7bcfb3",
+      "name": "Points to ponder ",
+      "description": "Distance, velocity, acceleration, equations, and graphs describe motion.",
+      "contentURL": "https://www.canva.com/design/DAGhMa1e8nc/S9qHcdczwJUA3YqugfsP-A/view?utm_content=DAGhMa1e8nc&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h4b99ac6d5c",
+      "contentThumbnail": "https://document-export.canva.com/1e8nc/DAGhMa1e8nc/204/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20260206%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260206T212149Z&X-Amz-Expires=38181&X-Amz-Signature=e53ffa504dd9ee517c1ae5376aaa7a23e5502d21f1d3e4d5f9dc14d3b9922af3&X-Amz-SignedHeaders=host&response-expires=Sat%2C%2007%20Feb%202026%2007%3A58%3A10%20GMT",
+      "contentId": "DAGhMa1e8nc",
+      "sequence": 6,
+      "serviceType": "FREE",
+      "chapterId": "a7ebd8c2-6172-4398-a7c8-c44abd74fa39",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "createdAt": "2025-03-09T02:12:23.335Z",
+      "updatedAt": "2026-02-07T06:00:21.440Z",
+      "Chapter": {
+        "id": "a7ebd8c2-6172-4398-a7c8-c44abd74fa39",
+        "name": "Motion in a straight line ",
+        "number": 2
+      },
+      "Subject": {
+        "id": "74824b28-b944-4cef-b746-bac5ea2642b2",
+        "name": "PHYSICS "
+      },
+      "Class": {
+        "id": "4554084d-2b83-420c-ba6e-2dff303890d1",
+        "name": "Class 11"
+      }
+    },
+    {
+      "id": "fda3f38a-0d1c-413f-81b4-ece146683e12",
+      "name": "Revision Recall Station ",
+      "description": "Katherine Esau’s life, research, and plant legacy.",
+      "contentURL": "https://www.canva.com/design/DAGvCekUj9c/s_UMuqa98F3PC7KXOvTzJA/view?utm_content=DAGvCekUj9c&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hbbb15472b7",
+      "contentThumbnail": "https://document-export.canva.com/kUj9c/DAGvCekUj9c/10/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20260206%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260206T191944Z&X-Amz-Expires=42178&X-Amz-Signature=de0bc393b22a11a78746eb9ccd1f0e28ae8642cdb2c5bffb66203f5812da47ea&X-Amz-SignedHeaders=host&response-expires=Sat%2C%2007%20Feb%202026%2007%3A02%3A42%20GMT",
+      "contentId": "DAGvCekUj9c",
+      "sequence": 5,
+      "serviceType": "FREE",
+      "chapterId": "16fd3023-0fc9-4abf-a353-9a93cd96ba2a",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "createdAt": "2025-08-03T18:26:06.876Z",
+      "updatedAt": "2026-02-07T06:00:24.472Z",
+      "Chapter": {
+        "id": "16fd3023-0fc9-4abf-a353-9a93cd96ba2a",
+        "name": "Morphology of flowering plants ",
+        "number": 5
+      },
+      "Subject": {
+        "id": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+        "name": "BOTANY "
+      },
+      "Class": {
+        "id": "4554084d-2b83-420c-ba6e-2dff303890d1",
+        "name": "Class 11"
+      }
+    },
+    {
+      "id": "ff12330b-a64b-4d16-9513-b0b075bd8ab8",
+      "name": "Dr. Katherine Esau",
+      "description": "Pioneer of plant anatomy, revolutionary scientific author.",
+      "contentURL": "https://www.canva.com/design/DAGvB3SwXrg/a_tMlTIjnnqy1eRUD99Bww/view?utm_content=DAGvB3SwXrg&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h9bfa5b11b2",
+      "contentThumbnail": "https://document-export.canva.com/SwXrg/DAGvB3SwXrg/48/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20260206%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260206T163223Z&X-Amz-Expires=54366&X-Amz-Signature=4996936bd128c74e3b4e75657475ce38d97db808ece3d912434b6a8dec5d34d6&X-Amz-SignedHeaders=host&response-expires=Sat%2C%2007%20Feb%202026%2007%3A38%3A29%20GMT",
+      "contentId": "DAGvB3SwXrg",
+      "sequence": 4,
+      "serviceType": "FREE",
+      "chapterId": "16fd3023-0fc9-4abf-a353-9a93cd96ba2a",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "createdAt": "2025-08-03T17:38:29.377Z",
+      "updatedAt": "2026-02-07T06:00:31.990Z",
+      "Chapter": {
+        "id": "16fd3023-0fc9-4abf-a353-9a93cd96ba2a",
+        "name": "Morphology of flowering plants ",
+        "number": 5
+      },
+      "Subject": {
+        "id": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+        "name": "BOTANY "
+      },
+      "Class": {
+        "id": "4554084d-2b83-420c-ba6e-2dff303890d1",
+        "name": "Class 11"
+      }
+    },
+    {
+      "id": "b17cfaaa-9c4e-4c97-b90d-5ecf7cc980ba",
+      "name": "Vernier Calliper",
+      "description": "\"Precise measurement tool for small object dimensions.\"",
+      "contentURL": "https://www.canva.com/design/DAGr0GBwdFc/gJ0Mpq6RCMIyxGz4Yzx91g/view?utm_content=DAGr0GBwdFc&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h2d397de33e",
+      "contentThumbnail": "https://document-export.canva.com/BwdFc/DAGr0GBwdFc/191/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20260207%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260207T005846Z&X-Amz-Expires=23605&X-Amz-Signature=52a9b09277ebd1a1990b2f1206be38ac4d53474032208c2e714554c40cff2172&X-Amz-SignedHeaders=host&response-expires=Sat%2C%2007%20Feb%202026%2007%3A32%3A11%20GMT",
+      "contentId": "DAGr0GBwdFc",
+      "sequence": 8,
+      "serviceType": "FREE",
+      "chapterId": "bb7a36db-888a-47d4-8501-aeec57009518",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "createdAt": "2025-07-01T13:57:12.771Z",
+      "updatedAt": "2026-02-07T06:00:33.626Z",
+      "Chapter": {
+        "id": "bb7a36db-888a-47d4-8501-aeec57009518",
+        "name": "Unit and measurement ",
+        "number": 1
+      },
+      "Subject": {
+        "id": "74824b28-b944-4cef-b746-bac5ea2642b2",
+        "name": "PHYSICS "
+      },
+      "Class": {
+        "id": "4554084d-2b83-420c-ba6e-2dff303890d1",
+        "name": "Class 11"
+      }
+    },
+    {
+      "id": "de86ebda-8219-48c4-bc30-4ea07b1524cf",
+      "name": "Uttar Maala ",
+      "description": "Revolutionized plant anatomy with groundbreaking scientific research.",
+      "contentURL": "https://www.canva.com/design/DAGvCv4D7dU/KeVA0MskmdV2mKJ2C1GXUA/view?utm_content=DAGvCv4D7dU&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h5968c1e0e2",
+      "contentThumbnail": "https://document-export.canva.com/4D7dU/DAGvCv4D7dU/9/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20251206%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251206T115319Z&X-Amz-Expires=39525&X-Amz-Signature=e0c11f251f1ccc0c1bcfca5059f1633637dcc93abc6fa49a8471c8aafa1972bc&X-Amz-SignedHeaders=host&response-expires=Sat%2C%2006%20Dec%202025%2022%3A52%3A04%20GMT",
+      "contentId": "DAGvCv4D7dU",
+      "sequence": 6,
+      "serviceType": "FREE",
+      "chapterId": "16fd3023-0fc9-4abf-a353-9a93cd96ba2a",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "createdAt": "2025-08-03T19:48:12.871Z",
+      "updatedAt": "2025-12-06T21:00:38.950Z",
+      "Chapter": {
+        "id": "16fd3023-0fc9-4abf-a353-9a93cd96ba2a",
+        "name": "Morphology of flowering plants ",
+        "number": 5
+      },
+      "Subject": {
+        "id": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+        "name": "BOTANY "
+      },
+      "Class": {
+        "id": "4554084d-2b83-420c-ba6e-2dff303890d1",
+        "name": "Class 11"
+      }
+    },
+    {
+      "id": "f8594173-255c-4b38-956b-6379cb99c35b",
+      "name": "Bond Enthalpy ",
+      "description": "\"Energy required to break one mole bond.\"",
+      "contentURL": "https://www.canva.com/design/DAGm-gEDaeI/FR0SdIlJ_iSXohabKvc_ew/view?utm_content=DAGm-gEDaeI&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=ha83e6f626b",
+      "contentThumbnail": "https://document-export.canva.com/0cLCI/DAGwhk0cLCI/3/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20251203%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251203T010219Z&X-Amz-Expires=87421&X-Amz-Signature=a9d5dce354128caed1574b1434f3c4f355f1ecc75231307c8e59067599e02149&X-Amz-SignedHeaders=host&response-expires=Thu%2C%2004%20Dec%202025%2001%3A19%3A20%20GMT",
+      "contentId": "DAGwhk0cLCI",
+      "sequence": 13,
+      "serviceType": "FREE",
+      "chapterId": "bca6f7a9-8589-418a-b5fe-d0ba759a5f3f",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "createdAt": "2025-08-19T20:26:03.895Z",
+      "updatedAt": "2025-12-04T00:01:46.250Z",
+      "Chapter": {
+        "id": "bca6f7a9-8589-418a-b5fe-d0ba759a5f3f",
+        "name": "Chemical Bonding and Molecular Structure ",
+        "number": 4
+      },
+      "Subject": {
+        "id": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+        "name": "CHEMISTRY "
+      },
+      "Class": {
+        "id": "4554084d-2b83-420c-ba6e-2dff303890d1",
+        "name": "Class 11"
+      }
+    },
+    {
+      "id": "10e269e7-b913-42b0-947f-acc55a80199a",
+      "name": "Uttar Maala",
+      "description": "answers on DNA replication",
+      "contentURL": "https://www.canva.com/design/DAGuTLb8Wr0/afCM9QiIR_DMH2j6q2egVg/view?utm_content=DAGuTLb8Wr0&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hc332682220",
+      "contentThumbnail": "https://document-export.canva.com/b8Wr0/DAGuTLb8Wr0/5/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20251013%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251013T210839Z&X-Amz-Expires=49555&X-Amz-Signature=8532071a0fb7b00c160d2845cebe55b69344c6288c7e527f84f778eab9e223b5&X-Amz-SignedHeaders=host&response-expires=Tue%2C%2014%20Oct%202025%2010%3A54%3A34%20GMT",
+      "contentId": "DAGuTLb8Wr0",
+      "sequence": 35,
+      "serviceType": "FREE",
+      "chapterId": "3f86e64c-ec44-4736-ab69-1c3a5f7ff253",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "createdAt": "2025-07-26T21:35:19.824Z",
+      "updatedAt": "2025-10-14T09:03:23.030Z",
+      "Chapter": {
+        "id": "3f86e64c-ec44-4736-ab69-1c3a5f7ff253",
+        "name": "Molecular Basis Of Inheritance ",
+        "number": 6
+      },
+      "Subject": {
+        "id": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+        "name": "BOTANY "
+      },
+      "Class": {
+        "id": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+        "name": "Class 12"
+      }
+    },
+    {
+      "id": "2adac45d-b3b1-40cf-b4e4-2f458d130e98",
+      "name": "Factors Affecting Enzyme Activity",
+      "description": "\"Temperature pH and substrate affect enzyme activity.\"",
+      "contentURL": "https://www.canva.com/design/DAGsHxw36eo/FGvcnNnEnPy2dB55Mc-5lg/view?utm_content=DAGsHxw36eo&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h1cb1fbf54c",
+      "contentThumbnail": "https://document-export.canva.com/w36eo/DAGsHxw36eo/94/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20251013%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251013T130237Z&X-Amz-Expires=76113&X-Amz-Signature=76b16b96269a5b7a5267f55e1bf1f2ca8f3bacd9a2a14ba05f063fef8d969632&X-Amz-SignedHeaders=host&response-expires=Tue%2C%2014%20Oct%202025%2010%3A11%3A10%20GMT",
+      "contentId": "DAGsHxw36eo",
+      "sequence": 14,
+      "serviceType": "FREE",
+      "chapterId": "fd5e0570-58ae-40b2-a8f4-c8137edfa58e",
+      "subjectId": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "createdAt": "2025-07-03T17:42:44.092Z",
+      "updatedAt": "2025-10-14T09:03:33.378Z",
+      "Chapter": {
+        "id": "fd5e0570-58ae-40b2-a8f4-c8137edfa58e",
+        "name": "Biomolecules ",
+        "number": 9
+      },
+      "Subject": {
+        "id": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+        "name": "ZOOLOGY "
+      },
+      "Class": {
+        "id": "4554084d-2b83-420c-ba6e-2dff303890d1",
+        "name": "Class 11"
+      }
+    },
+    {
+      "id": "1f93a7bb-cbba-4c9a-985c-1a53c70a5098",
+      "name": "Uttar Maala ",
+      "description": "Genetic stability maintained across generations",
+      "contentURL": "https://www.canva.com/design/DAG100sxvc4/PJCAdkbgeHRfG-hql5aaZQ/view?utm_content=DAG100sxvc4&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h7fa827cef9",
+      "contentThumbnail": "https://document-export.canva.com/sxvc4/DAG100sxvc4/19/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20251014%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251014T153853Z&X-Amz-Expires=53587&X-Amz-Signature=1235ef483be8dfdeada30941dd3c24aa5157a3e03450d56aed12460c7bf3d78b&X-Amz-SignedHeaders=host&response-expires=Wed%2C%2015%20Oct%202025%2006%3A32%3A00%20GMT",
+      "contentId": "DAG100sxvc4",
+      "sequence": 24,
+      "serviceType": "FREE",
+      "chapterId": "e0b2b22a-c3e3-476d-82ba-11a5d15cd2b2",
+      "subjectId": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "createdAt": "2025-10-15T05:31:55.755Z",
+      "updatedAt": "2025-10-15T05:31:55.755Z",
+      "Chapter": {
+        "id": "e0b2b22a-c3e3-476d-82ba-11a5d15cd2b2",
+        "name": "Evolution ",
+        "number": 6
+      },
+      "Subject": {
+        "id": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+        "name": "ZOOLOGY "
+      },
+      "Class": {
+        "id": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+        "name": "Class 12"
+      }
+    },
+    {
+      "id": "20e3241e-2fec-4354-a11e-7763c628edd8",
+      "name": "Revision Recall Station ",
+      "description": "Allele frequencies remain constant without evolution",
+      "contentURL": "https://www.canva.com/design/DAG1052x46s/1elRKecAqe6nGB-eZh6zBQ/view?utm_content=DAG1052x46s&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h4f5d6dcdb9",
+      "contentThumbnail": "https://document-export.canva.com/2x46s/DAG1052x46s/16/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20251014%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251014T160139Z&X-Amz-Expires=56203&X-Amz-Signature=45ce9c563e98726aea3cac1824e1c8d09fe9c46abb9a692fd61f947662189861&X-Amz-SignedHeaders=host&response-expires=Wed%2C%2015%20Oct%202025%2007%3A38%3A22%20GMT",
+      "contentId": "DAG1052x46s",
+      "sequence": 23,
+      "serviceType": "FREE",
+      "chapterId": "e0b2b22a-c3e3-476d-82ba-11a5d15cd2b2",
+      "subjectId": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "createdAt": "2025-10-15T03:43:56.311Z",
+      "updatedAt": "2025-10-15T05:43:50.967Z",
+      "Chapter": {
+        "id": "e0b2b22a-c3e3-476d-82ba-11a5d15cd2b2",
+        "name": "Evolution ",
+        "number": 6
+      },
+      "Subject": {
+        "id": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+        "name": "ZOOLOGY "
+      },
+      "Class": {
+        "id": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+        "name": "Class 12"
+      }
+    },
+    {
+      "id": "60d8b748-b1fd-4a7d-9e41-7dcd84cc2b3c",
+      "name": "Revision Recall Station ",
+      "description": "\"Review enzyme activity factors for better understanding.\"",
+      "contentURL": "https://www.canva.com/design/DAGsIih_fJw/trkkxy3ULXyokF8pXEb6-A/view?utm_content=DAGsIih_fJw&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h139a1ae21f",
+      "contentThumbnail": "https://document-export.canva.com/h_fJw/DAGsIih_fJw/15/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20251013%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251013T131545Z&X-Amz-Expires=78481&X-Amz-Signature=835ad5a5c72a0c11c2f4c8a706e0a12afdea9b1991aea21449a93c9538555d2b&X-Amz-SignedHeaders=host&response-expires=Tue%2C%2014%20Oct%202025%2011%3A03%3A46%20GMT",
+      "contentId": "DAGsIih_fJw",
+      "sequence": 16,
+      "serviceType": "FREE",
+      "chapterId": "fd5e0570-58ae-40b2-a8f4-c8137edfa58e",
+      "subjectId": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "createdAt": "2025-07-03T19:12:23.468Z",
+      "updatedAt": "2025-10-14T09:04:01.558Z",
+      "Chapter": {
+        "id": "fd5e0570-58ae-40b2-a8f4-c8137edfa58e",
+        "name": "Biomolecules ",
+        "number": 9
+      },
+      "Subject": {
+        "id": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+        "name": "ZOOLOGY "
+      },
+      "Class": {
+        "id": "4554084d-2b83-420c-ba6e-2dff303890d1",
+        "name": "Class 11"
+      }
+    },
+    {
+      "id": "02c6f35a-e709-49e7-aa51-c9cf42d50961",
+      "name": "Uttar Maala ",
+      "description": "DNA replication shown using nitrogen isotope experiment.",
+      "contentURL": "https://www.canva.com/design/DAGuUK_fyiU/CFoaTey9tPOA1oncQRIePA/view?utm_content=DAGuUK_fyiU&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h2c45905975",
+      "contentThumbnail": "https://document-export.canva.com/_fyiU/DAGuUK_fyiU/8/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20251013%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251013T120847Z&X-Amz-Expires=80201&X-Amz-Signature=df7fe3d9fa743408db5ecd4d60d52006adbab64bbe4d2df63f9b73b63cfdc4de&X-Amz-SignedHeaders=host&response-expires=Tue%2C%2014%20Oct%202025%2010%3A25%3A28%20GMT",
+      "contentId": "DAGuUK_fyiU",
+      "sequence": 38,
+      "serviceType": "FREE",
+      "chapterId": "3f86e64c-ec44-4736-ab69-1c3a5f7ff253",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "createdAt": "2025-07-27T00:44:31.215Z",
+      "updatedAt": "2025-10-14T09:05:03.153Z",
+      "Chapter": {
+        "id": "3f86e64c-ec44-4736-ab69-1c3a5f7ff253",
+        "name": "Molecular Basis Of Inheritance ",
+        "number": 6
+      },
+      "Subject": {
+        "id": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+        "name": "BOTANY "
+      },
+      "Class": {
+        "id": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+        "name": "Class 12"
+      }
+    },
+    {
+      "id": "d8ca9694-f018-490c-8a85-514ce273c2c4",
+      "name": "Replication ",
+      "description": "Copying genetic material to create identical DNA.",
+      "contentURL": "https://www.canva.com/design/DAGuSpiuR6I/qAOQh88JFZezlhJEGYPPJA/view?utm_content=DAGuSpiuR6I&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h912b486969",
+      "contentThumbnail": "https://document-export.canva.com/iuR6I/DAGuSpiuR6I/46/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20251013%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251013T155102Z&X-Amz-Expires=67844&X-Amz-Signature=7a46486e201952e9bf5b0b1ff8dcf1e7576bdf4978705b718dafb577c32dfc32&X-Amz-SignedHeaders=host&response-expires=Tue%2C%2014%20Oct%202025%2010%3A41%3A46%20GMT",
+      "contentId": "DAGuSpiuR6I",
+      "sequence": 33,
+      "serviceType": "FREE",
+      "chapterId": "3f86e64c-ec44-4736-ab69-1c3a5f7ff253",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "createdAt": "2025-07-26T20:25:04.750Z",
+      "updatedAt": "2025-10-14T09:05:23.544Z",
+      "Chapter": {
+        "id": "3f86e64c-ec44-4736-ab69-1c3a5f7ff253",
+        "name": "Molecular Basis Of Inheritance ",
+        "number": 6
+      },
+      "Subject": {
+        "id": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+        "name": "BOTANY "
+      },
+      "Class": {
+        "id": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+        "name": "Class 12"
+      }
+    },
+    {
+      "id": "9289409d-3223-4fa8-8d67-6b9c0d3aeab0",
+      "name": "Revision Recall Station ",
+      "description": "Hybrid DNA seen after first replication generation",
+      "contentURL": "https://www.canva.com/design/DAGuUEelfVU/GcXdvm2ybEYU3INKhp_fsQ/view?utm_content=DAGuUEelfVU&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hc7d778bc44",
+      "contentThumbnail": "https://document-export.canva.com/elfVU/DAGuUEelfVU/10/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20251013%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251013T160328Z&X-Amz-Expires=68481&X-Amz-Signature=407c1e93459a1ca467b1b0d591ec624492e7ce9a891da68667d4681da5a6a072&X-Amz-SignedHeaders=host&response-expires=Tue%2C%2014%20Oct%202025%2011%3A04%3A49%20GMT",
+      "contentId": "DAGuUEelfVU",
+      "sequence": 37,
+      "serviceType": "FREE",
+      "chapterId": "3f86e64c-ec44-4736-ab69-1c3a5f7ff253",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "createdAt": "2025-07-27T00:42:01.916Z",
+      "updatedAt": "2025-10-14T09:06:43.847Z",
+      "Chapter": {
+        "id": "3f86e64c-ec44-4736-ab69-1c3a5f7ff253",
+        "name": "Molecular Basis Of Inheritance ",
+        "number": 6
+      },
+      "Subject": {
+        "id": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+        "name": "BOTANY "
+      },
+      "Class": {
+        "id": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+        "name": "Class 12"
+      }
+    },
+    {
+      "id": "734cac67-ce3f-4ef6-9b67-46b96a50fa6a",
+      "name": "Uniform Circular Motion ",
+      "description": "Constant speed, changing velocity, circular path.",
+      "contentURL": "https://www.canva.com/design/DAGhMvsdwuY/zsPRrFEI9BOIzQILPKWmGA/view?utm_content=DAGhMvsdwuY&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h40952912f3",
+      "contentThumbnail": "https://document-export.canva.com/sdwuY/DAGhMvsdwuY/238/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20251013%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251013T203342Z&X-Amz-Expires=51571&X-Amz-Signature=193975f48504499f62d25db84ee239cd1cdb43f8db78b5333e9ed307306393b6&X-Amz-SignedHeaders=host&response-expires=Tue%2C%2014%20Oct%202025%2010%3A53%3A13%20GMT",
+      "contentId": "DAGhMvsdwuY",
+      "sequence": 5,
+      "serviceType": "FREE",
+      "chapterId": "6fd51753-f8fb-4cde-8e29-48c0aca386b2",
+      "subjectId": "74824b28-b944-4cef-b746-bac5ea2642b2",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "createdAt": "2025-03-09T13:36:59.091Z",
+      "updatedAt": "2025-10-14T09:07:06.695Z",
+      "Chapter": {
+        "id": "6fd51753-f8fb-4cde-8e29-48c0aca386b2",
+        "name": "Motion in a Plane",
+        "number": 3
+      },
+      "Subject": {
+        "id": "74824b28-b944-4cef-b746-bac5ea2642b2",
+        "name": "PHYSICS "
+      },
+      "Class": {
+        "id": "4554084d-2b83-420c-ba6e-2dff303890d1",
+        "name": "Class 11"
+      }
+    },
+    {
+      "id": "373ac304-91dc-4ae0-b730-2b589e762914",
+      "name": "Uttar Maala ",
+      "description": "Organism identity, scientific names, classification, hierarchy, species, genus, features\n",
+      "contentURL": "https://www.canva.com/design/DAGurmDIQsU/cRcrYvjNHdkDJSZ9DQT89A/view?utm_content=DAGurmDIQsU&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hf10dcc7ddd",
+      "contentThumbnail": "https://document-export.canva.com/DIQsU/DAGurmDIQsU/7/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20251014%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251014T043357Z&X-Amz-Expires=21702&X-Amz-Signature=d57059004c4129b71adeb9675299632be26fc3743636ac42037512453eadbe67&X-Amz-SignedHeaders=host&response-expires=Tue%2C%2014%20Oct%202025%2010%3A35%3A39%20GMT",
+      "contentId": "DAGurmDIQsU",
+      "sequence": 24,
+      "serviceType": "FREE",
+      "chapterId": "4524af6b-846c-4961-b47e-03ec3dfb07e5",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "createdAt": "2025-07-30T22:46:10.202Z",
+      "updatedAt": "2025-10-14T09:07:36.788Z",
+      "Chapter": {
+        "id": "4524af6b-846c-4961-b47e-03ec3dfb07e5",
+        "name": "The living world ",
+        "number": 1
+      },
+      "Subject": {
+        "id": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+        "name": "BOTANY "
+      },
+      "Class": {
+        "id": "4554084d-2b83-420c-ba6e-2dff303890d1",
+        "name": "Class 11"
+      }
+    },
+    {
+      "id": "0e646e72-44fa-4fac-a1fe-a8736912721f",
+      "name": "CELL: STRUCTURE AND FUNCTIONS",
+      "description": "\"Basic structural and functional unit of life.\"",
+      "contentURL": "https://www.canva.com/design/DAGvCw1Ime8/-5NrjnSq5cZRDE22NMPC_g/view?utm_content=DAGvCw1Ime8&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hd06b31fa6f",
+      "contentThumbnail": "https://document-export.canva.com/1Ime8/DAGvCw1Ime8/103/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20251013%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251013T140429Z&X-Amz-Expires=73743&X-Amz-Signature=3c350251e311acc10833e07e99f4cbf771eb4f7b04057ff417833cc5794db324&X-Amz-SignedHeaders=host&response-expires=Tue%2C%2014%20Oct%202025%2010%3A33%3A32%20GMT",
+      "contentId": "DAGvCw1Ime8",
+      "sequence": 1,
+      "serviceType": "FREE",
+      "chapterId": "e1438877-7da4-4030-8f84-12f4d7977a69",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "createdAt": "2025-08-03T23:06:24.767Z",
+      "updatedAt": "2025-10-14T09:08:12.632Z",
+      "Chapter": {
+        "id": "e1438877-7da4-4030-8f84-12f4d7977a69",
+        "name": "Cell - The unit of life",
+        "number": 9
+      },
+      "Subject": {
+        "id": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+        "name": "BOTANY "
+      },
+      "Class": {
+        "id": "4554084d-2b83-420c-ba6e-2dff303890d1",
+        "name": "Class 11"
+      }
+    },
+    {
+      "id": "de1237f5-c18a-4dfd-b441-3d6fa380adfd",
+      "name": "Uttar Maala ",
+      "description": "\"Review enzyme activity factors for better understanding.\"",
+      "contentURL": "https://www.canva.com/design/DAGsIylL0TA/RGuFL8aPiKcv1qrhqwxq6Q/view?utm_content=DAGsIylL0TA&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hda4d6a72dd",
+      "contentThumbnail": "https://document-export.canva.com/lL0TA/DAGsIylL0TA/57/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20251013%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251013T160213Z&X-Amz-Expires=68198&X-Amz-Signature=7ae461cd539169968fe8877875b0103e2b9305ce0e854d569a15c0df7ebc7611&X-Amz-SignedHeaders=host&response-expires=Tue%2C%2014%20Oct%202025%2010%3A58%3A51%20GMT",
+      "contentId": "DAGsIylL0TA",
+      "sequence": 17,
+      "serviceType": "FREE",
+      "chapterId": "fd5e0570-58ae-40b2-a8f4-c8137edfa58e",
+      "subjectId": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "createdAt": "2025-07-03T20:14:38.790Z",
+      "updatedAt": "2025-10-14T09:08:31.636Z",
+      "Chapter": {
+        "id": "fd5e0570-58ae-40b2-a8f4-c8137edfa58e",
+        "name": "Biomolecules ",
+        "number": 9
+      },
+      "Subject": {
+        "id": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+        "name": "ZOOLOGY "
+      },
+      "Class": {
+        "id": "4554084d-2b83-420c-ba6e-2dff303890d1",
+        "name": "Class 11"
+      }
+    },
+    {
+      "id": "20c85465-7097-421a-9736-32747abecf87",
+      "name": "Revision Recall Station ",
+      "description": "Key concepts, definitions, taxonomy, classification, biodiversity, naming, hierarchy\n",
+      "contentURL": "https://www.canva.com/design/DAGurifsbD4/5yz6-tAHaYMIDcwXG2eI4A/view?utm_content=DAGurifsbD4&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=he5f4dace98",
+      "contentThumbnail": "https://document-export.canva.com/2x46s/DAG1052x46s/16/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20251014%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251014T160139Z&X-Amz-Expires=56203&X-Amz-Signature=45ce9c563e98726aea3cac1824e1c8d09fe9c46abb9a692fd61f947662189861&X-Amz-SignedHeaders=host&response-expires=Wed%2C%2015%20Oct%202025%2007%3A38%3A22%20GMT",
+      "contentId": "DAG1052x46s",
+      "sequence": 23,
+      "serviceType": "FREE",
+      "chapterId": "4524af6b-846c-4961-b47e-03ec3dfb07e5",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "createdAt": "2025-07-30T22:43:19.948Z",
+      "updatedAt": "2025-10-15T05:42:36.304Z",
+      "Chapter": {
+        "id": "4524af6b-846c-4961-b47e-03ec3dfb07e5",
+        "name": "The living world ",
+        "number": 1
+      },
+      "Subject": {
+        "id": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+        "name": "BOTANY "
+      },
+      "Class": {
+        "id": "4554084d-2b83-420c-ba6e-2dff303890d1",
+        "name": "Class 11"
+      }
+    },
+    {
+      "id": "05318f24-97cf-411e-ae74-4ef5ca32e846",
+      "name": "Valence Bond Theory ",
+      "description": "\"Explains bonding through overlap of atomic orbitals.\"",
+      "contentURL": "https://www.canva.com/design/DAGhx1YGshA/4A6L_roPU6v03w_HApX50w/view?utm_content=DAGhx1YGshA&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h906ac42ae8",
+      "contentThumbnail": "https://document-export.canva.com/YGshA/DAGhx1YGshA/466/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20251013%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251013T160303Z&X-Amz-Expires=65826&X-Amz-Signature=a509be4c679fd1eca1625a14a7c2e20e645a0bb0d0cc081e0b1a518d19c5f4e3&X-Amz-SignedHeaders=host&response-expires=Tue%2C%2014%20Oct%202025%2010%3A20%3A09%20GMT",
+      "contentId": "DAGhx1YGshA",
+      "sequence": 18,
+      "serviceType": "FREE",
+      "chapterId": "bca6f7a9-8589-418a-b5fe-d0ba759a5f3f",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "createdAt": "2025-08-19T21:08:09.605Z",
+      "updatedAt": "2025-10-14T09:09:39.117Z",
+      "Chapter": {
+        "id": "bca6f7a9-8589-418a-b5fe-d0ba759a5f3f",
+        "name": "Chemical Bonding and Molecular Structure ",
+        "number": 4
+      },
+      "Subject": {
+        "id": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+        "name": "CHEMISTRY "
+      },
+      "Class": {
+        "id": "4554084d-2b83-420c-ba6e-2dff303890d1",
+        "name": "Class 11"
+      }
+    },
+    {
+      "id": "136b2273-b362-4c42-b300-1089b1d74a65",
+      "name": "Revision Recall Station ",
+      "description": "DNA copying process ensuring genetic information continuity",
+      "contentURL": "https://www.canva.com/design/DAGuTKayH-8/VplrRLN_NPrDd0mt6gYn6Q/view?utm_content=DAGuTKayH-8&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hb7ab8b372f",
+      "contentThumbnail": "https://document-export.canva.com/ayH-8/DAGuTKayH-8/8/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20251013%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251013T155453Z&X-Amz-Expires=65856&X-Amz-Signature=e4adfd9d257c4c0769780630ce2d886c007dc37182ebc49f3dcee6efa40626ec&X-Amz-SignedHeaders=host&response-expires=Tue%2C%2014%20Oct%202025%2010%3A12%3A29%20GMT",
+      "contentId": "DAGuTKayH-8",
+      "sequence": 34,
+      "serviceType": "FREE",
+      "chapterId": "3f86e64c-ec44-4736-ab69-1c3a5f7ff253",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "createdAt": "2025-07-26T21:31:46.345Z",
+      "updatedAt": "2025-10-14T09:09:47.352Z",
+      "Chapter": {
+        "id": "3f86e64c-ec44-4736-ab69-1c3a5f7ff253",
+        "name": "Molecular Basis Of Inheritance ",
+        "number": 6
+      },
+      "Subject": {
+        "id": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+        "name": "BOTANY "
+      },
+      "Class": {
+        "id": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+        "name": "Class 12"
+      }
+    },
+    {
+      "id": "5b597a3e-57f9-4156-bbf2-481d98b69d9a",
+      "name": "Summary ",
+      "description": "Recognizing life, classifying organisms, understanding biodiversity deeply.",
+      "contentURL": "https://www.canva.com/design/DAGuom7kIh8/9VERa-jNvn2Tp__Arox2_g/view?utm_content=DAGuom7kIh8&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hac38213f24",
+      "contentThumbnail": "https://document-export.canva.com/7kIh8/DAGuom7kIh8/74/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20251013%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251013T093133Z&X-Amz-Expires=89087&X-Amz-Signature=58f8138f11dc1504d218112b6f4c2c0eac5c3f8618c3248569d49246b6a9778e&X-Amz-SignedHeaders=host&response-expires=Tue%2C%2014%20Oct%202025%2010%3A16%3A20%20GMT",
+      "contentId": "DAGuom7kIh8",
+      "sequence": 22,
+      "serviceType": "FREE",
+      "chapterId": "4524af6b-846c-4961-b47e-03ec3dfb07e5",
+      "subjectId": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "createdAt": "2025-07-30T13:38:47.327Z",
+      "updatedAt": "2025-10-14T09:11:33.306Z",
+      "Chapter": {
+        "id": "4524af6b-846c-4961-b47e-03ec3dfb07e5",
+        "name": "The living world ",
+        "number": 1
+      },
+      "Subject": {
+        "id": "4adceb63-8ff1-4789-b3eb-b010c1a63754",
+        "name": "BOTANY "
+      },
+      "Class": {
+        "id": "4554084d-2b83-420c-ba6e-2dff303890d1",
+        "name": "Class 11"
+      }
+    },
+    {
+      "id": "13d4279c-e311-4f30-9885-4b2961ca4b33",
+      "name": "Hardy Weinberg Equilibrium ",
+      "description": " \"Allele frequencies remain stable in large populations.\"",
+      "contentURL": "https://www.canva.com/design/DAG0zU7jKa8/RZkGkyshp8NTkMOnvvWCNg/view?utm_content=DAG0zU7jKa8&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hdccfec9fee",
+      "contentThumbnail": "https://document-export.canva.com/7jKa8/DAG0zU7jKa8/519/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20251028%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251028T175700Z&X-Amz-Expires=79635&X-Amz-Signature=eaf3e3e82c2538d1b10b5b27ab542b822628306f76c0dcce67cf0b0051af5772&X-Amz-SignedHeaders=host&response-expires=Wed%2C%2029%20Oct%202025%2016%3A04%3A15%20GMT",
+      "contentId": "DAG0zU7jKa8",
+      "sequence": 22,
+      "serviceType": "FREE",
+      "chapterId": "e0b2b22a-c3e3-476d-82ba-11a5d15cd2b2",
+      "subjectId": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "createdAt": "2025-10-29T14:30:49.346Z",
+      "updatedAt": "2025-10-29T14:30:49.346Z",
+      "Chapter": {
+        "id": "e0b2b22a-c3e3-476d-82ba-11a5d15cd2b2",
+        "name": "Evolution ",
+        "number": 6
+      },
+      "Subject": {
+        "id": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+        "name": "ZOOLOGY "
+      },
+      "Class": {
+        "id": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+        "name": "Class 12"
+      }
+    },
+    {
+      "id": "86d7770f-5116-42ff-bd7b-6743c129542c",
+      "name": "Revision Recall Station ",
+      "description": "Electromagnetic radiation exhibits wave-like properties and behavior.",
+      "contentURL": "https://www.canva.com/design/DAG_iiHjwsw/TnaZKNIltbNtKu-HNxvOvQ/view?utm_content=DAG_iiHjwsw&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h56fb2421ec",
+      "contentThumbnail": "https://document-export.canva.com/Hjwsw/DAG_iiHjwsw/10/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20260126%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260126T122344Z&X-Amz-Expires=83938&X-Amz-Signature=bb3588acbbb14f7e079fece52837c65910d6bcfd42bbbec74b6d12c5df185ef0&X-Amz-SignedHeaders=host&response-expires=Tue%2C%2027%20Jan%202026%2011%3A42%3A42%20GMT",
+      "contentId": "DAG_iiHjwsw",
+      "sequence": 38,
+      "serviceType": "FREE",
+      "chapterId": "c3ba241f-dad4-4c56-bb29-89d2156a0e46",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "createdAt": "2026-01-27T09:50:39.836Z",
+      "updatedAt": "2026-01-27T09:50:39.836Z",
+      "Chapter": {
+        "id": "c3ba241f-dad4-4c56-bb29-89d2156a0e46",
+        "name": "Structure of Atom",
+        "number": 2
+      },
+      "Subject": {
+        "id": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+        "name": "CHEMISTRY "
+      },
+      "Class": {
+        "id": "4554084d-2b83-420c-ba6e-2dff303890d1",
+        "name": "Class 11"
+      }
+    },
+    {
+      "id": "6c3b74ec-ed15-4a3c-b457-43ab67b77f27",
+      "name": "Uttar Maala ",
+      "description": "Electromagnetic radiation propagates as waves in space freely.",
+      "contentURL": "https://www.canva.com/design/DAG_iitJCVk/ELs_F-WeTIzbAiolDKTxrg/view?utm_content=DAG_iitJCVk&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h11418a47b5",
+      "contentThumbnail": "https://document-export.canva.com/tJCVk/DAG_iitJCVk/10/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20260127%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260127T081952Z&X-Amz-Expires=12663&X-Amz-Signature=6ca4ddfe5c77841577202f62426b134c63da27a199f7ccb420c79c36c911db99&X-Amz-SignedHeaders=host&response-expires=Tue%2C%2027%20Jan%202026%2011%3A50%3A55%20GMT",
+      "contentId": "DAG_iitJCVk",
+      "sequence": 39,
+      "serviceType": "FREE",
+      "chapterId": "c3ba241f-dad4-4c56-bb29-89d2156a0e46",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "createdAt": "2026-01-27T09:52:42.949Z",
+      "updatedAt": "2026-01-27T09:52:42.949Z",
+      "Chapter": {
+        "id": "c3ba241f-dad4-4c56-bb29-89d2156a0e46",
+        "name": "Structure of Atom",
+        "number": 2
+      },
+      "Subject": {
+        "id": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+        "name": "CHEMISTRY "
+      },
+      "Class": {
+        "id": "4554084d-2b83-420c-ba6e-2dff303890d1",
+        "name": "Class 11"
+      }
+    },
+    {
+      "id": "cbbaddd5-5fcf-4a7e-ba3c-b011127fe78e",
+      "name": "SN1 reaction ",
+      "description": "Carbocation formation first, then nucleophile attacks slowly.",
+      "contentURL": "https://www.canva.com/design/DAGptDeZPvE/G6DuBXOVtkwfkCMEXn9w_Q/view?utm_content=DAGptDeZPvE&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h14ece52061",
+      "contentThumbnail": "https://document-export.canva.com/eZPvE/DAGptDeZPvE/322/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20260129%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260129T184623Z&X-Amz-Expires=24617&X-Amz-Signature=95048e271e9bf5b152e8dc5e757cfedbca881e2c56bd742c3c119af9664a3f39&X-Amz-SignedHeaders=host&response-expires=Fri%2C%2030%20Jan%202026%2001%3A36%3A40%20GMT",
+      "contentId": "DAGptDeZPvE",
+      "sequence": 100,
+      "serviceType": "FREE",
+      "chapterId": "c27eeab8-5123-48ae-bf61-409fbd93131c",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "createdAt": "2026-01-29T23:49:07.808Z",
+      "updatedAt": "2026-01-29T23:49:07.808Z",
+      "Chapter": {
+        "id": "c27eeab8-5123-48ae-bf61-409fbd93131c",
+        "name": " Some basic principles of Organic chemistry ",
+        "number": 8
+      },
+      "Subject": {
+        "id": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+        "name": "CHEMISTRY "
+      },
+      "Class": {
+        "id": "4554084d-2b83-420c-ba6e-2dff303890d1",
+        "name": "Class 11"
+      }
+    },
+    {
+      "id": "4517fb09-23e7-40b9-a9d2-27a619b18c48",
+      "name": "Revision Recall Station ",
+      "description": "Two-step substitution via stable carbocation intermediate formation.",
+      "contentURL": "https://www.canva.com/design/DAG_1xainus/nOjmPDtTWAApR7hCoE7hcw/view?utm_content=DAG_1xainus&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hbaebd1ebe4",
+      "contentThumbnail": "https://document-export.canva.com/ainus/DAG_1xainus/9/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20260129%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260129T190524Z&X-Amz-Expires=24576&X-Amz-Signature=b55c205876391510e9d81497fb5fc8ae768713ebe550294da71f1177fcc31f2f&X-Amz-SignedHeaders=host&response-expires=Fri%2C%2030%20Jan%202026%2001%3A55%3A00%20GMT",
+      "contentId": "DAG_1xainus",
+      "sequence": 101,
+      "serviceType": "FREE",
+      "chapterId": "c27eeab8-5123-48ae-bf61-409fbd93131c",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "createdAt": "2026-01-30T00:19:43.842Z",
+      "updatedAt": "2026-01-30T00:19:43.842Z",
+      "Chapter": {
+        "id": "c27eeab8-5123-48ae-bf61-409fbd93131c",
+        "name": " Some basic principles of Organic chemistry ",
+        "number": 8
+      },
+      "Subject": {
+        "id": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+        "name": "CHEMISTRY "
+      },
+      "Class": {
+        "id": "4554084d-2b83-420c-ba6e-2dff303890d1",
+        "name": "Class 11"
+      }
+    },
+    {
+      "id": "9b2bffa7-1549-4c6f-9d10-32c4d26d5a00",
+      "name": "Uttar Maala ",
+      "description": "Unimolecular substitution forming carbocation; nucleophile attacks later.",
+      "contentURL": "https://www.canva.com/design/DAG_2MU0FOs/3f5X2aeDyC-oZDdSmFe5dw/view?utm_content=DAG_2MU0FOs&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h1bde79d86b",
+      "contentThumbnail": "https://document-export.canva.com/U0FOs/DAG_2MU0FOs/8/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20260129%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260129T065729Z&X-Amz-Expires=67375&X-Amz-Signature=785ea51c92d68d14fec2d7b33fee48fc9deadf4eed45ab0ae62412f52e2c1305&X-Amz-SignedHeaders=host&response-expires=Fri%2C%2030%20Jan%202026%2001%3A40%3A24%20GMT",
+      "contentId": "DAG_2MU0FOs",
+      "sequence": 102,
+      "serviceType": "FREE",
+      "chapterId": "c27eeab8-5123-48ae-bf61-409fbd93131c",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "createdAt": "2026-01-30T00:21:23.602Z",
+      "updatedAt": "2026-01-30T00:21:55.856Z",
+      "Chapter": {
+        "id": "c27eeab8-5123-48ae-bf61-409fbd93131c",
+        "name": " Some basic principles of Organic chemistry ",
+        "number": 8
+      },
+      "Subject": {
+        "id": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+        "name": "CHEMISTRY "
+      },
+      "Class": {
+        "id": "4554084d-2b83-420c-ba6e-2dff303890d1",
+        "name": "Class 11"
+      }
+    },
+    {
+      "id": "aa4aa15b-cc44-4bb0-9c14-fd7fd437f2f5",
+      "name": "Wave Nature of Electromagnetic   Radiation",
+      "description": "Electromagnetic radiation exhibits wave-like properties always.",
+      "contentURL": "https://www.canva.com/design/DAG_2NLaGlc/nw8UPHGUt1_kcu7BicVnzg/view?utm_content=DAG_2NLaGlc&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=heef3ee190f",
+      "contentThumbnail": "https://document-export.canva.com/LaGlc/DAG_2NLaGlc/33/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20260130%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260130T045650Z&X-Amz-Expires=13967&X-Amz-Signature=7118e9a2273a132347615afb8bf8322fab49d7b1b6a43e614c8b6bc6a4843d27&X-Amz-SignedHeaders=host&response-expires=Fri%2C%2030%20Jan%202026%2008%3A49%3A37%20GMT",
+      "contentId": "DAG_2NLaGlc",
+      "sequence": 34,
+      "serviceType": "FREE",
+      "chapterId": "c3ba241f-dad4-4c56-bb29-89d2156a0e46",
+      "subjectId": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+      "classId": "4554084d-2b83-420c-ba6e-2dff303890d1",
+      "createdAt": "2026-01-30T07:38:32.236Z",
+      "updatedAt": "2026-01-30T07:38:32.236Z",
+      "Chapter": {
+        "id": "c3ba241f-dad4-4c56-bb29-89d2156a0e46",
+        "name": "Structure of Atom",
+        "number": 2
+      },
+      "Subject": {
+        "id": "3f105ad9-177b-4248-be13-0fbefd8d2ec3",
+        "name": "CHEMISTRY "
+      },
+      "Class": {
+        "id": "4554084d-2b83-420c-ba6e-2dff303890d1",
+        "name": "Class 11"
+      }
+    },
+    {
+      "id": "9fc8f423-9735-4672-bdd6-fe5feb711cd8",
+      "name": "A brief account of evolution ",
+      "description": "Brief summary describing key stages of evolution.",
+      "contentURL": "https://www.canva.com/design/DAG2EnnsCe8/F0DRBLhmpO3s16p2aXdaFQ/view?utm_content=DAG2EnnsCe8&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=ha3a604087e",
+      "contentThumbnail": "https://document-export.canva.com/nsCe8/DAG2EnnsCe8/440/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWEOTUD6Q%2F20260202%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260202T135724Z&X-Amz-Expires=8490&X-Amz-Signature=5104835bb05f3ca67120dbbf473677ec6ea6dad40e9168783e34cf822b2ec7f4&X-Amz-SignedHeaders=host&response-expires=Mon%2C%2002%20Feb%202026%2016%3A18%3A54%20GMT",
+      "contentId": "DAG2EnnsCe8",
+      "sequence": 25,
+      "serviceType": "FREE",
+      "chapterId": "e0b2b22a-c3e3-476d-82ba-11a5d15cd2b2",
+      "subjectId": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+      "classId": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+      "createdAt": "2025-10-17T19:43:04.902Z",
+      "updatedAt": "2026-02-02T14:28:08.854Z",
+      "Chapter": {
+        "id": "e0b2b22a-c3e3-476d-82ba-11a5d15cd2b2",
+        "name": "Evolution ",
+        "number": 6
+      },
+      "Subject": {
+        "id": "7233cdbc-40f0-412b-a2e0-0fae67182263",
+        "name": "ZOOLOGY "
+      },
+      "Class": {
+        "id": "d0a1d971-a078-445a-ac8e-e09a1448a247",
+        "name": "Class 12"
+      }
+    }
+  ]
+}

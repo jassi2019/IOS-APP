@@ -21,7 +21,7 @@ type TPlanCardProps = {
 const INR_SYMBOL = '\u20B9';
 
 const PlanCard = ({ plan, onSelect, isSelected, iapProduct }: TPlanCardProps) => {
-  const features = plan.description
+  const features = String(plan.description || '')
     .split('-')
     .filter((item) => item.trim())
     .map((item) => item.trim());
@@ -36,19 +36,25 @@ const PlanCard = ({ plan, onSelect, isSelected, iapProduct }: TPlanCardProps) =>
 
   const priceText =
     Platform.OS === 'ios'
-      ? iapProduct?.displayPrice || 'Price unavailable'
+      ? iapProduct?.displayPrice || `${INR_SYMBOL}${plan.amount}`
       : `${INR_SYMBOL}${plan.amount}`;
+
+  const validUntilText = `Valid until ${new Date(plan.validUntil).toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  })}`;
 
   const subText =
     Platform.OS === 'ios'
       ? billingPeriod
         ? `Billed every ${billingPeriod}`
-        : 'Auto-renewing subscription'
-      : `Valid until ${new Date(plan.validUntil).toLocaleDateString('en-GB', {
-          day: '2-digit',
-          month: 'long',
-          year: 'numeric',
-        })}`;
+        : iapProduct?.displayPrice
+          ? 'Auto-renewing subscription'
+          : validUntilText
+      : validUntilText;
+
+  const showGst = Platform.OS !== 'ios' || !iapProduct?.displayPrice;
 
   return (
     <TouchableOpacity
@@ -65,7 +71,7 @@ const PlanCard = ({ plan, onSelect, isSelected, iapProduct }: TPlanCardProps) =>
         </View>
         <View style={styles.planPricing}>
           <Text style={styles.planAmount}>{priceText}</Text>
-          {Platform.OS !== 'ios' && <Text style={styles.planGst}>+ {plan.gstRate}% GST</Text>}
+          {showGst && <Text style={styles.planGst}>+ {plan.gstRate}% GST</Text>}
         </View>
       </View>
 
@@ -93,7 +99,15 @@ export const PlansScreen = ({ navigation }: any) => {
   const iapReady = Platform.OS !== 'ios' ? true : isIapAvailable();
 
   const plans: TPlan[] = Array.isArray(data?.data) ? data.data : [];
-  const visiblePlans = Platform.OS === 'ios' ? plans.filter((p) => !!p.appleProductId) : plans;
+  const iosConfiguredPlans = Platform.OS === 'ios' ? plans.filter((p) => !!p.appleProductId) : [];
+  const missingAppleIapConfig =
+    Platform.OS === 'ios' && plans.length > 0 && iosConfiguredPlans.length === 0;
+  const visiblePlans =
+    Platform.OS === 'ios'
+      ? iosConfiguredPlans.length > 0
+        ? iosConfiguredPlans
+        : plans
+      : plans;
   const skuKey = React.useMemo(() => {
     if (Platform.OS !== 'ios') return '';
     const skus = plans.map((p) => p.appleProductId).filter(Boolean) as string[];
@@ -186,6 +200,19 @@ export const PlansScreen = ({ navigation }: any) => {
               <View style={styles.noticeContent}>
                 <Text style={[styles.noticeTitle, { color: '#991B1B' }]}>Price Unavailable</Text>
                 <Text style={[styles.noticeText, { color: '#991B1B' }]}>{iapError}</Text>
+              </View>
+            </View>
+          )}
+
+          {missingAppleIapConfig && (
+            <View style={styles.noticeCard}>
+              <AlertCircle size={20} color="#F59E0B" />
+              <View style={styles.noticeContent}>
+                <Text style={styles.noticeTitle}>Apple IAP Not Configured</Text>
+                <Text style={styles.noticeText}>
+                  Plans exist, but no plan has an Apple product ID. Add `appleProductId` in the
+                  backend plans after creating subscriptions in App Store Connect.
+                </Text>
               </View>
             </View>
           )}

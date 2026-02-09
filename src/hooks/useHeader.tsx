@@ -19,7 +19,7 @@ export const UserHeader = ({ name, imageUrl, isPremium = false }: UserHeaderProp
       .slice(0, 2);
   };
 
-  const badgeLabel = isPremium ? 'PREMIUM' : 'FREE';
+  const badgeLabel = isPremium ? 'Premium' : 'Freemium';
 
   return (
     <View style={styles.container}>
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   subscriptionBadgeFree: {
-    backgroundColor: '#E8F3F1',
+    backgroundColor: '#4E9982',
   },
   subscriptionBadgePremium: {
     backgroundColor: '#FFF7E6',
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
   },
   subscriptionBadgeTextFree: {
-    color: '#4E9982',
+    color: '#FFFFFF',
   },
   subscriptionBadgeTextPremium: {
     color: '#F1BB3E',

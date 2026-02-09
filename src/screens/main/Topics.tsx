@@ -17,6 +17,7 @@ import { getGuestTopicsByChapterAndSubject } from '@/constants/guestData';
 import { useAuth } from '@/contexts/AuthContext';
 import { useGetFavorites } from '@/hooks/api/favorites';
 import { useGetTopicsByChapterIdAndSubjectId } from '@/hooks/api/topics';
+import { isPaidSubscriptionActive, isPremiumServiceType } from '@/lib/subscription';
 import { TTopic } from '@/types/Topic';
 
 // =====================
@@ -78,9 +79,9 @@ const Topics = ({ navigation, route }: TopicsScreenProps) => {
     : data?.data || [];
 
   const handleTopicPress = (topic: TTopic) => {
-    if (topic.serviceType === 'PREMIUM') {
+    if (isPremiumServiceType(topic.serviceType)) {
       // Guests can't purchase; signed-in users need an active subscription
-      if (isGuest || !user?.subscription) {
+      if (isGuest || !isPaidSubscriptionActive(user?.subscription)) {
         setShowPremiumModal(true);
         return;
       }

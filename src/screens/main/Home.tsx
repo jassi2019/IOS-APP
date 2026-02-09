@@ -11,6 +11,7 @@ import {
   getGuestFreeTopics,
   getGuestSubjectsWithFreeTopics,
 } from '@/constants/guestData';
+import { isPaidSubscriptionActive, isPremiumServiceType } from '@/lib/subscription';
 import { useGetChaptersBySubjectId } from '@/hooks/api/chapters';
 import { useGetAllClasses } from '@/hooks/api/classes';
 import { useGetFavorites } from '@/hooks/api/favorites';
@@ -100,16 +101,14 @@ export const Home = ({ navigation }: HomeScreenProps) => {
 
   const { mutate: markTopicAsLastRead } = useMarkTopicAsLastRead();
 
-  const isPremiumServiceType = (serviceType: unknown) =>
-    String(serviceType || '')
-      .trim()
-      .toUpperCase() === 'PREMIUM';
+  const effectiveSubscription = user?.subscription || profile?.data?.subscription;
+  const hasPremium = !isGuest && isPaidSubscriptionActive(effectiveSubscription);
 
   const canAccessServiceType = (serviceType: unknown) => {
     if (!isPremiumServiceType(serviceType)) return true;
 
     // Guests cannot buy; signed-in users need an active subscription
-    if (isGuest || !user?.subscription) {
+    if (isGuest || !hasPremium) {
       setShowPremiumModal(true);
       return false;
     }
@@ -173,7 +172,7 @@ export const Home = ({ navigation }: HomeScreenProps) => {
         <UserHeader
           name={displayName}
           imageUrl={profile?.data?.profilePicture || ''}
-          isPremium={!isGuest && !!(user?.subscription || profile?.data?.subscription)}
+          isPremium={hasPremium}
         />
 
         <View style={styles.welcomeSection}>

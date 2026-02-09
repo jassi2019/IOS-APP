@@ -2,7 +2,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useRequestAccountDeletion } from '@/hooks/api/auth';
 import { useGetProfile, useUpdateUser } from '@/hooks/api/user';
 import { MaterialIcons } from '@expo/vector-icons';
-import { ChevronRight, Eye, EyeOff, Lock, LogOut, Trash2 } from 'lucide-react-native';
+import { Check, ChevronRight, Eye, EyeOff, Lock, LogOut, Trash2 } from 'lucide-react-native';
 import React, { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import {
@@ -19,6 +19,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Header } from '../../components/Header/Header';
+import { isPaidSubscriptionActive } from '@/lib/subscription';
 
 type AccountProps = {
   navigation: any;
@@ -48,7 +49,8 @@ export const Profile = ({ navigation }: AccountProps) => {
     refetch,
   } = useGetProfile({ enabled: !isGuest });
 
-  const isPremiumUser = !!(user?.subscription || profile?.data?.subscription);
+  const effectiveSubscription = user?.subscription || profile?.data?.subscription;
+  const isPremiumUser = isPaidSubscriptionActive(effectiveSubscription);
 
   const { mutate: requestDeletion, isPending: isDeletingAccount } = useRequestAccountDeletion();
   const avatarOptions = Array.from({ length: 12 }, (_, index) => {
@@ -268,7 +270,7 @@ export const Profile = ({ navigation }: AccountProps) => {
               </TouchableOpacity>
             </View>
 
-            <View style={styles.profileInfo}>
+          <View style={styles.profileInfo}>
               <View style={styles.profileNameRow}>
                 {isEditing ? (
                   <TextInput
@@ -283,30 +285,10 @@ export const Profile = ({ navigation }: AccountProps) => {
                     {profile?.data?.name}
                   </Text>
                 )}
-
-                {!isEditing && (
-                  <View
-                    style={[
-                      styles.subscriptionBadge,
-                      isPremiumUser ? styles.subscriptionBadgePremium : styles.subscriptionBadgeFree,
-                    ]}
-                  >
-                    <Text
-                      style={[
-                        styles.subscriptionBadgeText,
-                        isPremiumUser
-                          ? styles.subscriptionBadgeTextPremium
-                          : styles.subscriptionBadgeTextFree,
-                      ]}
-                    >
-                      {isPremiumUser ? 'PREMIUM' : 'FREE'}
-                    </Text>
-                  </View>
-                )}
               </View>
               <Text style={styles.profileEmail}>{profile?.data?.email}</Text>
 
-              {isEditing && (
+              {!isEditing && (
                 <View style={styles.subscriptionBadgeRow}>
                   <View
                     style={[
@@ -322,7 +304,7 @@ export const Profile = ({ navigation }: AccountProps) => {
                           : styles.subscriptionBadgeTextFree,
                       ]}
                     >
-                      {isPremiumUser ? 'PREMIUM' : 'FREE'}
+                      {isPremiumUser ? 'Premium' : 'Freemium'}
                     </Text>
                   </View>
                 </View>
@@ -395,6 +377,33 @@ export const Profile = ({ navigation }: AccountProps) => {
               <Text style={styles.bioText}>{user?.bio || 'No bio added yet'}</Text>
             )}
           </View>
+
+          {!isPremiumUser && (
+            <View style={styles.upgradeCard}>
+              <Text style={styles.upgradeTitle}>Upgrade To Premium</Text>
+
+              <View style={styles.upgradeFeatureRow}>
+                <Check size={18} color="#E5E7EB" />
+                <Text style={styles.upgradeFeatureText}>Access to all premium tutorials</Text>
+              </View>
+              <View style={styles.upgradeFeatureRow}>
+                <Check size={18} color="#E5E7EB" />
+                <Text style={styles.upgradeFeatureText}>Priority support</Text>
+              </View>
+              <View style={styles.upgradeFeatureRow}>
+                <Check size={18} color="#E5E7EB" />
+                <Text style={styles.upgradeFeatureText}>Quality content</Text>
+              </View>
+
+              <TouchableOpacity
+                style={styles.upgradeCta}
+                activeOpacity={0.9}
+                onPress={() => navigation.navigate('Plans')}
+              >
+                <Text style={styles.upgradeCtaText}>Upgrade To Pro</Text>
+              </TouchableOpacity>
+            </View>
+          )}
 
 
           {/* Settings Section */}
@@ -690,7 +699,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   subscriptionBadgeFree: {
-    backgroundColor: '#E8F3F1',
+    backgroundColor: '#4E9982',
   },
   subscriptionBadgePremium: {
     backgroundColor: '#FFF7E6',
@@ -701,7 +710,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
   },
   subscriptionBadgeTextFree: {
-    color: '#4E9982',
+    color: '#FFFFFF',
   },
   subscriptionBadgeTextPremium: {
     color: '#F1BB3E',
@@ -791,6 +800,43 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginLeft: 4,
     fontWeight: '500',
+  },
+  upgradeCard: {
+    marginTop: 24,
+    marginHorizontal: 16,
+    backgroundColor: '#1F2937',
+    borderRadius: 20,
+    padding: 20,
+  },
+  upgradeTitle: {
+    color: '#FFFFFF',
+    fontSize: 22,
+    fontWeight: '800',
+    marginBottom: 12,
+  },
+  upgradeFeatureRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    marginTop: 8,
+  },
+  upgradeFeatureText: {
+    color: '#E5E7EB',
+    fontSize: 14,
+    fontWeight: '600',
+    flex: 1,
+  },
+  upgradeCta: {
+    marginTop: 18,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 14,
+    paddingVertical: 12,
+    alignItems: 'center',
+  },
+  upgradeCtaText: {
+    color: '#111827',
+    fontSize: 16,
+    fontWeight: '800',
   },
   settingsSection: {
     paddingHorizontal: 24,

@@ -135,6 +135,12 @@ export const PlansScreen = ({ navigation }: any) => {
     };
   }, [iapReady, skuKey]);
 
+  React.useEffect(() => {
+    if (visiblePlans.length === 0) return;
+    if (selectedPlan && visiblePlans.some((p) => p.id === selectedPlan.id)) return;
+    setSelectedPlan(visiblePlans[0]);
+  }, [selectedPlan?.id, visiblePlans]);
+
   const handlePlanSelect = (plan: TPlan) => {
     setSelectedPlan(plan);
   };

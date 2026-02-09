@@ -2,6 +2,7 @@ import { Header } from '@/components/Header/Header';
 import PlatformWebView from '@/components/PlatformWebView';
 import { useAuth } from '@/contexts/AuthContext';
 import { useGetTopicById } from '@/hooks/api/topics';
+import { isPaidSubscriptionActive, isPremiumServiceType } from '@/lib/subscription';
 import { TTopic } from '@/types/Topic';
 import React from 'react';
 import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
@@ -17,9 +18,11 @@ type TopicContentProps = {
 };
 
 export const TopicContent = ({ navigation, route }: TopicContentProps) => {
-  const { isGuest } = useAuth();
+  const { isGuest, user } = useAuth();
   const topic = route?.params?.topic;
   const topicId = topic?.id || '';
+  const isPremiumTopic = isPremiumServiceType(topic?.serviceType);
+  const hasPremium = isPaidSubscriptionActive(user?.subscription);
 
   const {
     data: topicResponse,
@@ -27,7 +30,7 @@ export const TopicContent = ({ navigation, route }: TopicContentProps) => {
     error: topicError,
     refetch,
   } = useGetTopicById(topicId, {
-    enabled: !isGuest && !!topicId,
+    enabled: !isGuest && !!topicId && (!isPremiumTopic || hasPremium),
     retry: false,
   });
 
@@ -39,6 +42,41 @@ export const TopicContent = ({ navigation, route }: TopicContentProps) => {
           <Text style={{ fontSize: 16, color: '#EF4444', textAlign: 'center' }}>
             Topic data not found. Please try again.
           </Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  if (!isGuest && isPremiumTopic && !hasPremium) {
+    return (
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#FFFFFF' }} edges={['top']}>
+        <Header title={topic?.name || 'Topic'} onBack={() => navigation.goBack()} />
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 }}>
+          <Text style={{ fontSize: 18, fontWeight: '700', textAlign: 'center', marginBottom: 8 }}>
+            Premium subscription required
+          </Text>
+          <Text
+            style={{
+              fontSize: 14,
+              color: '#6B7280',
+              textAlign: 'center',
+              marginBottom: 16,
+              lineHeight: 20,
+            }}
+          >
+            Subscribe to unlock premium content.
+          </Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Plans')}
+            style={{
+              backgroundColor: '#F4B95F',
+              paddingHorizontal: 18,
+              paddingVertical: 12,
+              borderRadius: 10,
+            }}
+          >
+            <Text style={{ color: '#fff', fontWeight: '700' }}>View Plans</Text>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     );

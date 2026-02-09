@@ -13,7 +13,7 @@ export default function PlatformWebView({ source, style }: Props) {
       return (
         <iframe
           src={source.uri}
-          style={{ width: '100%', height: 400, border: 'none', ...(style || {}) }}
+          style={{ width: '100%', height: '100%', border: 'none', ...(style || {}) }}
           title="webview"
         />
       );

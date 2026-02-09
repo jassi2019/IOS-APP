@@ -290,12 +290,7 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
   const subscriptionTitle = (storeProduct?.title || '').trim() || plan.name;
 
   const canSubscribe =
-    Platform.OS === 'ios' &&
-    iapReady &&
-    !!plan.appleProductId &&
-    !!storeProduct &&
-    !storeProductError &&
-    !isProcessing;
+    Platform.OS === 'ios' && iapReady && !!plan.appleProductId && !!storeProduct && !storeProductError;
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
@@ -385,7 +380,8 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
 
         <TouchableOpacity
           onPress={handlePayment}
-          disabled={!canSubscribe}
+          // Allow tap to show helpful alerts even when IAP isn't ready (Expo Go, missing config).
+          disabled={isProcessing}
           style={[styles.payButton, (!canSubscribe || isProcessing) && styles.payButtonDisabled]}
         >
           {isProcessing ? (
@@ -402,7 +398,8 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
           <View style={styles.secondaryActionsRow}>
             <TouchableOpacity
               onPress={handleRestore}
-              disabled={isProcessing || !iapReady}
+              // Let users tap to see dev-build guidance even if iapReady is false (Expo Go).
+              disabled={isProcessing}
               style={[styles.secondaryButton, (isProcessing || !iapReady) && styles.secondaryDisabled]}
             >
               <Text style={styles.secondaryButtonText}>Restore Purchases</Text>
@@ -410,7 +407,7 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
 
             <TouchableOpacity
               onPress={handleManageSubscriptions}
-              disabled={isProcessing || !iapReady}
+              disabled={isProcessing}
               style={[styles.secondaryButton, (isProcessing || !iapReady) && styles.secondaryDisabled]}
             >
               <Text style={styles.secondaryButtonText}>Manage</Text>

@@ -165,11 +165,10 @@ export const PlansScreen = ({ navigation }: any) => {
     navigation.navigate('Payment', { plan: selectedPlan });
   };
 
-  const canContinue =
-    !!selectedPlan &&
-    (Platform.OS !== 'ios'
-      ? true
-      : !!selectedPlan.appleProductId && iapReady);
+  // Always allow navigation to the Payment screen once a plan is selected.
+  // The Payment screen will guide users if Apple IAP isn't configured or available
+  // (e.g. Expo Go on iOS).
+  const canContinue = !!selectedPlan;
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>

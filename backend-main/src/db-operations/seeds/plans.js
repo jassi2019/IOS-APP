@@ -14,7 +14,7 @@ const PLANS = [
   {
     name: "NEET 2027 Aspirants",
     amount: 5499,
-    appleProductId: "neet_2027_plan",
+    appleProductId: null,
     description: `
 - Long-term mastery: Learn NCERT content in an easy-to-understand language over an extended period.
 - Deepen your knowledge: Build a robust foundation with detailed and relatable explanations.

@@ -6,7 +6,6 @@ import {
   ActivityIndicator,
   Alert,
   Image,
-  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -142,15 +141,12 @@ const TopicCard = ({
               {description}
             </Text>
           </View>
-          {
-            Platform.OS !== 'ios' && (
-              <View style={styles.row}>
-                <View style={[styles.badge, { backgroundColor: isFree ? '#10B981' : '#F59E0B' }]}>
-                  <Text style={styles.badgeText}>{isFree ? 'Free' : 'Premium'}</Text>
-                </View>
-              </View>
-            )
-          }
+
+          <View style={styles.row}>
+            <View style={[styles.badge, { backgroundColor: isFree ? '#10B981' : '#F59E0B' }]}>
+              <Text style={styles.badgeText}>{isFree ? 'Free' : 'Premium'}</Text>
+            </View>
+          </View>
 
         </View>
       </View>

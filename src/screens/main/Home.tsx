@@ -26,7 +26,17 @@ import UserHeader from '@/hooks/useHeader';
 import { TSubject } from '@/types/Subject';
 import { TTopic } from '@/types/Topic';
 import React, { useRef, useState } from 'react';
-import { ScrollView, Text, View, StyleSheet, Dimensions, Platform } from 'react-native';
+import {
+  Dimensions,
+  Modal,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const { width } = Dimensions.get('window');
@@ -36,7 +46,7 @@ type HomeScreenProps = {
 };
 
 export const Home = ({ navigation }: HomeScreenProps) => {
-  const { isGuest } = useAuth();
+  const { isGuest, user } = useAuth();
   const { data: profile, isLoading: profileLoading } = useGetProfile({
     enabled: !isGuest,
   });
@@ -45,6 +55,7 @@ export const Home = ({ navigation }: HomeScreenProps) => {
   });
   const scrollViewRef = useRef<ScrollView>(null);
   const freeTopicsSectionRef = useRef<View>(null);
+  const [showPremiumModal, setShowPremiumModal] = useState(false);
 
   const { data: classes } = useGetAllClasses({ enabled: !isGuest });
   const { data: chapters } = useGetChaptersBySubjectId(
@@ -89,6 +100,23 @@ export const Home = ({ navigation }: HomeScreenProps) => {
 
   const { mutate: markTopicAsLastRead } = useMarkTopicAsLastRead();
 
+  const isPremiumServiceType = (serviceType: unknown) =>
+    String(serviceType || '')
+      .trim()
+      .toUpperCase() === 'PREMIUM';
+
+  const canAccessServiceType = (serviceType: unknown) => {
+    if (!isPremiumServiceType(serviceType)) return true;
+
+    // Guests cannot buy; signed-in users need an active subscription
+    if (isGuest || !user?.subscription) {
+      setShowPremiumModal(true);
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubjectPress = (subject: TSubject) => {
     navigation.navigate('Chapters', {
       subjectId: subject.id,
@@ -98,12 +126,14 @@ export const Home = ({ navigation }: HomeScreenProps) => {
 
   const handleContinueReading = () => {
     if (!lastReadTopic?.data) return;
+    if (!canAccessServiceType(lastReadTopic.data.serviceType)) return;
     navigation.navigate('TopicContent', {
       topic: lastReadTopic.data,
     });
   };
 
   const handleStartReading = (topic: TTopic) => {
+    if (!canAccessServiceType(topic.serviceType)) return;
     // Navigate first, then mark as last read (non-blocking)
     navigation.navigate('TopicContent', {
       topic,
@@ -158,7 +188,7 @@ export const Home = ({ navigation }: HomeScreenProps) => {
               title={lastReadTopic.data.name}
               description={lastReadTopic.data.description}
               subject={lastReadTopic.data.Subject.name}
-              isPremium={false}
+              isPremium={isPremiumServiceType(lastReadTopic.data.serviceType)}
               onPress={handleContinueReading}
             />
           ) : (isGuest ? guestFreeTopic : firstFreeTopic) ? (
@@ -166,7 +196,7 @@ export const Home = ({ navigation }: HomeScreenProps) => {
               title={(isGuest ? guestFreeTopic : firstFreeTopic)?.name || ''}
               description={(isGuest ? guestFreeTopic : firstFreeTopic)?.description || ''}
               subject={isGuest ? (guestFreeTopic?.Subject?.name || 'Free Topic') : (firstSubject?.name || '')}
-              isPremium={false}
+              isPremium={isPremiumServiceType((isGuest ? guestFreeTopic : firstFreeTopic)?.serviceType)}
               onPress={() => {
                 const topic = isGuest ? guestFreeTopic : firstFreeTopic;
                 if (topic) {
@@ -184,7 +214,7 @@ export const Home = ({ navigation }: HomeScreenProps) => {
           </View>
         ) : !isGuest && freeTopics?.data?.length ? (
           <View ref={freeTopicsSectionRef} style={styles.section}>
-            <Text style={styles.sectionTitle}>{Platform.OS === 'ios' ? 'Topics' : 'Free Topics'}</Text>
+            <Text style={styles.sectionTitle}>Free Topics</Text>
             <View style={styles.cardStack}>
               {freeTopics.data.map((topic: TTopic) => (
                 <TopicCard
@@ -281,19 +311,8 @@ export const Home = ({ navigation }: HomeScreenProps) => {
                     description={favorite.Topic.description}
                     favoriteId={favorite.id}
                     thumbnailUrl={favorite.Topic.contentThumbnail}
-                    isFree={true}
-                    onPress={() => {
-                      // Navigate first (non-blocking)
-                      navigation.navigate('TopicContent', {
-                        topic: favorite.Topic,
-                      });
-                      // Mark as last read in background
-                      try {
-                        markTopicAsLastRead(favorite.Topic.id);
-                      } catch (error) {
-                        // Non-critical
-                      }
-                    }}
+                    isFree={favorite.Topic.serviceType === 'FREE'}
+                    onPress={() => handleStartReading(favorite.Topic)}
                     isFavorite={true}
                     chapterNumber={favorite.Topic.Chapter.number}
                     subjectName={favorite.Topic.Subject.name}
@@ -303,6 +322,47 @@ export const Home = ({ navigation }: HomeScreenProps) => {
             </View>
           </View>
         )}
+
+        <Modal
+          animationType="fade"
+          transparent
+          visible={showPremiumModal}
+          onRequestClose={() => setShowPremiumModal(false)}
+        >
+          <TouchableWithoutFeedback onPress={() => setShowPremiumModal(false)}>
+            <View style={styles.modalBackdrop}>
+              <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
+                <View style={styles.modalCard}>
+                  <Text style={styles.modalTitle}>
+                    {isGuest ? 'Sign in required' : "You don't have a premium subscription!"}
+                  </Text>
+
+                  <Text style={styles.modalBody}>
+                    {isGuest
+                      ? 'Sign in to subscribe and access premium content.'
+                      : 'Access premium content with a premium subscription.'}
+                  </Text>
+
+                  <TouchableOpacity
+                    style={styles.upgradeButton}
+                    onPress={() => {
+                      setShowPremiumModal(false);
+                      if (isGuest) {
+                        navigation.navigate('MainTabs', { screen: 'ProfileTab' });
+                      } else {
+                        navigation.navigate('Plans');
+                      }
+                    }}
+                  >
+                    <Text style={styles.upgradeText}>
+                      {isGuest ? 'Go to Profile' : 'Upgrade To Pro'}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </TouchableWithoutFeedback>
+            </View>
+          </TouchableWithoutFeedback>
+        </Modal>
       </ScrollView>
     </SafeAreaView>
   );
@@ -397,7 +457,44 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: 'center',
     marginTop: 20,
-  }
+  },
+  modalBackdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 16,
+  },
+  modalCard: {
+    backgroundColor: '#fff',
+    width: '100%',
+    maxWidth: 380,
+    borderRadius: 16,
+    padding: 24,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+  modalBody: {
+    color: '#6B7280',
+    textAlign: 'center',
+    marginBottom: 16,
+    lineHeight: 20,
+  },
+  upgradeButton: {
+    backgroundColor: '#F4B95F',
+    borderRadius: 10,
+    paddingVertical: 12,
+  },
+  upgradeText: {
+    textAlign: 'center',
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '700',
+  },
 });
 
 export default Home;

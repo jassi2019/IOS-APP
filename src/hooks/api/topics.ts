@@ -29,7 +29,8 @@ const markTopicAsLastRead = (topicId: string): TApiPromise<TTopic> => {
     return Promise.reject(new Error('Invalid topicId: topicId must be a non-empty string'));
   }
 
-  return api.post(`/api/v1/lastreads`, { topicId });
+  // Non-critical background update; avoid noisy logs + retries if backend is flaky.
+  return api.post(`/api/v1/lastreads`, { topicId }, { skipRetry: true, suppressErrorLogging: true });
 };
 
 const getLastReadTopic = (): TApiPromise<TLastRead> => {

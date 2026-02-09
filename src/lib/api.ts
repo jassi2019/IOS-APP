@@ -41,6 +41,11 @@ interface ExtendedAxiosRequestConfig extends AxiosRequestConfig {
   _metadata?: RequestMetadata;
   skipRetry?: boolean;
   skipDeduplication?: boolean;
+  /**
+   * When true, suppress console error logging for this request. Useful for
+   * non-critical background calls that may fail (e.g. analytics/last-read).
+   */
+  suppressErrorLogging?: boolean;
 }
 
 /**
@@ -184,9 +189,10 @@ api.interceptors.response.use(
   async (error: AxiosError) => {
     const config = error.config as ExtendedAxiosRequestConfig;
     const metadata = config?._metadata as RequestMetadata;
+    const suppressErrorLogging = !!config?.suppressErrorLogging;
 
     // Log error details
-    if (metadata) {
+    if (metadata && !suppressErrorLogging) {
       const duration = Date.now() - metadata.startTime;
       console.error(`❌ [${metadata.requestId}] Request failed`, {
         url: config?.url,
@@ -238,14 +244,16 @@ api.interceptors.response.use(
           retryStats.recordRetry(false, config._retryCount);
 
           // Transform and return error
-          const appError = handleError(retryError, 'API Retry Failed');
+          const appError = handleError(retryError, 'API Retry Failed', {
+            silent: suppressErrorLogging,
+          });
           return Promise.reject(appError);
         }
       }
     }
 
     // Transform error to user-friendly format
-    const appError = handleError(error, 'API Request');
+    const appError = handleError(error, 'API Request', { silent: suppressErrorLogging });
     return Promise.reject(appError);
   }
 );

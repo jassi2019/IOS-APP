@@ -353,9 +353,23 @@ const getErrorEmoji = (category: ErrorCategory): string => {
 /**
  * Handle error and return user-friendly message
  */
-export const handleError = (error: any, context?: string): AppError => {
+export type HandleErrorOptions = {
+  /**
+   * When true, do not emit console.error logs for this error.
+   * Useful for non-critical background requests that may fail frequently.
+   */
+  silent?: boolean;
+};
+
+export const handleError = (
+  error: any,
+  context?: string,
+  options?: HandleErrorOptions
+): AppError => {
   const appError = transformError(error);
-  logError(appError, context);
+  if (!options?.silent) {
+    logError(appError, context);
+  }
   return appError;
 };
 

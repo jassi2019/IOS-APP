@@ -12,6 +12,7 @@ import {
   type TAppleIapSubscriptionProduct,
 } from '@/libs/iap';
 import { TPlan } from '@/types/Plan';
+import { getPlanAppleProductId } from '@/utils/appleIap';
 import { ChevronLeft } from 'lucide-react-native';
 import React from 'react';
 import {
@@ -63,6 +64,8 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
     useCreateAppleIapSubscription();
   const sendLogReport = useSendLogReport();
 
+  const appleProductId = getPlanAppleProductId(plan);
+
   const [isPurchasing, setIsPurchasing] = React.useState(false);
   const [isRestoring, setIsRestoring] = React.useState(false);
 
@@ -78,14 +81,14 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
     const load = async () => {
       if (Platform.OS !== 'ios') return;
       if (!iapReady) return;
-      if (!plan.appleProductId) return;
+      if (!appleProductId) return;
 
       setIsLoadingStoreProduct(true);
       setStoreProductError(null);
 
       try {
-        const products = await fetchAppleSubscriptionProducts([plan.appleProductId]);
-        const found = products.find((p) => p.id === plan.appleProductId) ?? products[0] ?? null;
+        const products = await fetchAppleSubscriptionProducts([appleProductId]);
+        const found = products.find((p) => p.id === appleProductId) ?? products[0] ?? null;
         if (!cancelled) setStoreProduct(found);
       } catch (e: any) {
         const message = String(e?.message || e || 'Failed to load App Store subscription details.');
@@ -102,7 +105,7 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
     return () => {
       cancelled = true;
     };
-  }, [iapReady, plan.appleProductId]);
+  }, [iapReady, appleProductId]);
 
   const refreshAuthUser = async () => {
     try {
@@ -138,7 +141,7 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
       return;
     }
 
-    if (!plan.appleProductId) {
+    if (!appleProductId) {
       Alert.alert(
         'Plan Not Available',
         'This plan is not configured for Apple In-App Purchase. Please contact support.'
@@ -157,7 +160,7 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
     setIsPurchasing(true);
 
     try {
-      const purchase = await purchaseAppleSubscription(plan.appleProductId);
+      const purchase = await purchaseAppleSubscription(appleProductId);
 
       await createAppleSubscriptionAsync({
         planId: plan.id,
@@ -221,7 +224,7 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
       return;
     }
 
-    if (!plan.appleProductId) {
+    if (!appleProductId) {
       Alert.alert(
         'Plan Not Available',
         'This plan is not configured for Apple In-App Purchase. Please contact support.'
@@ -236,7 +239,7 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
 
       await createAppleSubscriptionAsync({
         planId: plan.id,
-        productId: plan.appleProductId,
+        productId: appleProductId,
         transactionId: null,
         receipt,
       });
@@ -290,7 +293,7 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
   const subscriptionTitle = (storeProduct?.title || '').trim() || plan.name;
 
   const canSubscribe =
-    Platform.OS === 'ios' && iapReady && !!plan.appleProductId && !!storeProduct && !storeProductError;
+    Platform.OS === 'ios' && iapReady && !!appleProductId && !!storeProduct && !storeProductError;
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
@@ -332,7 +335,7 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
 
               {!!storeProductError && <Text style={styles.inlineErrorText}>{storeProductError}</Text>}
 
-              {!plan.appleProductId && (
+              {!appleProductId && (
                 <Text style={styles.inlineErrorText}>
                   This plan is not configured for Apple IAP. Please contact support.
                 </Text>

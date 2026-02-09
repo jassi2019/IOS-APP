@@ -3,6 +3,7 @@ const axios = require("axios");
 const env = require("../../config/env");
 const { PAYMENT_PLATFORMS, PAYMENT_STATUSES } = require("../../constants");
 const { Plan, Subscription } = require("../../models");
+const { getPlanAppleProductId } = require("../../utils/appleIap");
 
 const APPLE_VERIFY_RECEIPT_PRODUCTION = "https://buy.itunes.apple.com/verifyReceipt";
 const APPLE_VERIFY_RECEIPT_SANDBOX = "https://sandbox.itunes.apple.com/verifyReceipt";
@@ -125,7 +126,8 @@ const createAppleIapV1 = async (req, res, next) => {
       return res.status(404).json({ message: "Plan not found" });
     }
 
-    if (!plan.appleProductId) {
+    const expectedProductId = getPlanAppleProductId(plan);
+    if (!expectedProductId) {
       return res.status(400).json({
         message:
           "This plan is not configured for Apple IAP. Please set appleProductId for the plan.",
@@ -159,7 +161,6 @@ const createAppleIapV1 = async (req, res, next) => {
       }
     }
 
-    const expectedProductId = plan.appleProductId;
     if (!receiptContainsProduct(verifyResponse, expectedProductId)) {
       return res.status(400).json({
         message: "Receipt does not contain the expected product for this plan",

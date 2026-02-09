@@ -1,4 +1,5 @@
 const { Plan } = require("../../models");
+const { getPlanAppleProductId } = require("../../utils/appleIap");
 
 const getV1 = async (req, res, next) => {
   try {
@@ -8,7 +9,17 @@ const getV1 = async (req, res, next) => {
 
     return res
       .status(200)
-      .json({ message: "Plans fetched successfully", data: docs });
+      .json({
+        message: "Plans fetched successfully",
+        data: docs.map((doc) => {
+          const json = doc.toJSON ? doc.toJSON() : doc;
+          const appleProductId = getPlanAppleProductId(doc) || null;
+          return {
+            ...json,
+            appleProductId,
+          };
+        }),
+      });
   } catch (error) {
     next(error);
   }

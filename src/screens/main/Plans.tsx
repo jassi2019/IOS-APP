@@ -6,6 +6,7 @@ import {
   type TAppleIapSubscriptionProduct,
 } from '@/libs/iap';
 import { TPlan } from '@/types/Plan';
+import { getPlanAppleProductId } from '@/utils/appleIap';
 import { AlertCircle, Check, ChevronRight } from 'lucide-react-native';
 import React from 'react';
 import { Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
@@ -99,7 +100,14 @@ export const PlansScreen = ({ navigation }: any) => {
 
   const iapReady = Platform.OS !== 'ios' ? true : isIapAvailable();
 
-  const plans: TPlan[] = Array.isArray(data?.data) ? data.data : [];
+  const rawPlans: TPlan[] = Array.isArray(data?.data) ? data.data : [];
+  const plans: TPlan[] = React.useMemo(() => {
+    // Client-side fallback so iOS can work even if backend doesn't return appleProductId yet.
+    return rawPlans.map((p) => ({
+      ...p,
+      appleProductId: getPlanAppleProductId(p),
+    }));
+  }, [rawPlans]);
   const iosConfiguredPlans = Platform.OS === 'ios' ? plans.filter((p) => !!p.appleProductId) : [];
   const missingAppleIapConfig =
     Platform.OS === 'ios' && plans.length > 0 && iosConfiguredPlans.length === 0;

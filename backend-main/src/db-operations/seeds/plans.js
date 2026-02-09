@@ -2,7 +2,7 @@ const PLANS = [
   {
     name: "NEET 2026 Aspirants",
     amount: 3999,
-    appleProductId: "com.taiyarineetki.educationapp.neet2026",
+    appleProductId: "neet_2026_plan",
     description: `
 - Build a strong foundation: Dive deep into NCERT topics with clear and simple explanations.
 - Steady learning: Designed for gradual and thorough understanding of every concept.
@@ -14,7 +14,7 @@ const PLANS = [
   {
     name: "NEET 2027 Aspirants",
     amount: 5499,
-    appleProductId: "com.taiyarineetki.educationapp.neet2027",
+    appleProductId: "neet_2027_plan",
     description: `
 - Long-term mastery: Learn NCERT content in an easy-to-understand language over an extended period.
 - Deepen your knowledge: Build a robust foundation with detailed and relatable explanations.

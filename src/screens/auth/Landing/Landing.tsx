@@ -13,18 +13,34 @@ import {
 import { useAuth } from '@/contexts/AuthContext';
 
 const { height } = Dimensions.get('window');
+const backgroundSource = require('../../../assets/images/landing-bg.jpeg');
 
 const Landing = ({ navigation }: { navigation: any }) => {
   const { enterGuestMode } = useAuth();
   const statusBarTop = Platform.OS === 'android' ? StatusBar.currentHeight ?? 0 : 0;
+  const backgroundUri = React.useMemo(() => {
+    if (Platform.OS !== 'web') return null;
+    try {
+      const resolved = Image.resolveAssetSource(backgroundSource);
+      return resolved?.uri || null;
+    } catch {
+      return null;
+    }
+  }, []);
 
   return (
     <View style={[styles.container, { paddingTop: statusBarTop }]}>
-      <Image
-        source={require('../../../assets/images/landing-bg.jpeg')}
-        style={styles.backgroundImage}
-        resizeMode="cover"
-      />
+      {Platform.OS === 'web' && backgroundUri ? (
+        <View
+          style={[
+            styles.backgroundWeb,
+            // RNWeb supports backgroundImage; cast to any for native types.
+            { backgroundImage: `url(${backgroundUri})` } as any,
+          ]}
+        />
+      ) : (
+        <Image source={backgroundSource} style={styles.backgroundImage} resizeMode="cover" />
+      )}
 
       {/* Main Container */}
       <View
@@ -87,9 +103,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     position: 'relative',
+    backgroundColor: '#FDF6F0',
   },
   backgroundImage: {
     ...StyleSheet.absoluteFillObject,
+    width: '100%',
+    height: '100%',
+  },
+  backgroundWeb: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
   },
   mainContainer: {
     flex: 1,

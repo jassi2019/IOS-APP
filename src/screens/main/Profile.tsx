@@ -48,6 +48,8 @@ export const Profile = ({ navigation }: AccountProps) => {
     refetch,
   } = useGetProfile({ enabled: !isGuest });
 
+  const isPremiumUser = !!(user?.subscription || profile?.data?.subscription);
+
   const { mutate: requestDeletion, isPending: isDeletingAccount } = useRequestAccountDeletion();
   const avatarOptions = Array.from({ length: 12 }, (_, index) => {
     const seed = index + 1;
@@ -279,6 +281,27 @@ export const Profile = ({ navigation }: AccountProps) => {
                 <Text style={styles.profileName}>{profile?.data?.name}</Text>
               )}
               <Text style={styles.profileEmail}>{profile?.data?.email}</Text>
+
+              <View style={styles.subscriptionBadgeRow}>
+                <View
+                  style={[
+                    styles.subscriptionBadge,
+                    isPremiumUser ? styles.subscriptionBadgePremium : styles.subscriptionBadgeFree,
+                  ]}
+                >
+                  <Text
+                    style={[
+                      styles.subscriptionBadgeText,
+                      isPremiumUser
+                        ? styles.subscriptionBadgeTextPremium
+                        : styles.subscriptionBadgeTextFree,
+                    ]}
+                  >
+                    {isPremiumUser ? 'PREMIUM' : 'FREE'}
+                  </Text>
+                </View>
+              </View>
+
               <TouchableOpacity
                 style={styles.editPhotoLink}
                 onPress={() => setShowAvatarModal(true)}
@@ -625,6 +648,32 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#666666',
     marginTop: 4,
+  },
+  subscriptionBadgeRow: {
+    flexDirection: 'row',
+    marginTop: 10,
+  },
+  subscriptionBadge: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+  },
+  subscriptionBadgeFree: {
+    backgroundColor: '#E8F3F1',
+  },
+  subscriptionBadgePremium: {
+    backgroundColor: '#FFF7E6',
+  },
+  subscriptionBadgeText: {
+    fontSize: 12,
+    fontWeight: '700',
+    letterSpacing: 0.5,
+  },
+  subscriptionBadgeTextFree: {
+    color: '#4E9982',
+  },
+  subscriptionBadgeTextPremium: {
+    color: '#F1BB3E',
   },
   nameInput: {
     fontSize: 24,

@@ -5,9 +5,10 @@ import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 interface UserHeaderProps {
   name: string;
   imageUrl?: string;
+  isPremium?: boolean;
 }
 
-export const UserHeader = ({ name, imageUrl }: UserHeaderProps) => {
+export const UserHeader = ({ name, imageUrl, isPremium = false }: UserHeaderProps) => {
   const getInitials = (name: string) => {
     return name
       .split(' ')
@@ -18,14 +19,30 @@ export const UserHeader = ({ name, imageUrl }: UserHeaderProps) => {
       .slice(0, 2);
   };
 
+  const badgeLabel = isPremium ? 'PREMIUM' : 'FREE';
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>
         <View style={styles.textContainer}>
           <Text style={styles.greeting}>Hi, {name}</Text>
           <View style={styles.badgeRow}>
-            <View style={styles.badge}>
-              <Text style={[styles.badgeText, styles.freeText]}>Free</Text>
+            <View
+              style={[
+                styles.subscriptionBadge,
+                isPremium ? styles.subscriptionBadgePremium : styles.subscriptionBadgeFree,
+              ]}
+            >
+              <Text
+                style={[
+                  styles.subscriptionBadgeText,
+                  isPremium
+                    ? styles.subscriptionBadgeTextPremium
+                    : styles.subscriptionBadgeTextFree,
+                ]}
+              >
+                {badgeLabel}
+              </Text>
             </View>
           </View>
         </View>
@@ -67,17 +84,27 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 2,
   },
-  badge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
+  subscriptionBadge: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
   },
-  badgeText: {
-    fontSize: 16,
-    fontWeight: '600',
+  subscriptionBadgeFree: {
+    backgroundColor: '#E8F3F1',
   },
-  freeText: {
-    color: '#4A635D',
+  subscriptionBadgePremium: {
+    backgroundColor: '#FFF7E6',
+  },
+  subscriptionBadgeText: {
+    fontSize: 12,
+    fontWeight: '700',
+    letterSpacing: 0.5,
+  },
+  subscriptionBadgeTextFree: {
+    color: '#4E9982',
+  },
+  subscriptionBadgeTextPremium: {
+    color: '#F1BB3E',
   },
   avatarContainer: {
     marginLeft: 16,

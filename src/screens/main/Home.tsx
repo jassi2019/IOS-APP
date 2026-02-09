@@ -173,6 +173,7 @@ export const Home = ({ navigation }: HomeScreenProps) => {
         <UserHeader
           name={displayName}
           imageUrl={profile?.data?.profilePicture || ''}
+          isPremium={!isGuest && !!(user?.subscription || profile?.data?.subscription)}
         />
 
         <View style={styles.welcomeSection}>

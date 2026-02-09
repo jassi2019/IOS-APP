@@ -31,15 +31,30 @@ const Landing = ({ navigation }: { navigation: any }) => {
   return (
     <View style={[styles.container, { paddingTop: statusBarTop }]}>
       {Platform.OS === 'web' && backgroundUri ? (
-        <View
-          style={[
-            styles.backgroundWeb,
-            // RNWeb supports backgroundImage; cast to any for native types.
-            { backgroundImage: `url(${backgroundUri})` } as any,
-          ]}
+        // Use a real <img> on web so we can guarantee cover behavior via object-fit.
+        // RN Image has inconsistent cover behavior on some web builds.
+        <img
+          src={backgroundUri}
+          alt=""
+          aria-hidden="true"
+          draggable={false}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            width: '100vw',
+            height: '100vh',
+            objectFit: 'cover',
+            objectPosition: 'center',
+            zIndex: 0,
+            pointerEvents: 'none',
+          }}
         />
       ) : (
-        <Image source={backgroundSource} style={styles.backgroundImage} resizeMode="cover" />
+        <Image
+          source={backgroundSource}
+          style={[styles.backgroundImage, { zIndex: 0 }]}
+          resizeMode="cover"
+        />
       )}
 
       {/* Main Container */}
@@ -47,6 +62,8 @@ const Landing = ({ navigation }: { navigation: any }) => {
         style={[
           styles.mainContainer,
           Platform.OS === 'web' ? styles.mainContainerWeb : null,
+          // Ensure main content stays above background.
+          { zIndex: 1 },
         ]}
       >
         {/* Logo and Brand */}
@@ -104,17 +121,12 @@ const styles = StyleSheet.create({
     flex: 1,
     position: 'relative',
     backgroundColor: '#FDF6F0',
+    width: '100%',
   },
   backgroundImage: {
     ...StyleSheet.absoluteFillObject,
     width: '100%',
     height: '100%',
-  },
-  backgroundWeb: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
   },
   mainContainer: {
     flex: 1,

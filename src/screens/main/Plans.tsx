@@ -22,9 +22,10 @@ const INR_SYMBOL = '\u20B9';
 
 const PlanCard = ({ plan, onSelect, isSelected, iapProduct }: TPlanCardProps) => {
   const features = String(plan.description || '')
-    .split('-')
-    .filter((item) => item.trim())
-    .map((item) => item.trim());
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => line.replace(/^[-*•]\s*/, ''));
 
   const displayTitle =
     Platform.OS === 'ios' ? (iapProduct?.title || '').trim() || plan.name : plan.name;

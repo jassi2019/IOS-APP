@@ -1,23 +1,38 @@
 import Logo from '@/components/Logo/Logo';
 import React from 'react';
-import { Image, StatusBar, Text, TouchableOpacity, View, StyleSheet, Dimensions } from 'react-native';
+import {
+  Dimensions,
+  Image,
+  Platform,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { useAuth } from '@/contexts/AuthContext';
 
 const { height } = Dimensions.get('window');
 
 const Landing = ({ navigation }: { navigation: any }) => {
   const { enterGuestMode } = useAuth();
+  const statusBarTop = Platform.OS === 'android' ? StatusBar.currentHeight ?? 0 : 0;
 
   return (
-    <View style={[styles.container, { paddingTop: StatusBar.currentHeight }]}>
+    <View style={[styles.container, { paddingTop: statusBarTop }]}>
       <Image
         source={require('../../../assets/images/landing-bg.jpeg')}
-        style={[styles.backgroundImage, { top: StatusBar.currentHeight || 0 }]}
+        style={styles.backgroundImage}
         resizeMode="cover"
       />
 
       {/* Main Container */}
-      <View style={styles.mainContainer}>
+      <View
+        style={[
+          styles.mainContainer,
+          Platform.OS === 'web' ? styles.mainContainerWeb : null,
+        ]}
+      >
         {/* Logo and Brand */}
         <View style={styles.logoContainer}>
           <Logo />
@@ -25,10 +40,10 @@ const Landing = ({ navigation }: { navigation: any }) => {
 
         {/* Main Content */}
         <View style={styles.contentContainer}>
-          <View style={styles.spacer} />
+          <View style={[styles.spacer, Platform.OS === 'web' ? styles.spacerWeb : null]} />
 
           {/* Bottom Content Container */}
-          <View style={styles.bottomContainer}>
+          <View style={[styles.bottomContainer, Platform.OS === 'web' ? styles.bottomContainerWeb : null]}>
             {/* Buttons Container */}
             <View style={styles.buttonsContainer}>
               {/* Get Started Button */}
@@ -74,14 +89,17 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   backgroundImage: {
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
+    ...StyleSheet.absoluteFillObject,
   },
   mainContainer: {
     flex: 1,
     paddingHorizontal: 24,
     paddingTop: 32,
+  },
+  mainContainerWeb: {
+    width: '100%',
+    maxWidth: 520,
+    alignSelf: 'center',
   },
   logoContainer: {
     flexDirection: 'row',
@@ -97,8 +115,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: height * 0.3,
   },
+  spacerWeb: {
+    marginBottom: 0,
+  },
   bottomContainer: {
     marginBottom: 48,
+  },
+  bottomContainerWeb: {
+    marginBottom: 24,
+    backgroundColor: 'rgba(253, 246, 240, 0.92)',
+    borderRadius: 18,
+    padding: 16,
   },
   buttonsContainer: {
     gap: 16,

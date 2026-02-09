@@ -269,38 +269,64 @@ export const Profile = ({ navigation }: AccountProps) => {
             </View>
 
             <View style={styles.profileInfo}>
-              {isEditing ? (
-                <TextInput
-                  style={styles.nameInput}
-                  value={editedName}
-                  onChangeText={setEditedName}
-                  placeholder="Enter your name"
-                  placeholderTextColor="#999"
-                />
-              ) : (
-                <Text style={styles.profileName}>{profile?.data?.name}</Text>
-              )}
-              <Text style={styles.profileEmail}>{profile?.data?.email}</Text>
+              <View style={styles.profileNameRow}>
+                {isEditing ? (
+                  <TextInput
+                    style={[styles.nameInput, styles.nameInputInline]}
+                    value={editedName}
+                    onChangeText={setEditedName}
+                    placeholder="Enter your name"
+                    placeholderTextColor="#999"
+                  />
+                ) : (
+                  <Text style={styles.profileName} numberOfLines={1}>
+                    {profile?.data?.name}
+                  </Text>
+                )}
 
-              <View style={styles.subscriptionBadgeRow}>
-                <View
-                  style={[
-                    styles.subscriptionBadge,
-                    isPremiumUser ? styles.subscriptionBadgePremium : styles.subscriptionBadgeFree,
-                  ]}
-                >
-                  <Text
+                {!isEditing && (
+                  <View
                     style={[
-                      styles.subscriptionBadgeText,
-                      isPremiumUser
-                        ? styles.subscriptionBadgeTextPremium
-                        : styles.subscriptionBadgeTextFree,
+                      styles.subscriptionBadge,
+                      isPremiumUser ? styles.subscriptionBadgePremium : styles.subscriptionBadgeFree,
                     ]}
                   >
-                    {isPremiumUser ? 'PREMIUM' : 'FREE'}
-                  </Text>
-                </View>
+                    <Text
+                      style={[
+                        styles.subscriptionBadgeText,
+                        isPremiumUser
+                          ? styles.subscriptionBadgeTextPremium
+                          : styles.subscriptionBadgeTextFree,
+                      ]}
+                    >
+                      {isPremiumUser ? 'PREMIUM' : 'FREE'}
+                    </Text>
+                  </View>
+                )}
               </View>
+              <Text style={styles.profileEmail}>{profile?.data?.email}</Text>
+
+              {isEditing && (
+                <View style={styles.subscriptionBadgeRow}>
+                  <View
+                    style={[
+                      styles.subscriptionBadge,
+                      isPremiumUser ? styles.subscriptionBadgePremium : styles.subscriptionBadgeFree,
+                    ]}
+                  >
+                    <Text
+                      style={[
+                        styles.subscriptionBadgeText,
+                        isPremiumUser
+                          ? styles.subscriptionBadgeTextPremium
+                          : styles.subscriptionBadgeTextFree,
+                      ]}
+                    >
+                      {isPremiumUser ? 'PREMIUM' : 'FREE'}
+                    </Text>
+                  </View>
+                </View>
+              )}
 
               <TouchableOpacity
                 style={styles.editPhotoLink}
@@ -649,6 +675,11 @@ const styles = StyleSheet.create({
     color: '#666666',
     marginTop: 4,
   },
+  profileNameRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
   subscriptionBadgeRow: {
     flexDirection: 'row',
     marginTop: 10,
@@ -683,6 +714,9 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 1,
     borderColor: '#E5E7EB',
+  },
+  nameInputInline: {
+    flex: 1,
   },
   bioSection: {
     paddingHorizontal: 16,

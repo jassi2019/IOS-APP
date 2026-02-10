@@ -1,0 +1,22 @@
+node_modules
+npm-debug.log
+yarn.lock
+pnpm-lock.yaml
+
+# Env/secrets should never be baked into images
+.env
+.env.*
+*.pem
+*.key
+
+# Git + editor + OS noise
+.git
+.github
+.vscode
+.DS_Store
+
+# Logs / temp
+log
+logs
+tmp
+temp

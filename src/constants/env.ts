@@ -1,5 +1,6 @@
 type TEnv = {
   backendUrl: string;
+  razorpayKeyId: string | null;
 };
 
 const DEFAULT_BACKEND_URL = 'https://api.taiyarineetki.com';
@@ -11,6 +12,8 @@ const env: TEnv = {
   // fall back to the production API instead of making relative requests that
   // fail with opaque "Network Error" on device.
   backendUrl: normalizeBaseUrl((process.env.EXPO_PUBLIC_BACKEND_URL || '').trim() || DEFAULT_BACKEND_URL),
+  // Android-only (Razorpay). Safe to ship as EXPO_PUBLIC_* since this is not a secret.
+  razorpayKeyId: (process.env.EXPO_PUBLIC_RAZORPAY_KEY_ID || '').trim() || null,
 };
 
 export default env;

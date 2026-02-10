@@ -4,6 +4,7 @@ const env = require("../../config/env");
 const { PAYMENT_PLATFORMS, PAYMENT_STATUSES } = require("../../constants");
 const { Plan, Subscription } = require("../../models");
 const { getPlanAppleProductId } = require("../../utils/appleIap");
+const { sendPurchaseNotification } = require("../../utils/billing");
 
 const APPLE_VERIFY_RECEIPT_PRODUCTION = "https://buy.itunes.apple.com/verifyReceipt";
 const APPLE_VERIFY_RECEIPT_SANDBOX = "https://sandbox.itunes.apple.com/verifyReceipt";
@@ -184,7 +185,7 @@ const createAppleIapV1 = async (req, res, next) => {
         where: {
           userId: user.id,
           paymentId: derivedTransactionId,
-          platform: PAYMENT_PLATFORMS.APPLE_IAP,
+          paymentMethod: "APPLE_IAP",
         },
       });
 
@@ -250,7 +251,8 @@ const createAppleIapV1 = async (req, res, next) => {
       endDate,
       amount: payableAmount,
       paymentStatus: PAYMENT_STATUSES.SUCCESS,
-      platform: PAYMENT_PLATFORMS.APPLE_IAP,
+      // Keep platform as RAZORPAY for backward compatibility with older DB enum types.
+      platform: PAYMENT_PLATFORMS.RAZORPAY,
       paymentMethod: "APPLE_IAP",
       // Keep existing schema fields populated
       paymentId: derivedTransactionId || derivedOriginalTransactionId || "APPLE_IAP",
@@ -268,6 +270,16 @@ const createAppleIapV1 = async (req, res, next) => {
         .filter(Boolean)
         .join(" | ") || null,
     });
+
+    sendPurchaseNotification({
+      platform: PAYMENT_PLATFORMS.APPLE_IAP,
+      user,
+      plan: plan?.toJSON ? plan.toJSON() : plan,
+      subscription: subscription?.toJSON ? subscription.toJSON() : subscription,
+      extra: {
+        expectedProductId,
+      },
+    }).catch(() => undefined);
 
     return res.status(201).json({
       message: "Subscription created successfully",

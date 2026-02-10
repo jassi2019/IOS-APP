@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>New Purchase</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        background: #f6f7fb;
+        margin: 0;
+        padding: 24px;
+        color: #111827;
+      }
+      .card {
+        max-width: 720px;
+        margin: 0 auto;
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(17, 24, 39, 0.06);
+      }
+      .header {
+        padding: 16px 20px;
+        background: #111827;
+        color: #ffffff;
+      }
+      .header h1 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .meta {
+        padding: 16px 20px;
+      }
+      .pill {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+        background: #f3f4f6;
+        color: #111827;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 12px;
+      }
+      td {
+        padding: 10px 0;
+        border-top: 1px solid #e5e7eb;
+        vertical-align: top;
+        font-size: 14px;
+      }
+      td.key {
+        width: 160px;
+        color: #6b7280;
+      }
+      pre {
+        background: #0b1020;
+        color: #e5e7eb;
+        padding: 14px;
+        border-radius: 10px;
+        overflow: auto;
+        font-size: 12px;
+        line-height: 1.4;
+        margin-top: 14px;
+      }
+      .footer {
+        padding: 14px 20px;
+        color: #6b7280;
+        font-size: 12px;
+        border-top: 1px solid #e5e7eb;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="header">
+        <h1>New Purchase Notification</h1>
+      </div>
+
+      <div class="meta">
+        <div class="pill">{{platform}}</div>
+        <table>
+          <tr><td class="key">Time</td><td>{{timestamp}}</td></tr>
+          <tr><td class="key">User</td><td>{{userName}} ({{userEmail}})</td></tr>
+          <tr><td class="key">User ID</td><td>{{userId}}</td></tr>
+          <tr><td class="key">Plan</td><td>{{planName}} ({{planId}})</td></tr>
+          <tr><td class="key">Status</td><td>{{paymentStatus}}</td></tr>
+          <tr><td class="key">Amount</td><td>{{amount}}</td></tr>
+          <tr><td class="key">Payment ID</td><td>{{paymentId}}</td></tr>
+          <tr><td class="key">Order ID</td><td>{{orderId}}</td></tr>
+          <tr><td class="key">Start</td><td>{{startDate}}</td></tr>
+          <tr><td class="key">End</td><td>{{endDate}}</td></tr>
+          <tr><td class="key">Notes</td><td>{{notes}}</td></tr>
+        </table>
+
+        {{#if extraJson}}
+        <pre>{{extraJson}}</pre>
+        {{/if}}
+      </div>
+
+      <div class="footer">
+        This is an internal notification for bookkeeping/alerts. It is not an App Store receipt.
+      </div>
+    </div>
+  </body>
+</html>
+

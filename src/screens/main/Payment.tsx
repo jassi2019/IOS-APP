@@ -1,5 +1,10 @@
 ﻿import { useAuth } from '@/contexts/AuthContext';
 import { useCreateAppleIapSubscription } from '@/hooks/api/iap';
+import {
+  initiateRazorpayPayment,
+  useCreateOrder,
+  useCreateSubscription,
+} from '@/hooks/api/payment';
 import { useSendLogReport } from '@/hooks/api/log';
 import { useGetProfile } from '@/hooks/api/user';
 import {
@@ -58,9 +63,37 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
       </SafeAreaView>
     );
   }
+
+  // Web: payments are intentionally disabled (mobile-only: iOS IAP + Android Razorpay).
+  if (Platform.OS === 'web') {
+    return (
+      <SafeAreaView style={styles.container} edges={['top']}>
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+            <ChevronLeft size={24} color="#1F2937" />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>Payment</Text>
+          <View style={styles.headerSpacer} />
+        </View>
+
+        <View style={{ padding: 16 }}>
+          <Text style={{ color: '#1F2937', fontSize: 14, lineHeight: 18 }}>
+            Payments are not available on web. Please use the iOS or Android app to purchase a
+            plan.
+          </Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
   const { setUser } = useAuth();
   const { refetch: fetchProfile } = useGetProfile({ enabled: false });
-  const { mutateAsync: createAppleSubscriptionAsync, isPending: isCreatingSubscription } =
+  const { mutateAsync: createOrderAsync, isPending: isCreatingOrder } = useCreateOrder();
+  const {
+    mutateAsync: createRazorpaySubscriptionAsync,
+    isPending: isCreatingRazorpaySubscription,
+  } = useCreateSubscription();
+  const { mutateAsync: createAppleSubscriptionAsync, isPending: isCreatingAppleSubscription } =
     useCreateAppleIapSubscription();
   const sendLogReport = useSendLogReport();
 
@@ -131,8 +164,66 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
   };
 
   const handlePayment = async () => {
+    if (Platform.OS === 'android') {
+      setIsPurchasing(true);
+
+      try {
+        const orderRes = await createOrderAsync(plan.id);
+        const order = orderRes?.data;
+        if (!order) {
+          throw new Error('Unable to create order. Please try again.');
+        }
+
+        const payment = await initiateRazorpayPayment({ order, plan });
+
+        await createRazorpaySubscriptionAsync({
+          planId: plan.id,
+          orderId: payment.orderId,
+          paymentId: payment.paymentId,
+          signature: payment.signature,
+        });
+
+        await refreshAuthUser();
+
+        navigation.navigate('SubscriptionMessage', {
+          success: true,
+          plan,
+        });
+      } catch (error: any) {
+        console.error('Payment error:', error);
+
+        try {
+          await sendLogReport.mutateAsync({
+            error: String(error?.message || error || 'Payment failed'),
+          });
+        } catch {
+          // noop
+        }
+
+        const message = String(error?.message || 'Payment failed. Please try again.');
+        Alert.alert('Payment Error', message, [
+          {
+            text: 'OK',
+            onPress: () =>
+              navigation.navigate('SubscriptionMessage', {
+                success: false,
+                plan,
+              }),
+          },
+          {
+            text: 'Back',
+            onPress: () => navigation.goBack(),
+          },
+        ]);
+      } finally {
+        setIsPurchasing(false);
+      }
+
+      return;
+    }
+
     if (Platform.OS !== 'ios') {
-      Alert.alert('Not Supported', 'Apple in-app purchase subscriptions are only available on iOS.');
+      Alert.alert('Not Supported', 'Payments are only available on iOS and Android.');
       return;
     }
 
@@ -283,9 +374,16 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
   };
 
   const isProcessing =
-    isPurchasing || isRestoring || isCreatingSubscription || isLoadingStoreProduct;
+    isPurchasing ||
+    isRestoring ||
+    isCreatingAppleSubscription ||
+    isCreatingOrder ||
+    isCreatingRazorpaySubscription ||
+    isLoadingStoreProduct;
 
   const isSubscription = Platform.OS === 'ios' && storeProduct?.type === 'subs';
+
+  const INR_SYMBOL = '\u20B9';
 
   const validUntilText = `Valid until ${new Date(plan.validUntil).toLocaleDateString('en-GB', {
     day: '2-digit',
@@ -300,8 +398,15 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
 
   const subscriptionTitle = (storeProduct?.title || '').trim() || plan.name;
 
-  const canSubscribe =
-    Platform.OS === 'ios' && iapReady && !!appleProductId && !!storeProduct && !storeProductError;
+  const canPay =
+    Platform.OS === 'ios'
+      ? iapReady && !!appleProductId && !!storeProduct && !storeProductError
+      : Platform.OS === 'android'
+        ? true
+        : false;
+
+  const payButtonLabel =
+    Platform.OS === 'ios' ? (isSubscription ? 'Subscribe' : 'Buy') : Platform.OS === 'android' ? 'Pay' : 'Pay';
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
@@ -364,8 +469,24 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
             </>
           )}
 
-          {Platform.OS !== 'ios' && (
-            <Text style={styles.inlineErrorText}>Apple subscriptions are only available on iOS.</Text>
+          {Platform.OS === 'android' && (
+            <>
+              <View style={styles.summaryRow}>
+                <Text style={styles.summaryLabel}>Access</Text>
+                <Text style={styles.summaryValue}>{validUntilText}</Text>
+              </View>
+
+              <View style={styles.summaryRow}>
+                <Text style={styles.summaryLabel}>Price</Text>
+                <Text style={styles.summaryValue}>
+                  {`${INR_SYMBOL}${plan.amount} + ${plan.gstRate}% GST`}
+                </Text>
+              </View>
+            </>
+          )}
+
+          {Platform.OS !== 'ios' && Platform.OS !== 'android' && (
+            <Text style={styles.inlineErrorText}>Payments are only available on iOS and Android.</Text>
           )}
         </View>
 
@@ -397,11 +518,36 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
           </View>
         )}
 
+        {Platform.OS === 'android' && (
+          <View style={styles.disclosureCard}>
+            <Text style={styles.disclosureTitle}>One-time Payment</Text>
+            <Text style={styles.disclosureText}>
+              Payment will be processed securely via Razorpay. This purchase does not automatically
+              renew. {validUntilText}.
+            </Text>
+
+            <View style={styles.linksRow}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('Privacy')}
+                style={styles.linkButton}
+              >
+                <Text style={styles.linkText}>Privacy Policy</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('TermsAndConditions')}
+                style={styles.linkButton}
+              >
+                <Text style={styles.linkText}>Terms of Use</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
+
         <TouchableOpacity
           onPress={handlePayment}
           // Allow tap to show helpful alerts even when IAP isn't ready (Expo Go, missing config).
           disabled={isProcessing}
-          style={[styles.payButton, (!canSubscribe || isProcessing) && styles.payButtonDisabled]}
+          style={[styles.payButton, (!canPay || isProcessing) && styles.payButtonDisabled]}
         >
           {isProcessing ? (
             <View style={styles.payButtonContent}>
@@ -409,7 +555,7 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
               <Text style={styles.payButtonText}>Processing...</Text>
             </View>
           ) : (
-            <Text style={styles.payButtonText}>{isSubscription ? 'Subscribe' : 'Buy'}</Text>
+            <Text style={styles.payButtonText}>{payButtonLabel}</Text>
           )}
         </TouchableOpacity>
 

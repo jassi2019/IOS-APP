@@ -8,6 +8,8 @@ const pinoHttp = require("pino-http");
 const swaggerSpec = require("./swagger");
 const routes = require("./src/routes");
 const statsRoutes = require("./src/routes/stats");
+const { Plan } = require("./src/models");
+const { getPlanAppleProductId } = require("./src/utils/appleIap");
 const { logger } = require("./src/utils/logger");
 const errorMiddleware = require("./src/middlewares/error");
 const app = express();
@@ -47,8 +49,26 @@ app.use("/api/stats", statsRoutes);
 
 app.use(errorMiddleware);
 
+const backfillAppleProductIds = async () => {
+  try {
+    const plans = await Plan.findAll();
+    await Promise.all(
+      plans.map(async (plan) => {
+        if (plan.appleProductId) return;
+        const computed = getPlanAppleProductId(plan);
+        if (!computed) return;
+        await plan.update({ appleProductId: computed });
+      })
+    );
+  } catch (err) {
+    logger.warn({ err }, "Failed to backfill appleProductId values");
+  }
+};
+
 db.sync({ alter: true })
   .then(() => {
+    backfillAppleProductIds().catch(() => undefined);
+
     // Listen on 0.0.0.0 to accept connections from any network interface (including mobile devices)
     app.listen(8000, '0.0.0.0', () => {
       logger.info(`Server is running on port 8000 and accessible from network`);

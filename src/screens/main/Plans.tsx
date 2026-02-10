@@ -104,6 +104,26 @@ export const PlansScreen = ({ navigation }: any) => {
 
   const iapReady = Platform.OS !== 'ios' ? true : isIapAvailable();
 
+  // Web: plans/purchases are mobile-only (iOS + Android).
+  if (Platform.OS === 'web') {
+    return (
+      <SafeAreaView style={styles.container} edges={['top']}>
+        <View style={styles.innerContainer}>
+          <View style={styles.header}>
+            <Text style={styles.title}>Choose your plan</Text>
+            <Text style={styles.subtitle}>Plans are not available on web.</Text>
+          </View>
+
+          <View style={{ paddingHorizontal: 16 }}>
+            <Text style={{ fontSize: 16, color: '#374151', lineHeight: 22 }}>
+              Please use the iOS or Android app to purchase a plan.
+            </Text>
+          </View>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
   const rawPlans: TPlan[] = Array.isArray(data?.data) ? data.data : [];
   const plans: TPlan[] = React.useMemo(() => {
     // Client-side fallback so iOS can work even if backend doesn't return appleProductId yet.

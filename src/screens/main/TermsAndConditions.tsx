@@ -20,11 +20,13 @@ const TermsAndConditions = ({ navigation }: { navigation: any }) => {
       <StatusBar style="dark" />
 
       <View style={styles.header}>
-        <TouchableOpacity onPress={goBack} style={styles.backButton} hitSlop={10}>
-          <ChevronLeft size={24} color="#111827" />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Terms of Use</Text>
-        <View style={styles.headerSpacer} />
+        <View style={[styles.headerRow, Platform.OS === 'web' && styles.headerRowWeb]}>
+          <TouchableOpacity onPress={goBack} style={styles.backButton} hitSlop={10}>
+            <ChevronLeft size={24} color="#111827" />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>Terms of Use</Text>
+          <View style={styles.headerSpacer} />
+        </View>
       </View>
 
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
@@ -106,14 +108,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   header: {
+    backgroundColor: '#FFFFFF',
+    borderBottomWidth: 1,
+    borderBottomColor: '#E5E7EB',
+  },
+  headerRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
     paddingVertical: 14,
-    backgroundColor: '#FFFFFF',
-    borderBottomWidth: 1,
-    borderBottomColor: '#E5E7EB',
+  },
+  headerRowWeb: {
+    width: '100%',
+    maxWidth: 920,
+    alignSelf: 'center',
   },
   backButton: {
     padding: 4,
@@ -179,4 +188,3 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
 });
-

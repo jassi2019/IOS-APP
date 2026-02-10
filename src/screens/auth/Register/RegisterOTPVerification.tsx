@@ -1,7 +1,7 @@
-import { useVerifyRegistrationOTP } from '@/hooks/api/auth';
+import { useGetRegistrationOTP, useVerifyRegistrationOTP } from '@/hooks/api/auth';
 import tokenManager from '@/lib/tokenManager';
 import { ChevronLeft } from 'lucide-react-native';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -28,8 +28,16 @@ export const RegisterOTPVerification = ({ navigation, route }: OTPVerificationPr
   const insets = useSafeAreaInsets();
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
+  const [resendIn, setResendIn] = useState(0);
   const inputRefs = useRef<Array<TextInput | null>>([]);
   const { mutate: verifyOTP, isPending } = useVerifyRegistrationOTP();
+  const { mutate: resendOtp, isPending: isResending } = useGetRegistrationOTP();
+
+  useEffect(() => {
+    if (resendIn <= 0) return;
+    const t = setInterval(() => setResendIn((s) => Math.max(0, s - 1)), 1000);
+    return () => clearInterval(t);
+  }, [resendIn]);
 
   const handleOtpChange = (value: string, index: number) => {
     const newOtp = [...otp];
@@ -69,7 +77,7 @@ export const RegisterOTPVerification = ({ navigation, route }: OTPVerificationPr
 
     if (!normalizedEmail) {
       Alert.alert('Error', 'Email not found. Please try again');
-      navigation.navigate('AskForEmail');
+      navigation.navigate('SetEmail');
       return;
     }
 
@@ -95,6 +103,29 @@ export const RegisterOTPVerification = ({ navigation, route }: OTPVerificationPr
         },
       }
     );
+  };
+
+  const handleResend = async () => {
+    const normalizedEmail = String(email || '').trim();
+    if (!normalizedEmail) return;
+
+    if (resendIn > 0) return;
+
+    resendOtp(normalizedEmail, {
+      onSuccess: (data: any) => {
+        const devOtp = String(data?.data?.otp || '').trim();
+        if (devOtp) {
+          Alert.alert('Verification Code', `Enter this OTP manually: ${devOtp}`);
+        } else {
+          Alert.alert('Sent', 'A new OTP has been sent to your email.');
+        }
+
+        setResendIn(30);
+      },
+      onError: (error: any) => {
+        Alert.alert('Error', String(error?.userMessage || error?.message || 'Unable to resend OTP.'));
+      },
+    });
   };
 
   return (
@@ -162,8 +193,10 @@ export const RegisterOTPVerification = ({ navigation, route }: OTPVerificationPr
             {/* Resend OTP */}
             <View style={styles.resendContainer}>
               <Text style={styles.resendText}>Didn't receive the code? </Text>
-              <TouchableOpacity onPress={() => Alert.alert('Request', 'Resend OTP feature coming soon.')}>
-                <Text style={styles.resendLink}>Resend Code</Text>
+              <TouchableOpacity onPress={handleResend} disabled={isResending || resendIn > 0}>
+                <Text style={[styles.resendLink, (isResending || resendIn > 0) && styles.resendLinkDisabled]}>
+                  {isResending ? 'Sending...' : resendIn > 0 ? `Resend in ${resendIn}s` : 'Resend Code'}
+                </Text>
               </TouchableOpacity>
             </View>
 
@@ -299,6 +332,9 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: '#1e1e1e',
     fontWeight: '800',
+  },
+  resendLinkDisabled: {
+    color: '#9CA3AF',
   },
   button: {
     height: 60,

@@ -1,5 +1,5 @@
 // src/screens/auth/otp-verification/OTPVerification.tsx
-import { useVerifyPasswordResetOTP } from '@/hooks/api/auth';
+import { useRequestPasswordReset, useVerifyPasswordResetOTP } from '@/hooks/api/auth';
 import tokenManager from '@/lib/tokenManager';
 import React, { useRef, useState } from 'react';
 import {
@@ -23,8 +23,16 @@ type OTPVerificationProps = {
 export const OTPVerification = ({ navigation, route }: OTPVerificationProps) => {
   const { email } = route.params;
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
+  const [resendIn, setResendIn] = useState(0);
   const inputRefs = useRef<Array<TextInput | null>>([]);
   const { mutate: verifyOTP } = useVerifyPasswordResetOTP();
+  const { mutate: resendOtp, isPending: isResending } = useRequestPasswordReset();
+
+  React.useEffect(() => {
+    if (resendIn <= 0) return;
+    const t = setInterval(() => setResendIn((s) => Math.max(0, s - 1)), 1000);
+    return () => clearInterval(t);
+  }, [resendIn]);
 
   const handleOtpChange = (value: string, index: number) => {
     const newOtp = [...otp];
@@ -78,6 +86,27 @@ export const OTPVerification = ({ navigation, route }: OTPVerificationProps) => 
     );
   };
 
+  const handleResend = async () => {
+    const normalizedEmail = String(email || '').trim();
+    if (!normalizedEmail) return;
+    if (resendIn > 0) return;
+
+    resendOtp(normalizedEmail, {
+      onSuccess: (data: any) => {
+        const devOtp = String(data?.data?.otp || '').trim();
+        if (devOtp) {
+          Alert.alert('Verification Code', `Enter this OTP manually: ${devOtp}`);
+        } else {
+          Alert.alert('Sent', 'A new OTP has been sent to your email.');
+        }
+        setResendIn(30);
+      },
+      onError: (error: any) => {
+        Alert.alert('Error', String(error?.userMessage || error?.message || 'Unable to resend OTP.'));
+      },
+    });
+  };
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView
@@ -118,6 +147,15 @@ export const OTPVerification = ({ navigation, route }: OTPVerificationProps) => 
                   {index === 2 && <View className="w-4 h-1 bg-gray-800 self-center rounded-full" />}
                 </React.Fragment>
               ))}
+            </View>
+
+            <View className="flex-row justify-center items-center mb-2">
+              <Text className="text-base text-gray-600">Didn't receive the code? </Text>
+              <TouchableOpacity onPress={handleResend} disabled={isResending || resendIn > 0}>
+                <Text className={isResending || resendIn > 0 ? 'text-base text-gray-400 font-bold' : 'text-base text-black font-bold'}>
+                  {isResending ? 'Sending...' : resendIn > 0 ? `Resend in ${resendIn}s` : 'Resend'}
+                </Text>
+              </TouchableOpacity>
             </View>
 
             {/* Continue Button */}

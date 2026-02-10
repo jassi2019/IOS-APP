@@ -27,6 +27,11 @@ const passwordResetEmailVerificationV1 = async (req, res, next) => {
       return res.status(400).json({ message: "User not found" });
     }
 
+    // Invalidate any previous OTPs so only the latest OTP works.
+    await Otp.destroy({
+      where: { email: lowerCaseEmail, type: OTP_TYPES.PASSWORD_RESET },
+    });
+
     const otpDoc = await Otp.create({
       email: lowerCaseEmail,
       otp: generateOTP(),

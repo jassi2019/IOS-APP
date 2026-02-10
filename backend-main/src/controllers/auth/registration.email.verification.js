@@ -27,6 +27,11 @@ const registrationEmailVerificationV1 = async (req, res, next) => {
       return res.status(400).json({ message: "Email already exists" });
     }
 
+    // Invalidate any previous OTPs so only the latest OTP works.
+    await Otp.destroy({
+      where: { email: lowerCaseEmail, type: OTP_TYPES.REGISTRATION },
+    });
+
     const otpDoc = await Otp.create({
       email: lowerCaseEmail,
       otp: generateOTP(),

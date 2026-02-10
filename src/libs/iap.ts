@@ -41,12 +41,35 @@ export type TAppleIapProduct = {
 const IAP_NOT_AVAILABLE_MESSAGE =
   'In-app purchases are not available. Please use a development build (not Expo Go).';
 
+function isExpoGo(): boolean {
+  try {
+    // `expo-constants` is present in Expo projects, but keep this lazy to avoid hard dependency.
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const Constants = require('expo-constants').default ?? require('expo-constants');
+
+    // Newer Expo SDKs expose `executionEnvironment`. `storeClient` means Expo Go.
+    const executionEnvironment = String(Constants?.executionEnvironment ?? '');
+    if (executionEnvironment === 'storeClient') return true;
+
+    // Fallback for older SDKs.
+    const appOwnership = String(Constants?.appOwnership ?? '');
+    return appOwnership === 'expo';
+  } catch {
+    return false;
+  }
+}
+
 let IapSdk: any = null;
 if (Platform.OS !== 'web') {
   try {
-    // Lazy require so web doesn't evaluate native code
+    // Expo Go does not ship native IAP modules; treat it as unavailable to avoid noisy runtime errors.
+    if (isExpoGo()) {
+      IapSdk = null;
+    } else {
+      // Lazy require so web doesn't evaluate native code
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    IapSdk = require('react-native-iap');
+      IapSdk = require('react-native-iap');
+    }
   } catch {
     IapSdk = null;
   }

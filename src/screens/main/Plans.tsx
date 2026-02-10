@@ -3,7 +3,7 @@ import {
   fetchAppleSubscriptionProducts,
   formatAppleSubscriptionPeriod,
   isIapAvailable,
-  type TAppleIapSubscriptionProduct,
+  type TAppleIapProduct,
 } from '@/libs/iap';
 import { TPlan } from '@/types/Plan';
 import { getPlanAppleProductId } from '@/utils/appleIap';
@@ -16,7 +16,7 @@ type TPlanCardProps = {
   plan: TPlan;
   onSelect: (plan: TPlan) => void;
   isSelected: boolean;
-  iapProduct?: TAppleIapSubscriptionProduct | null;
+  iapProduct?: TAppleIapProduct | null;
 };
 
 const INR_SYMBOL = '\u20B9';
@@ -30,6 +30,8 @@ const PlanCard = ({ plan, onSelect, isSelected, iapProduct }: TPlanCardProps) =>
 
   const displayTitle =
     Platform.OS === 'ios' ? (iapProduct?.title || '').trim() || plan.name : plan.name;
+
+  const isAutoRenewingSubscription = Platform.OS === 'ios' && iapProduct?.type === 'subs';
 
   const billingPeriod = formatAppleSubscriptionPeriod(
     iapProduct?.subscriptionPeriodNumberIOS ?? null,
@@ -49,11 +51,13 @@ const PlanCard = ({ plan, onSelect, isSelected, iapProduct }: TPlanCardProps) =>
 
   const subText =
     Platform.OS === 'ios'
-      ? billingPeriod
-        ? `Billed every ${billingPeriod}`
-        : iapProduct?.displayPrice
-          ? 'Auto-renewing subscription'
-          : validUntilText
+      ? isAutoRenewingSubscription
+        ? billingPeriod
+          ? `Billed every ${billingPeriod}`
+          : iapProduct?.displayPrice
+            ? 'Auto-renewing subscription'
+            : validUntilText
+        : validUntilText
       : validUntilText;
 
   const showGst = Platform.OS !== 'ios' || !iapProduct?.displayPrice;
@@ -94,7 +98,7 @@ export const PlansScreen = ({ navigation }: any) => {
   const { data, error, isLoading } = useGetAllPlans();
 
   const [iapProductsById, setIapProductsById] = React.useState<
-    Record<string, TAppleIapSubscriptionProduct>
+    Record<string, TAppleIapProduct>
   >({});
   const [iapError, setIapError] = React.useState<string | null>(null);
 
@@ -141,7 +145,7 @@ export const PlansScreen = ({ navigation }: any) => {
         const products = await fetchAppleSubscriptionProducts(skus);
         if (cancelled) return;
 
-        const map: Record<string, TAppleIapSubscriptionProduct> = {};
+        const map: Record<string, TAppleIapProduct> = {};
         for (const p of products) {
           if (p?.id) map[p.id] = p;
         }

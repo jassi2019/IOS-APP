@@ -199,18 +199,38 @@ const createAppleIapV1 = async (req, res, next) => {
     const payableAmount = Math.round(plan.amount + (plan.amount * plan.gstRate) / 100);
 
     const latestExpiryMs = getLatestExpirationMs(verifyResponse, expectedProductId);
-    if (!latestExpiryMs || !Number.isFinite(latestExpiryMs)) {
-      return res.status(400).json({
-        message:
-          "Could not determine subscription expiration from receipt. Ensure APPLE_SHARED_SECRET is configured.",
-      });
-    }
+    let derivedEndDate = null;
+    let endDateSource = null;
 
-    // Only grant access if subscription is currently active.
-    if (latestExpiryMs <= Date.now()) {
-      return res.status(400).json({
-        message: "Subscription is not active. Please renew in the App Store.",
-      });
+    // Auto-renewable subscription receipts include expires_date_ms.
+    if (latestExpiryMs && Number.isFinite(latestExpiryMs)) {
+      // Only grant access if subscription is currently active.
+      if (latestExpiryMs <= Date.now()) {
+        return res.status(400).json({
+          message: "Subscription is not active. Please renew in the App Store.",
+        });
+      }
+
+      derivedEndDate = new Date(latestExpiryMs);
+      endDateSource = "receipt.expires_date_ms";
+    } else {
+      // One-time purchase / non-renewing subscription: use the plan validity window.
+      const planValidUntilMs = plan?.validUntil ? new Date(plan.validUntil).getTime() : NaN;
+      if (!Number.isFinite(planValidUntilMs)) {
+        return res.status(400).json({
+          message:
+            "Could not determine access end date from receipt or plan. Please contact support.",
+        });
+      }
+
+      if (planValidUntilMs <= Date.now()) {
+        return res.status(400).json({
+          message: "This plan has expired. Please choose a different plan.",
+        });
+      }
+
+      derivedEndDate = new Date(planValidUntilMs);
+      endDateSource = "plan.validUntil";
     }
 
     const purchaseDateMs = latestItem?.purchase_date_ms || latestItem?.purchaseDateMs;
@@ -221,7 +241,7 @@ const createAppleIapV1 = async (req, res, next) => {
         ? new Date(parsedPurchaseDateMs)
         : new Date();
 
-    const endDate = new Date(latestExpiryMs);
+    const endDate = derivedEndDate;
 
     const subscription = await Subscription.create({
       planId: plan.id,
@@ -241,7 +261,12 @@ const createAppleIapV1 = async (req, res, next) => {
         expectedProductId,
       // Store raw receipt for audit/debug (can be large)
       signature: receipt,
-      notes: environmentIOS ? `environmentIOS=${environmentIOS}` : null,
+      notes: [
+        environmentIOS ? `environmentIOS=${environmentIOS}` : null,
+        endDateSource ? `endDateSource=${endDateSource}` : null,
+      ]
+        .filter(Boolean)
+        .join(" | ") || null,
     });
 
     return res.status(201).json({

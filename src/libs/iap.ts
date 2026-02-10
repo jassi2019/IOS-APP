@@ -18,12 +18,22 @@ type PurchaseError = {
 
 export type TAppleIapSubscriptionPeriodUnitIOS = 'day' | 'week' | 'month' | 'year' | 'empty';
 
-export type TAppleIapSubscriptionProduct = {
+export type TAppleIapProductType = 'in-app' | 'subs';
+
+export type TAppleIapProductTypeIOS =
+  | 'consumable'
+  | 'non-consumable'
+  | 'auto-renewable-subscription'
+  | 'non-renewing-subscription';
+
+export type TAppleIapProduct = {
   id: string;
   title: string;
   description: string;
   displayPrice: string;
   currency: string;
+  type: TAppleIapProductType;
+  typeIOS?: TAppleIapProductTypeIOS | null;
   subscriptionPeriodNumberIOS?: string | null;
   subscriptionPeriodUnitIOS?: TAppleIapSubscriptionPeriodUnitIOS | null;
 };
@@ -89,7 +99,7 @@ export function formatAppleSubscriptionPeriod(
 
 export async function fetchAppleSubscriptionProducts(
   productIds: string[]
-): Promise<TAppleIapSubscriptionProduct[]> {
+): Promise<TAppleIapProduct[]> {
   if (Platform.OS !== 'ios') {
     throw new Error('Apple in-app purchases are only available on iOS.');
   }
@@ -105,18 +115,33 @@ export async function fetchAppleSubscriptionProducts(
   }
 
   try {
-    const products = await IAP.fetchProducts({ skus, type: 'subs' });
+    // Fetch both subscriptions and one-time products. We'll decide how to purchase based on `type`.
+    const products = await IAP.fetchProducts({ skus, type: 'all' });
     if (!Array.isArray(products)) return [];
 
-    return products.map((p: any) => ({
+    const mapped = products
+      .map((p: any): TAppleIapProduct => ({
       id: String(p?.id ?? ''),
       title: String(p?.title ?? ''),
       description: String(p?.description ?? ''),
       displayPrice: String(p?.displayPrice ?? ''),
       currency: String(p?.currency ?? ''),
+      type: (p?.type === 'subs' ? 'subs' : 'in-app') as TAppleIapProductType,
+      typeIOS: (p?.typeIOS ?? null) as TAppleIapProductTypeIOS | null,
       subscriptionPeriodNumberIOS: p?.subscriptionPeriodNumberIOS ?? null,
       subscriptionPeriodUnitIOS: p?.subscriptionPeriodUnitIOS ?? null,
-    }));
+    }))
+      .filter((p: any) => !!p?.id);
+
+    if (mapped.length === 0) {
+      throw new Error(
+        'No products returned from the App Store. ' +
+          'Check that the product exists in App Store Connect, is Cleared for Sale, ' +
+          'and that your iOS bundle identifier matches the app in App Store Connect.'
+      );
+    }
+
+    return mapped;
   } finally {
     try {
       await IAP.endConnection();
@@ -216,7 +241,10 @@ export async function openAppleManageSubscriptions(): Promise<void> {
   }
 }
 
-export async function purchaseAppleSubscription(productId: string): Promise<TAppleIapPurchase> {
+export async function purchaseAppleProduct(
+  productId: string,
+  type: TAppleIapProductType
+): Promise<TAppleIapPurchase> {
   if (Platform.OS !== 'ios') {
     throw new Error('Apple in-app purchase is only available on iOS.');
   }
@@ -324,7 +352,7 @@ export async function purchaseAppleSubscription(productId: string): Promise<TApp
       }, 2 * 60 * 1000);
 
       IAP.requestPurchase({
-        type: 'subs',
+        type,
         request: {
           apple: {
             sku: productId,
@@ -344,4 +372,9 @@ export async function purchaseAppleSubscription(productId: string): Promise<TApp
     await cleanup();
     throw e;
   }
+}
+
+// Backward-compat alias (older code used this name).
+export async function purchaseAppleSubscription(productId: string): Promise<TAppleIapPurchase> {
+  return purchaseAppleProduct(productId, 'subs');
 }

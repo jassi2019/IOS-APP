@@ -7,9 +7,9 @@ import {
   formatAppleSubscriptionPeriod,
   isIapAvailable,
   openAppleManageSubscriptions,
-  purchaseAppleSubscription,
+  purchaseAppleProduct,
   restoreAppleReceipt,
-  type TAppleIapSubscriptionProduct,
+  type TAppleIapProduct,
 } from '@/libs/iap';
 import { TPlan } from '@/types/Plan';
 import { getPlanAppleProductId } from '@/utils/appleIap';
@@ -69,7 +69,7 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
   const [isPurchasing, setIsPurchasing] = React.useState(false);
   const [isRestoring, setIsRestoring] = React.useState(false);
 
-  const [storeProduct, setStoreProduct] = React.useState<TAppleIapSubscriptionProduct | null>(null);
+  const [storeProduct, setStoreProduct] = React.useState<TAppleIapProduct | null>(null);
   const [isLoadingStoreProduct, setIsLoadingStoreProduct] = React.useState(false);
   const [storeProductError, setStoreProductError] = React.useState<string | null>(null);
 
@@ -160,7 +160,7 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
     setIsPurchasing(true);
 
     try {
-      const purchase = await purchaseAppleSubscription(appleProductId);
+      const purchase = await purchaseAppleProduct(appleProductId, storeProduct.type);
 
       await createAppleSubscriptionAsync({
         planId: plan.id,
@@ -285,6 +285,14 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
   const isProcessing =
     isPurchasing || isRestoring || isCreatingSubscription || isLoadingStoreProduct;
 
+  const isSubscription = Platform.OS === 'ios' && storeProduct?.type === 'subs';
+
+  const validUntilText = `Valid until ${new Date(plan.validUntil).toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  })}`;
+
   const billingPeriod = formatAppleSubscriptionPeriod(
     storeProduct?.subscriptionPeriodNumberIOS ?? null,
     storeProduct?.subscriptionPeriodUnitIOS ?? null
@@ -307,7 +315,7 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
 
       <ScrollView style={styles.content} contentContainerStyle={styles.contentContainer}>
         <View style={styles.summaryCard}>
-          <Text style={styles.summaryTitle}>Subscription Summary</Text>
+          <Text style={styles.summaryTitle}>Payment Summary</Text>
 
           <View style={styles.summaryRow}>
             <Text style={styles.summaryLabel}>Subscription</Text>
@@ -316,10 +324,17 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
 
           {Platform.OS === 'ios' && (
             <>
-              <View style={styles.summaryRow}>
-                <Text style={styles.summaryLabel}>Billing period</Text>
-                <Text style={styles.summaryValue}>{billingPeriod || 'Auto-renewing'}</Text>
-              </View>
+              {isSubscription ? (
+                <View style={styles.summaryRow}>
+                  <Text style={styles.summaryLabel}>Billing period</Text>
+                  <Text style={styles.summaryValue}>{billingPeriod || 'Auto-renewing'}</Text>
+                </View>
+              ) : (
+                <View style={styles.summaryRow}>
+                  <Text style={styles.summaryLabel}>Access</Text>
+                  <Text style={styles.summaryValue}>{validUntilText}</Text>
+                </View>
+              )}
 
               <View style={styles.summaryRow}>
                 <Text style={styles.summaryLabel}>Price</Text>
@@ -356,12 +371,13 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
 
         {Platform.OS === 'ios' && (
           <View style={styles.disclosureCard}>
-            <Text style={styles.disclosureTitle}>Auto-Renewable Subscription</Text>
+            <Text style={styles.disclosureTitle}>
+              {isSubscription ? 'Auto-Renewable Subscription' : 'In-App Purchase'}
+            </Text>
             <Text style={styles.disclosureText}>
-              Payment will be charged to your Apple ID at confirmation of purchase. Subscription
-              automatically renews unless canceled at least 24 hours before the end of the current
-              period. Your account will be charged for renewal within 24 hours prior to the end of
-              the current period. You can manage and cancel your subscription in Account Settings.
+              {isSubscription
+                ? 'Payment will be charged to your Apple ID at confirmation of purchase. Subscription automatically renews unless canceled at least 24 hours before the end of the current period. Your account will be charged for renewal within 24 hours prior to the end of the current period. You can manage and cancel your subscription in Account Settings.'
+                : `Payment will be charged to your Apple ID at confirmation of purchase. This purchase does not automatically renew. ${validUntilText}.`}
             </Text>
 
             <View style={styles.linksRow}>
@@ -393,7 +409,7 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
               <Text style={styles.payButtonText}>Processing...</Text>
             </View>
           ) : (
-            <Text style={styles.payButtonText}>Subscribe</Text>
+            <Text style={styles.payButtonText}>{isSubscription ? 'Subscribe' : 'Buy'}</Text>
           )}
         </TouchableOpacity>
 
@@ -408,13 +424,18 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
               <Text style={styles.secondaryButtonText}>Restore Purchases</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={handleManageSubscriptions}
-              disabled={isProcessing}
-              style={[styles.secondaryButton, (isProcessing || !iapReady) && styles.secondaryDisabled]}
-            >
-              <Text style={styles.secondaryButtonText}>Manage</Text>
-            </TouchableOpacity>
+            {isSubscription && (
+              <TouchableOpacity
+                onPress={handleManageSubscriptions}
+                disabled={isProcessing}
+                style={[
+                  styles.secondaryButton,
+                  (isProcessing || !iapReady) && styles.secondaryDisabled,
+                ]}
+              >
+                <Text style={styles.secondaryButtonText}>Manage</Text>
+              </TouchableOpacity>
+            )}
           </View>
         )}
       </ScrollView>

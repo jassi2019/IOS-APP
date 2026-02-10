@@ -32,8 +32,9 @@ export const SetEmail = ({ navigation }: RegisterProps) => {
     }
 
     getRegistrationOTP(email, {
-      onSuccess: () => {
-        navigation.navigate('RegisterOTPVerification', { email });
+      onSuccess: (data: any) => {
+        const devOtp = String(data?.data?.otp || '').trim();
+        navigation.navigate('RegisterOTPVerification', { email, otp: devOtp || undefined });
       },
       onError: (error: any) => {
         console.error('❌ Registration Error:', error);

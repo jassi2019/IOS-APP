@@ -32,10 +32,8 @@ const shouldBlockNavigation = (url: string): boolean => {
   ];
   if (blockedExts.some((ext) => clean.endsWith(ext))) return true;
 
-  // Heuristics for download/attachment endpoints.
+  // Heuristic for explicit download intent.
   if (lower.includes('download=')) return true;
-  if (lower.includes('/download')) return true;
-  if (lower.includes('attachment')) return true;
 
   return false;
 };

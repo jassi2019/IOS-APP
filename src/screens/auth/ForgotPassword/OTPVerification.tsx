@@ -139,6 +139,9 @@ export const OTPVerification = ({ navigation, route }: OTPVerificationProps) => 
                     className="bg-white w-14 h-14 border border-gray-200 rounded-xl text-center text-xl text-black"
                     maxLength={1}
                     keyboardType="numeric"
+                    autoComplete="off"
+                    textContentType="none"
+                    importantForAutofill="no"
                     value={otp[index]}
                     onChangeText={(value) => handleOtpChange(value, index)}
                     onKeyPress={(e) => handleKeyPress(e, index)}

@@ -1,19 +1,20 @@
 const { User, Session } = require("../../models");
 const { comparePassword } = require("../../utils/bcrypt");
 const { generateJWT } = require("../../utils/jwt");
+const { normalizeEmailLower, whereEmailInsensitive } = require("../../utils/email");
 
 const loginV1 = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    const lowercaseEmail = String(email || "").trim().toLowerCase();
+    const lowercaseEmail = normalizeEmailLower(email);
 
     if (!lowercaseEmail || !password) {
       return res.status(400).json({ message: "Email and password are required" });
     }
 
     const userDoc = await User.findOne({
-      where: { email: lowercaseEmail },
+      where: whereEmailInsensitive(lowercaseEmail),
     });
 
     if (!userDoc) {

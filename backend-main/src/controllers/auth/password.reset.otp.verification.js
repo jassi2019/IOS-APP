@@ -1,6 +1,7 @@
 const { User, Otp } = require("../../models");
 const { OTP_TYPES } = require("../../constants");
 const { generateJWT } = require("../../utils/jwt");
+const { whereEmailInsensitive } = require("../../utils/email");
 
 const passwordResetOTPVerificationV1 = async (req, res, next) => {
   try {
@@ -23,7 +24,7 @@ const passwordResetOTPVerificationV1 = async (req, res, next) => {
     await otpDoc.destroy();
 
     const userDoc = await User.findOne({
-      where: { email: normalizedEmail },
+      where: whereEmailInsensitive(normalizedEmail),
     });
 
     if (!userDoc) {

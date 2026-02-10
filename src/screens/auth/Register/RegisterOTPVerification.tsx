@@ -180,6 +180,9 @@ export const RegisterOTPVerification = ({ navigation, route }: OTPVerificationPr
                   ]}
                   maxLength={1}
                   keyboardType="numeric"
+                  autoComplete="off"
+                  textContentType="none"
+                  importantForAutofill="no"
                   value={otp[index]}
                   onFocus={() => setFocusedIndex(index)}
                   onBlur={() => setFocusedIndex(null)}

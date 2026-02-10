@@ -3,11 +3,16 @@ const { generateOTP, generateOTPExpirationDate } = require("../../utils/otp");
 const { OTP_TYPES } = require("../../constants");
 const env = require("../../config/env");
 const sendMail = require("../../services/mail");
+const { normalizeEmailLower, whereEmailInsensitive } = require("../../utils/email");
 
 const canSendEmail = () =>
   !!(env.SMTP_HOST && env.SMTP_PORT && env.SMTP_USER && env.SMTP_PASSWORD && env.SMTP_FROM);
 
-const allowDevOtp = () => String(env.ALLOW_DEV_OTP || "").toLowerCase() === "true";
+const allowDevOtp = () => {
+  const enabled = String(env.ALLOW_DEV_OTP || "").toLowerCase() === "true";
+  const nodeEnv = String(env.NODE_ENV || "").toLowerCase();
+  return enabled && (nodeEnv === "development" || nodeEnv === "test");
+};
 
 const passwordResetEmailVerificationV1 = async (req, res, next) => {
   try {
@@ -17,10 +22,10 @@ const passwordResetEmailVerificationV1 = async (req, res, next) => {
       return res.status(400).json({ message: "Email is required" });
     }
 
-    const lowerCaseEmail = String(email || "").trim().toLowerCase();
+    const lowerCaseEmail = normalizeEmailLower(email);
 
     const userDoc = await User.findOne({
-      where: { email: lowerCaseEmail },
+      where: whereEmailInsensitive(lowerCaseEmail),
     });
 
     if (!userDoc) {

@@ -26,15 +26,22 @@ export const SetEmail = ({ navigation }: RegisterProps) => {
   const { mutate: getRegistrationOTP, isPending } = useGetRegistrationOTP();
 
   const handleSubmit = async () => {
-    if (!email) {
+    const normalizedEmail = String(email || '').trim();
+
+    if (!normalizedEmail) {
       Alert.alert('Error', 'Please enter your email address');
       return;
     }
 
-    getRegistrationOTP(email, {
+    getRegistrationOTP(normalizedEmail, {
       onSuccess: (data: any) => {
+        // If backend is in dev mode and returns OTP (SMTP not configured), show it but DO NOT auto-fill.
         const devOtp = String(data?.data?.otp || '').trim();
-        navigation.navigate('RegisterOTPVerification', { email, otp: devOtp || undefined });
+        if (devOtp) {
+          Alert.alert('Verification Code', `Enter this OTP manually: ${devOtp}`);
+        }
+
+        navigation.navigate('RegisterOTPVerification', { email: normalizedEmail });
       },
       onError: (error: any) => {
         console.error('❌ Registration Error:', error);

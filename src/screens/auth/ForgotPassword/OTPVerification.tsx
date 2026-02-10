@@ -46,7 +46,9 @@ export const OTPVerification = ({ navigation, route }: OTPVerificationProps) => 
   };
 
   const handleContinue = async () => {
-    if (!email) {
+    const normalizedEmail = String(email || '').trim();
+
+    if (!normalizedEmail) {
       Alert.alert('Error', 'Email not found. Please try again');
       navigation.navigate('AskForEmail');
       return;
@@ -59,7 +61,7 @@ export const OTPVerification = ({ navigation, route }: OTPVerificationProps) => 
     }
 
     verifyOTP(
-      { email, otp: otpString },
+      { email: normalizedEmail, otp: otpString },
       {
         onSuccess: (data) => {
           if (!data?.data) {
@@ -67,7 +69,7 @@ export const OTPVerification = ({ navigation, route }: OTPVerificationProps) => 
             return;
           }
           tokenManager.setToken(data.data.token);
-          navigation.navigate('ResetPassword', { email });
+          navigation.navigate('ResetPassword', { email: normalizedEmail });
         },
         onError: (error) => {
           Alert.alert('Error', error.message);

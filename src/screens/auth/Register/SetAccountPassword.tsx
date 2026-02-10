@@ -39,7 +39,9 @@ export const SetAccountPassword = ({ navigation, route }: RegisterProps) => {
   });
 
   const handleSubmit = async () => {
-    if (!email) {
+    const normalizedEmail = String(email || '').trim();
+
+    if (!normalizedEmail) {
       Alert.alert('Error', 'Email not found. Please try again.');
       return;
     }
@@ -56,7 +58,7 @@ export const SetAccountPassword = ({ navigation, route }: RegisterProps) => {
 
     register(
       {
-        email,
+        email: normalizedEmail,
         password,
         profilePicture: `https://avatar.iran.liara.run/public/${Math.floor(Math.random() * 100) + 1
           }`,

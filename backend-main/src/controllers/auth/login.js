@@ -6,7 +6,11 @@ const loginV1 = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    const lowercaseEmail = email.toLowerCase();
+    const lowercaseEmail = String(email || "").trim().toLowerCase();
+
+    if (!lowercaseEmail || !password) {
+      return res.status(400).json({ message: "Email and password are required" });
+    }
 
     const userDoc = await User.findOne({
       where: { email: lowercaseEmail },

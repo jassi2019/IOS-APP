@@ -38,13 +38,15 @@ export const Login = ({ navigation }: any) => {
   }, [isSuccess, isLoading, profileData?.data, setUser]);
 
   const handleLogin = async () => {
-    if (!email || !password) {
+    const normalizedEmail = String(email || '').trim();
+
+    if (!normalizedEmail || !password) {
       Alert.alert('Error', 'Please fill in all fields');
       return;
     }
 
     login(
-      { email, password },
+      { email: normalizedEmail, password },
       {
         onSuccess: async (data: any) => {
           console.log('✅ Login API Success:', data);

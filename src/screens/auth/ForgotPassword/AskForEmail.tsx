@@ -24,14 +24,22 @@ export const AskForEmail = ({ navigation }: AskForEmailProps) => {
   const { mutate: requestPasswordReset, isPending } = useRequestPasswordReset();
 
   const handleSubmit = async () => {
-    if (!email) {
+    const normalizedEmail = String(email || '').trim();
+
+    if (!normalizedEmail) {
       Alert.alert('Error', 'Please enter your email');
       return;
     }
 
-    requestPasswordReset(email, {
-      onSuccess: () => {
-        navigation.navigate('OTPVerification', { email });
+    requestPasswordReset(normalizedEmail, {
+      onSuccess: (data: any) => {
+        // Dev fallback (SMTP not configured): backend can return OTP. Show it, but user must enter manually.
+        const devOtp = String(data?.data?.otp || '').trim();
+        if (devOtp) {
+          Alert.alert('Verification Code', `Enter this OTP manually: ${devOtp}`);
+        }
+
+        navigation.navigate('OTPVerification', { email: normalizedEmail });
       },
       onError: (error: any) => {
         console.error('❌ Password Reset Error:', error);

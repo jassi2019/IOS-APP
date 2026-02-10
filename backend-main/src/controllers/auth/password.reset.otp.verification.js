@@ -6,8 +6,10 @@ const passwordResetOTPVerificationV1 = async (req, res, next) => {
   try {
     const { email, otp } = req.body;
 
+    const normalizedEmail = String(email || "").trim().toLowerCase();
+
     const otpDoc = await Otp.findOne({
-      where: { email, otp, type: OTP_TYPES.PASSWORD_RESET },
+      where: { email: normalizedEmail, otp, type: OTP_TYPES.PASSWORD_RESET },
     });
 
     if (!otpDoc) {
@@ -21,7 +23,7 @@ const passwordResetOTPVerificationV1 = async (req, res, next) => {
     await otpDoc.destroy();
 
     const userDoc = await User.findOne({
-      where: { email: email.toLowerCase() },
+      where: { email: normalizedEmail },
     });
 
     if (!userDoc) {

@@ -17,7 +17,7 @@ const registrationEmailVerificationV1 = async (req, res, next) => {
       return res.status(400).json({ message: "Email is required" });
     }
 
-    const lowerCaseEmail = email.toLowerCase();
+    const lowerCaseEmail = String(email || "").trim().toLowerCase();
 
     const userDoc = await User.findOne({
       where: { email: lowerCaseEmail },

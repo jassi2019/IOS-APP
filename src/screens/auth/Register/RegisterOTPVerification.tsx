@@ -24,21 +24,12 @@ type OTPVerificationProps = {
 };
 
 export const RegisterOTPVerification = ({ navigation, route }: OTPVerificationProps) => {
-  const { email, otp: devOtp } = route.params;
+  const { email } = route.params;
   const insets = useSafeAreaInsets();
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const inputRefs = useRef<Array<TextInput | null>>([]);
   const { mutate: verifyOTP, isPending } = useVerifyRegistrationOTP();
-
-  React.useEffect(() => {
-    const digits = String(devOtp || '').replace(/[^0-9]/g, '').slice(0, 6);
-    if (digits.length !== 6) return;
-
-    setOtp(digits.split(''));
-    // Focus last cell so user can just hit "Verify & Continue".
-    inputRefs.current[5]?.focus();
-  }, [devOtp]);
 
   const handleOtpChange = (value: string, index: number) => {
     const newOtp = [...otp];
@@ -74,7 +65,9 @@ export const RegisterOTPVerification = ({ navigation, route }: OTPVerificationPr
   };
 
   const handleContinue = async () => {
-    if (!email) {
+    const normalizedEmail = String(email || '').trim();
+
+    if (!normalizedEmail) {
       Alert.alert('Error', 'Email not found. Please try again');
       navigation.navigate('AskForEmail');
       return;
@@ -87,7 +80,7 @@ export const RegisterOTPVerification = ({ navigation, route }: OTPVerificationPr
     }
 
     verifyOTP(
-      { email, otp: otpString },
+      { email: normalizedEmail, otp: otpString },
       {
         onSuccess: (data) => {
           if (!data?.data?.token) {
@@ -95,7 +88,7 @@ export const RegisterOTPVerification = ({ navigation, route }: OTPVerificationPr
             return;
           }
           tokenManager.setToken(data.data.token);
-          navigation.navigate('SetAccountPassword', { email });
+          navigation.navigate('SetAccountPassword', { email: normalizedEmail });
         },
         onError: (error) => {
           Alert.alert('Error', error.message);

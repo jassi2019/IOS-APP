@@ -7,8 +7,10 @@ const registrationOTPVerificationV1 = async (req, res, next) => {
   try {
     const { email, otp } = req.body;
 
+    const normalizedEmail = String(email || "").trim().toLowerCase();
+
     const otpDoc = await Otp.findOne({
-      where: { email, otp, type: OTP_TYPES.REGISTRATION },
+      where: { email: normalizedEmail, otp, type: OTP_TYPES.REGISTRATION },
     });
 
     if (!otpDoc) {
@@ -22,17 +24,14 @@ const registrationOTPVerificationV1 = async (req, res, next) => {
     await otpDoc.destroy();
 
     const userDoc = await User.create({
-      email: email.toLowerCase(),
-      name: email,
+      email: normalizedEmail,
+      name: normalizedEmail,
       password: await hashPassword(Math.random().toString(36).slice(-8)),
     });
 
     const token = generateJWT({ userId: userDoc.id });
 
-    return res.status(201).json({
-      message: "OTP sent to email",
-      data: { token },
-    });
+    return res.status(201).json({ message: "OTP verified", data: { token } });
   } catch (error) {
     next(error);
   }

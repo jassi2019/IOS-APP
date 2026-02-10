@@ -2,10 +2,11 @@ import { Header } from '@/components/Header/Header';
 import PlatformWebView from '@/components/PlatformWebView';
 import { useAuth } from '@/contexts/AuthContext';
 import { useGetTopicById } from '@/hooks/api/topics';
+import { useContentProtection } from '@/hooks/useContentProtection';
 import { isPaidSubscriptionActive, isPremiumServiceType } from '@/lib/subscription';
 import { TTopic } from '@/types/Topic';
 import React from 'react';
-import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Platform, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 type TopicContentProps = {
@@ -23,6 +24,10 @@ export const TopicContent = ({ navigation, route }: TopicContentProps) => {
   const topicId = topic?.id || '';
   const isPremiumTopic = isPremiumServiceType(topic?.serviceType);
   const hasPremium = isPaidSubscriptionActive(user?.subscription);
+
+  // Protect lesson content from screenshots / screen recordings (best-effort).
+  // NOTE: Web cannot be reliably protected, so keep this native-only.
+  useContentProtection({ enabled: Platform.OS !== 'web', key: 'topic-content', appSwitcherBlurIntensity: 0.65 });
 
   const {
     data: topicResponse,
@@ -168,6 +173,7 @@ export const TopicContent = ({ navigation, route }: TopicContentProps) => {
       <PlatformWebView
         source={webViewSource}
         style={{ flex: 1 }}
+        protectedContent={true}
       />
     </SafeAreaView>
   );

@@ -28,7 +28,8 @@ services:
     depends_on:
       - postgres
     ports:
-      - "8001:8000"
+      # Avoid collisions with other local stacks; host port 8001 is often already in use.
+      - "8003:8000"
 
 volumes:
   postgres_data:

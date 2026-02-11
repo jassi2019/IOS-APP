@@ -20,9 +20,10 @@ const pinoLogger = pinoHttp({
   logger,
 });
 
-// Apple App Store receipts can be larger than the default 100kb body limit.
-app.use(express.json({ limit: "2mb" }));
-app.use(express.urlencoded({ extended: true, limit: "2mb" }));
+const requestBodyLimit = process.env.REQUEST_BODY_LIMIT || "10mb";
+// Receipts and profile image payloads can exceed the default 100kb body size.
+app.use(express.json({ limit: requestBodyLimit }));
+app.use(express.urlencoded({ extended: true, limit: requestBodyLimit }));
 app.use(cors());
 app.use(pinoLogger);
 

@@ -57,6 +57,7 @@ export const Profile = ({ navigation }: AccountProps) => {
     const seed = index + 1;
     return `https://api.dicebear.com/7.x/avataaars/png?seed=${seed}`;
   });
+  const MAX_PROFILE_IMAGE_BYTES = 1.5 * 1024 * 1024; // 1.5 MB
 
   if (isGuest) {
     return (
@@ -141,7 +142,7 @@ export const Profile = ({ navigation }: AccountProps) => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      quality: 0.6,
+      quality: 0.4,
       base64: true,
     });
 
@@ -155,7 +156,19 @@ export const Profile = ({ navigation }: AccountProps) => {
       return;
     }
 
-    const dataUri = `data:image/jpeg;base64,${asset.base64}`;
+    const estimatedBytes = Math.ceil((asset.base64.length * 3) / 4);
+    const assetBytes = asset.fileSize || estimatedBytes;
+    if (assetBytes > MAX_PROFILE_IMAGE_BYTES) {
+      Alert.alert(
+        'Image Too Large',
+        'Please choose a smaller image (max 1.5 MB) to avoid upload errors.'
+      );
+      return;
+    }
+
+    const mimeType =
+      asset.mimeType && typeof asset.mimeType === 'string' ? asset.mimeType : 'image/jpeg';
+    const dataUri = `data:${mimeType};base64,${asset.base64}`;
     handleAvatarSelect(dataUri);
   };
 

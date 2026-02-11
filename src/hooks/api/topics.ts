@@ -34,7 +34,8 @@ const markTopicAsLastRead = (topicId: string): TApiPromise<TTopic> => {
 };
 
 const getLastReadTopic = (): TApiPromise<TLastRead> => {
-  return api.get(`/api/v1/lastreads`);
+  // Non-critical read; if backend is slow/unavailable, don't create noisy retries.
+  return api.get(`/api/v1/lastreads`, { skipRetry: true, suppressErrorLogging: true });
 };
 
 export const useGetTopicsByChapterIdAndSubjectId = (

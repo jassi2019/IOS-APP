@@ -12,12 +12,15 @@ const updateV1 = async (req, res, next) => {
     }
 
     const doc = await User.findByPk(userId);
+    if (!doc) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
     if (name) {
       doc.name = name;
     }
 
-    if (bio) {
+    if (bio !== undefined) {
       doc.bio = bio;
     }
 

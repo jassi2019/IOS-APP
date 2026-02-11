@@ -21,7 +21,10 @@ const updateUser = (
     profilePicture: string | null;
   }>
 ): TApiPromise<TUser> => {
-  return api.put(`/api/v1/users/${data.id}`, data);
+  return api.put(`/api/v1/users/${data.id}`, data, {
+    // Avoid retry storm for user profile/password mutations.
+    skipRetry: true,
+  });
 };
 
 export const useGetProfile = (options?: TQueryOpts<TUser>) => {

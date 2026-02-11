@@ -74,7 +74,7 @@ export const Home = ({ navigation }: HomeScreenProps) => {
     error: favoritesError,
   } = useGetFavorites({ enabled: !isGuest });
   const { data: lastReadTopic, isLoading: lastReadTopicLoading } = useGetLastReadTopic({
-    enabled: !isGuest,
+    enabled: !isGuest && !!user?.id,
   });
   const { data: freeTopics, isLoading: freeTopicsLoading } = useGetFreeTopics({
     enabled: !isGuest,

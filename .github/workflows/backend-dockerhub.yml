@@ -37,6 +37,19 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME || secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN || secrets.DOCKER_PASSWORD }}
 
+      - name: Resolve image repository
+        id: image-meta
+        shell: bash
+        run: |
+          USERNAME="${{ secrets.DOCKERHUB_USERNAME || secrets.DOCKER_USERNAME }}"
+          IMAGE_REPO="${{ secrets.DOCKERHUB_REPOSITORY }}"
+          if [ -z "$IMAGE_REPO" ]; then
+            IMAGE_REPO="${USERNAME}/apps"
+          fi
+          IMAGE_REPO="$(echo "$IMAGE_REPO" | tr '[:upper:]' '[:lower:]')"
+          echo "image_repo=$IMAGE_REPO" >> "$GITHUB_OUTPUT"
+          echo "Using image repository: $IMAGE_REPO"
+
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
@@ -44,5 +57,5 @@ jobs:
           file: backend-main/Dockerfile
           push: true
           tags: |
-            kartarenterprises/apps:tyari-neet-ki-backend-release1
-            kartarenterprises/apps:tyari-neet-ki-backend-${{ github.sha }}
+            ${{ steps.image-meta.outputs.image_repo }}:tyari-neet-ki-backend-release1
+            ${{ steps.image-meta.outputs.image_repo }}:tyari-neet-ki-backend-${{ github.sha }}

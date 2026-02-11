@@ -1,6 +1,6 @@
 services:
   api:
-    image: kartarenterprises/apps:tyari-neet-ki-backend-release1
+    image: ${BACKEND_IMAGE:-kartarenterprises/apps:tyari-neet-ki-backend-release1}
     pull_policy: always
     restart: unless-stopped
     env_file:

@@ -2,7 +2,7 @@
 
 Your production API (`https://api.taiyarineetki.com`) is running via Docker Compose using this image:
 
-- `kartarenterprises/apps:tyari-neet-ki-backend-release1` (see `backend-main/docker-compose.yml`)
+- `BACKEND_IMAGE` from server env (fallback: `kartarenterprises/apps:tyari-neet-ki-backend-release1`)
 
 If the app shows `Cannot POST /api/v1/subscriptions/iap/apple`, it means production is still on an older backend image that does not include the Apple IAP endpoint.
 
@@ -10,14 +10,14 @@ If the app shows `Cannot POST /api/v1/subscriptions/iap/apple`, it means product
 
 Prerequisites:
 - Docker installed on the machine doing the build (your server or a CI runner).
-- Push access to the Docker Hub repo `kartarenterprises/apps`.
+- Push access to your Docker Hub repo.
 
 Build and push (from the repo root):
 
 ```bash
 cd backend-main
-docker build -t kartarenterprises/apps:tyari-neet-ki-backend-release1 .
-docker push kartarenterprises/apps:tyari-neet-ki-backend-release1
+docker build -t <your-dockerhub-username>/apps:tyari-neet-ki-backend-release1 .
+docker push <your-dockerhub-username>/apps:tyari-neet-ki-backend-release1
 ```
 
 Then, on the server where Docker Compose runs:
@@ -45,11 +45,14 @@ Steps:
 1. In GitHub repo settings, add secrets:
    - `DOCKERHUB_USERNAME`
    - `DOCKERHUB_TOKEN`
+   - `DOCKERHUB_REPOSITORY` (optional, example: `jassi2019/apps`)
 2. Push to `main` (or run the workflow manually from the Actions tab).
 3. On the server, run:
 
 ```bash
 cd /path/to/backend-main
+# set once (or put into .env used by docker compose)
+export BACKEND_IMAGE=<your-dockerhub-username>/apps:tyari-neet-ki-backend-release1
 docker compose pull api
 docker compose up -d --force-recreate api
 ```
@@ -63,4 +66,3 @@ In production, ensure `backend-main/.env` contains:
 Apple IAP verification:
 - `APPLE_SHARED_SECRET` (only required for auto-renewable subscriptions)
 - `APPLE_BUNDLE_ID` (recommended)
-

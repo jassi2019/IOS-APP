@@ -190,6 +190,7 @@ api.interceptors.response.use(
     const config = error.config as ExtendedAxiosRequestConfig;
     const metadata = config?._metadata as RequestMetadata;
     const suppressErrorLogging = !!config?.suppressErrorLogging;
+    const statusCode = error.response?.status;
 
     // Log error details
     if (metadata && !suppressErrorLogging) {
@@ -202,6 +203,15 @@ api.interceptors.response.use(
         code: error.code,
         status: error.response?.status,
       });
+    }
+
+    // For expired/invalid auth sessions, don't retry and clear local token.
+    if (statusCode === 401) {
+      await tokenManager.clearToken();
+      requestDeduplicator.clear();
+
+      const appError = handleError(error, 'API Request', { silent: suppressErrorLogging });
+      return Promise.reject(appError);
     }
 
     // Check if retry is disabled for this request

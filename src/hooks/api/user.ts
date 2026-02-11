@@ -4,7 +4,11 @@ import { TUser } from '@/types/User';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
 const getProfile = (): TApiPromise<TUser> => {
-  return api.get('/api/v1/users/me');
+  return api.get('/api/v1/users/me', {
+    // On expired/stale sessions, avoid retry storms and noisy logs in UI.
+    skipRetry: true,
+    suppressErrorLogging: true,
+  });
 };
 
 const updateUser = (

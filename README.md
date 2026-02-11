@@ -1,4 +1,4 @@
-# mobile-app-main
+# Tyari-neet-ios
 
 ## Automated migration & linting
 

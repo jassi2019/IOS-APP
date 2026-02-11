@@ -3,7 +3,7 @@ import { useLogin } from '@/hooks/api/auth';
 import { useGetProfile } from '@/hooks/api/user';
 import tokenManager from '@/lib/tokenManager';
 import { Ionicons } from '@expo/vector-icons';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -23,19 +23,10 @@ export const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const { mutate: login, isSuccess, isPending } = useLogin();
-  const { data: profileData, isLoading } = useGetProfile({
-    enabled: isSuccess && !!tokenManager.getToken(),
-  });
+  const { mutate: login, isPending } = useLogin();
+  const { refetch: getProfile } = useGetProfile({ enabled: false });
 
   const { setUser } = useAuth();
-
-  useEffect(() => {
-    if (isSuccess && !isLoading && profileData?.data) {
-      console.log('✅ Login Success - Setting user:', profileData.data);
-      setUser(profileData.data);
-    }
-  }, [isSuccess, isLoading, profileData?.data, setUser]);
 
   const handleLogin = async () => {
     const normalizedEmail = String(email || '').trim();
@@ -49,14 +40,24 @@ export const Login = ({ navigation }: any) => {
       { email: normalizedEmail, password },
       {
         onSuccess: async (data: any) => {
-          console.log('✅ Login API Success:', data);
-          await tokenManager.setToken(data?.data?.token || '');
-          console.log('✅ Token saved, fetching profile...');
+          const token = data?.data?.token || '';
+          if (!token) {
+            Alert.alert('Login Error', 'Token not received from server.');
+            return;
+          }
+
+          await tokenManager.setToken(token);
+
+          try {
+            const { data: profile } = await getProfile();
+            if (profile?.data) {
+              setUser(profile.data);
+            }
+          } catch {
+            // Keep session active via token; profile can sync on next request.
+          }
         },
         onError: (error: any) => {
-          console.error('❌ Login Error:', error);
-
-          // Handle different error types
           let errorMessage = 'Login failed. Please try again.';
 
           if (error?.code === 'TIMEOUT') {
@@ -107,15 +108,12 @@ export const Login = ({ navigation }: any) => {
           resizeMode="cover"
         >
           <View style={styles.content}>
-            {/* Title */}
             <View style={styles.titleContainer}>
               <Text style={styles.title}>Welcome to{'\n'}Taiyari NEET ki</Text>
             </View>
 
-            {/* Login text */}
             <Text style={styles.subtitle}>Please enter your credentials</Text>
 
-            {/* Input fields */}
             <View style={styles.inputContainer}>
               <TextInput
                 style={styles.input}
@@ -144,13 +142,11 @@ export const Login = ({ navigation }: any) => {
                 </TouchableOpacity>
               </View>
 
-              {/* Forgot Password Link */}
               <TouchableOpacity onPress={handleForgotPassword} style={styles.forgotPassword}>
                 <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
               </TouchableOpacity>
             </View>
 
-            {/* Login Button */}
             <TouchableOpacity onPress={handleLogin} style={styles.loginButton} disabled={isPending}>
               {isPending ? (
                 <ActivityIndicator color="white" />
@@ -159,7 +155,6 @@ export const Login = ({ navigation }: any) => {
               )}
             </TouchableOpacity>
 
-            {/* Register Link */}
             <View style={styles.registerContainer}>
               <Text style={styles.registerText}>Don't have an account?</Text>
               <TouchableOpacity onPress={handleRegister} style={styles.registerLink}>

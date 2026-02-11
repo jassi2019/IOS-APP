@@ -10,8 +10,7 @@ export const getPlanAppleProductId = (plan?: PlanLike | null): string | null => 
   if (explicit) {
     // Backward-compat: earlier seeds used bundle-like IDs.
     if (explicit === 'com.taiyarineetki.educationapp.neet2026') return 'neet_2026_plan';
-    // 2027 is intentionally NOT auto-mapped unless explicitly configured.
-    if (explicit === 'com.taiyarineetki.educationapp.neet2027') return null;
+    if (explicit === 'com.taiyarineetki.educationapp.neet2027') return 'neet_2027_plan';
     return explicit;
   }
 
@@ -20,6 +19,7 @@ export const getPlanAppleProductId = (plan?: PlanLike | null): string | null => 
 
   const lowered = name.toLowerCase();
   if (lowered.includes('neet') && lowered.includes('2026')) return 'neet_2026_plan';
+  if (lowered.includes('neet') && lowered.includes('2027')) return 'neet_2027_plan';
 
   return null;
 };

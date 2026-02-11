@@ -3,13 +3,24 @@ import { TApiPromise, TMutationOpts } from '@/types/api';
 import { useMutation } from '@tanstack/react-query';
 import * as Device from 'expo-device';
 
-const register = (data: {
+const AUTH_REQUEST_CONFIG = {
+  timeout: 30000,
+};
+
+type RegisterInput = {
   email: string;
   password: string;
   profilePicture: string;
-}): TApiPromise<{ token: string }> => {
-  return api.post('/api/v1/auth/register', data, {
+  verificationToken?: string;
+};
+
+const register = (data: RegisterInput): TApiPromise<{ token: string }> => {
+  const { verificationToken, ...payload } = data;
+
+  return api.post('/api/v1/auth/register', payload, {
+    ...AUTH_REQUEST_CONFIG,
     headers: {
+      ...(verificationToken ? { Authorization: `Bearer ${verificationToken}` } : {}),
       'device-name': Device.deviceName,
       'device-id': Device.modelId || 'unknown',
     },
@@ -17,18 +28,19 @@ const register = (data: {
 };
 
 const getRegistrationOTP = (email: string): TApiPromise<void> => {
-  return api.post('/api/v1/auth/register/email/verification', { email });
+  return api.post('/api/v1/auth/register/email/verification', { email }, AUTH_REQUEST_CONFIG);
 };
 
 const verifyRegistrationOTP = (data: {
   email: string;
   otp: string;
 }): TApiPromise<{ token: string }> => {
-  return api.post('/api/v1/auth/register/otp/verification', data);
+  return api.post('/api/v1/auth/register/otp/verification', data, AUTH_REQUEST_CONFIG);
 };
 
 const login = (data: { email: string; password: string }): TApiPromise<{ token: string }> => {
   return api.post('/api/v1/auth/login', data, {
+    ...AUTH_REQUEST_CONFIG,
     headers: {
       'device-name': Device.deviceName,
       'device-id': Device.modelId || 'unknown',
@@ -37,19 +49,29 @@ const login = (data: { email: string; password: string }): TApiPromise<{ token: 
 };
 
 const requestPasswordReset = (email: string): TApiPromise<void> => {
-  return api.post('/api/v1/auth/reset/password/email/verification', { email });
+  return api.post('/api/v1/auth/reset/password/email/verification', { email }, AUTH_REQUEST_CONFIG);
 };
 
 const verifyPasswordResetOTP = (data: {
   email: string;
   otp: string;
 }): TApiPromise<{ token: string }> => {
-  return api.post('/api/v1/auth/reset/password/otp/verification', data);
+  return api.post('/api/v1/auth/reset/password/otp/verification', data, AUTH_REQUEST_CONFIG);
 };
 
-const resetPassword = (data: { password: string; confirmPassword: string }): TApiPromise<void> => {
-  return api.post('/api/v1/auth/reset/password', data, {
+type ResetPasswordInput = {
+  password: string;
+  confirmPassword: string;
+  resetToken?: string;
+};
+
+const resetPassword = (data: ResetPasswordInput): TApiPromise<{ token: string }> => {
+  const { resetToken, ...payload } = data;
+
+  return api.post('/api/v1/auth/reset/password', payload, {
+    ...AUTH_REQUEST_CONFIG,
     headers: {
+      ...(resetToken ? { Authorization: `Bearer ${resetToken}` } : {}),
       'device-name': Device.deviceName,
       'device-id': Device.modelId || 'unknown',
     },
@@ -58,12 +80,12 @@ const resetPassword = (data: { password: string; confirmPassword: string }): TAp
 
 export const useRegister = (
   options?: TMutationOpts<
-    { email: string; password: string; profilePicture: string },
+    RegisterInput,
     { token: string }
   >
 ) => {
   return useMutation({
-    mutationFn: (data: { email: string; password: string; profilePicture: string }) =>
+    mutationFn: (data: RegisterInput) =>
       register({
         ...data,
         profilePicture: `https://avatar.iran.liara.run/public/${
@@ -116,10 +138,10 @@ export const useVerifyPasswordResetOTP = (
 };
 
 export const useResetPassword = (
-  options?: TMutationOpts<{ password: string; confirmPassword: string }, void>
+  options?: TMutationOpts<ResetPasswordInput, { token: string }>
 ) => {
   return useMutation({
-    mutationFn: (data: { password: string; confirmPassword: string }) => resetPassword(data),
+    mutationFn: (data: ResetPasswordInput) => resetPassword(data),
     ...options,
   });
 };

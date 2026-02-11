@@ -26,7 +26,9 @@ const authMiddleware = async (req, res, next) => {
       return next();
     }
 
-    if (req.path !== "/register") {
+    // Registration + password reset use short-lived OTP JWTs before session exists.
+    const skipSessionCheckPaths = ["/register", "/reset/password"];
+    if (!skipSessionCheckPaths.includes(req.path)) {
       const session = await Session.findOne({
         where: {
           userId: user.id,

@@ -41,7 +41,7 @@ const Privacy = ({ navigation }: { navigation: any }) => {
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
         <View style={[styles.content, Platform.OS === 'web' && styles.contentWeb]}>
           <Text style={styles.title}>Privacy Policy</Text>
-          <Text style={styles.lastUpdated}>Last Updated: January 27, 2025</Text>
+          <Text style={styles.lastUpdated}>Last Updated: February 11, 2026</Text>
 
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>1. Introduction</Text>
@@ -57,11 +57,9 @@ const Privacy = ({ navigation }: { navigation: any }) => {
             <Text style={styles.sectionTitle}>2. Information We Collect</Text>
             <Text style={styles.paragraph}>We collect the following types of information:</Text>
             <View style={styles.bullets}>
-              <Bullet>
-                Personal Information: Name, email address, phone number, and academic history
-              </Bullet>
-              <Bullet>Usage Data: Study patterns, test scores, and platform interaction statistics</Bullet>
-              <Bullet>Device Information: Device type, operating system, and IP address</Bullet>
+              <Bullet>Personal Information: Name, email address, and profile details</Bullet>
+              <Bullet>Usage Data: Study progress, topic completion, and in-app activity</Bullet>
+              <Bullet>Device Information: Device model, OS, app version, and IP address</Bullet>
               <Bullet>Account Information: Profile details you provide in the app</Bullet>
             </View>
           </View>
@@ -74,6 +72,7 @@ const Privacy = ({ navigation }: { navigation: any }) => {
               <Bullet>Track your academic progress</Bullet>
               <Bullet>Provide customer support</Bullet>
               <Bullet>Improve our educational services and content</Bullet>
+              <Bullet>Maintain account security and fraud prevention</Bullet>
             </View>
           </View>
 
@@ -98,7 +97,16 @@ const Privacy = ({ navigation }: { navigation: any }) => {
           </View>
 
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>6. Your Rights</Text>
+            <Text style={styles.sectionTitle}>6. Billing and App Store Data</Text>
+            <Text style={styles.paragraph}>
+              On iOS, in-app purchase billing is handled by Apple. We do not store your card or
+              Apple payment credentials. We only receive purchase status and transaction references
+              needed to activate your subscription.
+            </Text>
+          </View>
+
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>7. Your Rights</Text>
             <Text style={styles.paragraph}>You have the right to:</Text>
             <View style={styles.bullets}>
               <Bullet>Access your personal information</Bullet>
@@ -109,16 +117,16 @@ const Privacy = ({ navigation }: { navigation: any }) => {
           </View>
 
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>7. Contact Us</Text>
+            <Text style={styles.sectionTitle}>8. Contact Us</Text>
             <Text style={styles.paragraph}>
               If you have any questions about this Privacy Policy or our practices, please contact us
               at:{'\n'}
-              Email: privacy@taiyarineetki.com{'\n'}
+              Email: support@taiyarineetki.com{'\n'}
             </Text>
           </View>
 
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>8. Changes to This Policy</Text>
+            <Text style={styles.sectionTitle}>9. Changes to This Policy</Text>
             <Text style={styles.paragraph}>
               We may update this Privacy Policy from time to time. We will notify you of any changes
               by posting the new Privacy Policy on this page and updating the "Last Updated" date at

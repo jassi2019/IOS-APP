@@ -1,6 +1,7 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { useRegister } from '@/hooks/api/auth';
 import { useGetProfile } from '@/hooks/api/user';
+import tokenManager from '@/lib/tokenManager';
 import { ChevronLeft, Eye, EyeOff, Lock } from 'lucide-react-native';
 import React, { useState } from 'react';
 import {
@@ -26,6 +27,7 @@ interface RegisterProps {
 
 export const SetAccountPassword = ({ navigation, route }: RegisterProps) => {
   const { email } = route.params;
+  const verificationToken = route?.params?.verificationToken;
   const insets = useSafeAreaInsets();
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -46,6 +48,13 @@ export const SetAccountPassword = ({ navigation, route }: RegisterProps) => {
       return;
     }
 
+    const normalizedVerificationToken = String(verificationToken || '').trim();
+    if (!normalizedVerificationToken) {
+      Alert.alert('Error', 'Verification expired. Please verify OTP again.');
+      navigation.navigate('SetEmail');
+      return;
+    }
+
     if (password !== confirmPassword) {
       Alert.alert('Error', 'Passwords do not match.');
       return;
@@ -60,20 +69,27 @@ export const SetAccountPassword = ({ navigation, route }: RegisterProps) => {
       {
         email: normalizedEmail,
         password,
+        verificationToken: normalizedVerificationToken,
         profilePicture: `https://avatar.iran.liara.run/public/${Math.floor(Math.random() * 100) + 1
           }`,
       },
       {
-        onSuccess: async () => {
+        onSuccess: async (res: any) => {
           try {
+            const token = res?.data?.token;
+            if (token) {
+              await tokenManager.setToken(token);
+            }
             const { data: profileData } = await getProfile();
             if (profileData && profileData.data) {
               setUser(profileData.data);
             } else {
-              Alert.alert('Error', 'Failed to fetch profile data');
+              Alert.alert('Account created', 'Please login once to sync profile.');
+              navigation.navigate('Login');
             }
           } catch (err) {
-            Alert.alert('Error', 'Failed to fetch profile data');
+            Alert.alert('Account created', 'Please login once to continue.');
+            navigation.navigate('Login');
           }
         },
         onError: (error: any) => {

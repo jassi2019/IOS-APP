@@ -20,6 +20,7 @@ module.exports = {
   SMTP_PASSWORD: process.env.SMTP_PASSWORD,
   SMTP_FROM: process.env.SMTP_FROM,
   SMTP_SECURE: process.env.SMTP_SECURE,
+  SMTP_TIMEOUT_MS: process.env.SMTP_TIMEOUT_MS,
   DEVELOPER_EMAILS: process.env.DEVELOPER_EMAILS,
   SWAGGER_HOST: process.env.SWAGGER_HOST,
   CANVA_AUTH_REDIRECT_URI: process.env.CANVA_AUTH_REDIRECT_URI,

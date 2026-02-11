@@ -2,6 +2,7 @@ const { Op } = require("sequelize");
 const axios = require("axios");
 const { URLSearchParams } = require("url");
 const { CanvaOauth, Topic } = require("../models");
+const { SERVICE_TYPES } = require("../constants");
 const {
   CANVA_AUTH_REDIRECT_URI,
   CANVA_CLIENT_ID,
@@ -125,15 +126,59 @@ const renewDesignViewURL = async () => {
       return;
     }
 
-    for (const doc of docs) {
-      const { contentId } = doc;
-      const {
-        design: { thumbnail },
-      } = await getDesign(contentId);
+    const freeTopicByChapterId = new Map();
+    const freeTopicBySubjectId = new Map();
 
-      await doc.update({
-        contentThumbnail: thumbnail.url,
-      });
+    for (const doc of docs) {
+      if (doc.serviceType !== SERVICE_TYPES.FREE) continue;
+      if (!freeTopicByChapterId.has(doc.chapterId)) {
+        freeTopicByChapterId.set(doc.chapterId, doc);
+      }
+      if (!freeTopicBySubjectId.has(doc.subjectId)) {
+        freeTopicBySubjectId.set(doc.subjectId, doc);
+      }
+    }
+
+    const isSyntheticContentId = (value) =>
+      typeof value === "string" &&
+      (value.includes("_premium") || value.includes("_chapter_"));
+
+    for (const doc of docs) {
+      try {
+        const fallbackTopic =
+          freeTopicByChapterId.get(doc.chapterId) ||
+          freeTopicBySubjectId.get(doc.subjectId) ||
+          null;
+
+        let sourceContentId = doc.contentId;
+        if (isSyntheticContentId(sourceContentId) && fallbackTopic?.contentId) {
+          sourceContentId = fallbackTopic.contentId;
+        }
+
+        if (!sourceContentId || typeof sourceContentId !== "string") {
+          continue;
+        }
+
+        const {
+          design: { thumbnail },
+        } = await getDesign(sourceContentId);
+
+        const nextValues = {
+          contentThumbnail: thumbnail.url,
+        };
+
+        if (sourceContentId !== doc.contentId) {
+          nextValues.contentId = sourceContentId;
+        }
+
+        await doc.update(nextValues);
+      } catch (topicError) {
+        console.error("Failed to renew design view URL for topic", {
+          topicId: doc.id,
+          contentId: doc.contentId,
+          error: topicError?.message || String(topicError),
+        });
+      }
     }
 
     console.log("All design view URLs renewed successfully");

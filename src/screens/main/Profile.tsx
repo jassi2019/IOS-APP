@@ -405,6 +405,45 @@ export const Profile = ({ navigation }: AccountProps) => {
             </View>
           )}
 
+          <View style={styles.infoSection}>
+            <Text style={styles.sectionTitle}>Information</Text>
+            <View style={styles.settingsCard}>
+              <TouchableOpacity style={styles.infoItem} onPress={() => navigation.navigate('AboutUs')}>
+                <View style={styles.settingsItemLeft}>
+                  <MaterialIcons name="info-outline" size={20} color="#4A635D" />
+                  <Text style={styles.settingsItemText}>About Us</Text>
+                </View>
+                <ChevronRight size={20} color="#4A635D" />
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.infoItem} onPress={() => navigation.navigate('Privacy')}>
+                <View style={styles.settingsItemLeft}>
+                  <MaterialIcons name="privacy-tip" size={20} color="#4A635D" />
+                  <Text style={styles.settingsItemText}>Privacy Policy</Text>
+                </View>
+                <ChevronRight size={20} color="#4A635D" />
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.infoItem} onPress={() => navigation.navigate('ContactUs')}>
+                <View style={styles.settingsItemLeft}>
+                  <MaterialIcons name="mail-outline" size={20} color="#4A635D" />
+                  <Text style={styles.settingsItemText}>Contact Us</Text>
+                </View>
+                <ChevronRight size={20} color="#4A635D" />
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={[styles.infoItem, styles.infoItemNoBorder]}
+                onPress={() => navigation.navigate('RefundPolicy')}
+              >
+                <View style={styles.settingsItemLeft}>
+                  <MaterialIcons name="request-quote" size={20} color="#4A635D" />
+                  <Text style={styles.settingsItemText}>Refund Policy</Text>
+                </View>
+                <ChevronRight size={20} color="#4A635D" />
+              </TouchableOpacity>
+            </View>
+          </View>
 
           {/* Settings Section */}
           <View style={styles.settingsSection}>
@@ -837,6 +876,21 @@ const styles = StyleSheet.create({
     color: '#111827',
     fontSize: 16,
     fontWeight: '800',
+  },
+  infoSection: {
+    paddingHorizontal: 24,
+    marginTop: 24,
+  },
+  infoItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#F3F4F6',
+  },
+  infoItemNoBorder: {
+    borderBottomWidth: 0,
   },
   settingsSection: {
     paddingHorizontal: 24,

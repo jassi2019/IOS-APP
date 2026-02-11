@@ -1,6 +1,7 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { useResetPassword } from '@/hooks/api/auth';
 import { useGetProfile } from '@/hooks/api/user';
+import tokenManager from '@/lib/tokenManager';
 import React, { useState } from 'react';
 import {
   ActivityIndicator,
@@ -23,18 +24,26 @@ interface RegisterProps {
 
 export const ResetPassword = ({ navigation, route }: RegisterProps) => {
   const { email } = route.params;
+  const resetToken = route?.params?.resetToken;
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const { mutate: resetPassword, isPending, isSuccess } = useResetPassword();
+  const { mutate: resetPassword, isPending } = useResetPassword();
   const { setUser } = useAuth();
-  const { data, isLoading, error } = useGetProfile({
-    enabled: !!isSuccess,
+  const { refetch: getProfile } = useGetProfile({
+    enabled: false,
   });
 
   const handleSubmit = async () => {
     if (!email) {
       Alert.alert('Error', 'Email not found. Please try again.');
+      return;
+    }
+
+    const normalizedResetToken = String(resetToken || '').trim();
+    if (!normalizedResetToken) {
+      Alert.alert('Error', 'Session expired. Please request OTP again.');
+      navigation.navigate('AskForEmail');
       return;
     }
 
@@ -52,19 +61,38 @@ export const ResetPassword = ({ navigation, route }: RegisterProps) => {
       {
         password,
         confirmPassword,
+        resetToken: normalizedResetToken,
       },
       {
-        onSuccess: () => {
-          if (data?.data && !isLoading) {
-            setUser(data?.data);
-            return;
-          } else if (error) {
-            Alert.alert('Failed to fetch profile');
+        onSuccess: async (response: any) => {
+          const nextToken = String(response?.data?.token || '').trim();
+          if (!nextToken) {
+            Alert.alert('Password updated', 'Please login with your new password.');
+            navigation.navigate('Login');
             return;
           }
+
+          await tokenManager.setToken(nextToken);
+          try {
+            const { data: profile } = await getProfile();
+            if (profile?.data) {
+              await setUser(profile.data);
+              return;
+            }
+          } catch {
+            // fallback below
+          }
+
+          Alert.alert('Password updated', 'Please login with your new password.');
+          navigation.navigate('Login');
         },
-        onError: (error) => {
-          Alert.alert('Error', error.message);
+        onError: (error: any) => {
+          const message =
+            error?.userMessage ||
+            error?.details?.data?.message ||
+            error?.message ||
+            'Unable to reset password.';
+          Alert.alert('Error', message);
         },
       }
     );

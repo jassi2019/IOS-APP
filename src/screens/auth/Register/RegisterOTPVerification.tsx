@@ -1,5 +1,4 @@
 import { useGetRegistrationOTP, useVerifyRegistrationOTP } from '@/hooks/api/auth';
-import tokenManager from '@/lib/tokenManager';
 import { ChevronLeft } from 'lucide-react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import {
@@ -91,15 +90,23 @@ export const RegisterOTPVerification = ({ navigation, route }: OTPVerificationPr
       { email: normalizedEmail, otp: otpString },
       {
         onSuccess: (data) => {
-          if (!data?.data?.token) {
+          const verificationToken = String(data?.data?.token || '').trim();
+          if (!verificationToken) {
             Alert.alert('Error', 'Internal Server Error.');
             return;
           }
-          tokenManager.setToken(data.data.token);
-          navigation.navigate('SetAccountPassword', { email: normalizedEmail });
+          navigation.navigate('SetAccountPassword', {
+            email: normalizedEmail,
+            verificationToken,
+          });
         },
         onError: (error) => {
-          Alert.alert('Error', error.message);
+          const message =
+            (error as any)?.userMessage ||
+            (error as any)?.details?.data?.message ||
+            (error as any)?.message ||
+            'Unable to verify OTP.';
+          Alert.alert('Error', message);
         },
       }
     );

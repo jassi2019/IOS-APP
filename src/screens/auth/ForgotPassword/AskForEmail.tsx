@@ -42,17 +42,26 @@ export const AskForEmail = ({ navigation }: AskForEmailProps) => {
         navigation.navigate('OTPVerification', { email: normalizedEmail });
       },
       onError: (error: any) => {
-        console.error('❌ Password Reset Error:', error);
+        console.error('Password Reset Error:', error);
 
-        // Handle different error types
         let errorMessage = 'Password reset request failed. Please try again.';
 
         if (error?.code === 'TIMEOUT') {
           errorMessage = 'Connection timeout. Please check your internet connection and try again.';
         } else if (error?.code === 'NETWORK_ERROR') {
           errorMessage = 'Unable to connect to server. Please check your internet connection.';
+        } else if (error?.userMessage) {
+          errorMessage = error.userMessage;
+        } else if (error?.details?.data?.message) {
+          errorMessage = error.details.data.message;
         } else if (error?.message) {
           errorMessage = error.message;
+        }
+
+        const normalized = String(errorMessage).toLowerCase();
+        if (normalized.includes('user not found')) {
+          Alert.alert('Account Not Found', 'No account exists with this email. Please sign up first.');
+          return;
         }
 
         Alert.alert('Password Reset Error', errorMessage);
@@ -166,3 +175,4 @@ const styles = StyleSheet.create({
 });
 
 export default AskForEmail;
+

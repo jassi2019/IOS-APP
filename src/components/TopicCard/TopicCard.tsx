@@ -1,5 +1,6 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { useAddToFavorites, useGetFavorites, useRemoveFromFavorites } from '@/hooks/api/favorites';
+import { getRenderableThumbnailUrl } from '@/utils/media';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as React from 'react';
 import {
@@ -38,10 +39,22 @@ const TopicCard = ({
   subjectName,
 }: TopicCardProps) => {
   const { user, isGuest } = useAuth();
+  const [hasImageError, setHasImageError] = React.useState(false);
+  const [isImageLoading, setIsImageLoading] = React.useState(false);
   const { mutate: addToFavorites, isPending: isAddingToFavorites } = useAddToFavorites();
   const { mutate: removeFromFavorites, isPending: isRemovingFromFavorite } =
     useRemoveFromFavorites();
   const { refetch } = useGetFavorites({ enabled: !isGuest });
+
+  const safeThumbnailUrl = React.useMemo(
+    () => getRenderableThumbnailUrl(thumbnailUrl),
+    [thumbnailUrl]
+  );
+
+  React.useEffect(() => {
+    setHasImageError(false);
+    setIsImageLoading(false);
+  }, [safeThumbnailUrl]);
 
   const handleAddToFavorites = () => {
     if (isGuest) {
@@ -83,11 +96,28 @@ const TopicCard = ({
     <TouchableOpacity activeOpacity={0.9} onPress={onPress} style={styles.card}>
       <View style={styles.row}>
         <View style={styles.thumbnailWrapper}>
-          {thumbnailUrl ? (
-            <Image source={{ uri: thumbnailUrl }} style={styles.thumbnail} resizeMode="cover" />
+          {safeThumbnailUrl && !hasImageError ? (
+            <>
+              <Image
+                source={{ uri: safeThumbnailUrl }}
+                style={styles.thumbnail}
+                resizeMode="cover"
+                onLoadStart={() => setIsImageLoading(true)}
+                onLoadEnd={() => setIsImageLoading(false)}
+                onError={() => {
+                  setIsImageLoading(false);
+                  setHasImageError(true);
+                }}
+              />
+              {isImageLoading ? (
+                <View style={styles.thumbnailLoader}>
+                  <ActivityIndicator size="small" color="#6B7280" />
+                </View>
+              ) : null}
+            </>
           ) : (
             <View style={styles.noThumbnailContainer}>
-              <Text style={styles.noThumbnailText}>No Thumbnail</Text>
+              <Text style={styles.noThumbnailText}>Preview Unavailable</Text>
             </View>
           )}
         </View>
@@ -183,6 +213,12 @@ const styles = StyleSheet.create({
   thumbnail: {
     width: '100%',
     height: '100%',
+  },
+  thumbnailLoader: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: '#F3F4F6',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   noThumbnailContainer: {
     width: '100%',

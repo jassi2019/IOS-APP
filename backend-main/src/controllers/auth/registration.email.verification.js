@@ -5,24 +5,15 @@ const env = require("../../config/env");
 const sendMail = require("../../services/mail");
 const { normalizeEmailLower, whereEmailInsensitive } = require("../../utils/email");
 
-const canSendEmail = () =>
-  !!(env.SMTP_HOST && env.SMTP_PORT && env.SMTP_USER && env.SMTP_PASSWORD && env.SMTP_FROM);
-
-const allowDevOtp = () => {
-  const enabled = String(env.ALLOW_DEV_OTP || "").toLowerCase() === "true";
-  const nodeEnv = String(env.NODE_ENV || "").toLowerCase();
-  return enabled && (nodeEnv === "development" || nodeEnv === "test");
-};
-
 const registrationEmailVerificationV1 = async (req, res, next) => {
   try {
     const { email } = req.body;
+    const lowerCaseEmail = normalizeEmailLower(email);
+    const allowDevOtp = String(env.ALLOW_DEV_OTP || "").toLowerCase() === "true";
 
-    if (!email) {
+    if (!lowerCaseEmail) {
       return res.status(400).json({ message: "Email is required" });
     }
-
-    const lowerCaseEmail = normalizeEmailLower(email);
 
     const userDoc = await User.findOne({
       where: whereEmailInsensitive(lowerCaseEmail),
@@ -32,7 +23,7 @@ const registrationEmailVerificationV1 = async (req, res, next) => {
       return res.status(400).json({ message: "Email already exists" });
     }
 
-    // Invalidate any previous OTPs so only the latest OTP works.
+    // Keep a single active OTP per email/type.
     await Otp.destroy({
       where: { email: lowerCaseEmail, type: OTP_TYPES.REGISTRATION },
     });
@@ -44,22 +35,6 @@ const registrationEmailVerificationV1 = async (req, res, next) => {
       type: OTP_TYPES.REGISTRATION,
     });
 
-    // If SMTP isn't configured (common in local dev), don't fail sign-up.
-    // In dev mode, return the OTP so the mobile app can continue.
-    if (!canSendEmail()) {
-      if (allowDevOtp()) {
-        return res.status(201).json({
-          message: "OTP generated (dev)",
-          data: { otp: otpDoc.otp, devOnly: true },
-        });
-      }
-
-      return res.status(503).json({
-        message:
-          "Email service is not configured. Please set SMTP_* env vars or enable ALLOW_DEV_OTP=true for local testing.",
-      });
-    }
-
     try {
       await sendMail({
         to: lowerCaseEmail,
@@ -69,16 +44,17 @@ const registrationEmailVerificationV1 = async (req, res, next) => {
           otp: otpDoc.otp,
         },
       });
-    } catch (e) {
-      if (allowDevOtp()) {
+    } catch (mailError) {
+      if (allowDevOtp) {
         return res.status(201).json({
-          message: "OTP generated (dev)",
-          data: { otp: otpDoc.otp, devOnly: true },
+          message: "OTP generated (dev mode)",
+          data: { otp: otpDoc.otp },
         });
       }
 
+      await otpDoc.destroy();
       return res.status(503).json({
-        message: "Unable to send OTP email. Please try again later.",
+        message: "Email service unavailable. Please try again in a moment.",
       });
     }
 

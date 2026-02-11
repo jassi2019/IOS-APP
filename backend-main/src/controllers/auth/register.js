@@ -22,10 +22,15 @@ const registerV1 = async (req, res, next) => {
 
     const token = generateJWT({ userId: doc.id });
 
+    const deviceName =
+      req.headers["device-name"] || req.body?.deviceName || "unknown-device";
+    const deviceId =
+      req.headers["device-id"] || req.body?.deviceId || "unknown-device-id";
+
     await Session.create({
       userId: doc.id,
-      deviceName: req.headers["device-name"],
-      deviceId: req.headers["device-id"],
+      deviceName,
+      deviceId,
       active: true,
     });
 

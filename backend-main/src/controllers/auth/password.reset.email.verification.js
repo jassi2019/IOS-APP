@@ -5,34 +5,27 @@ const env = require("../../config/env");
 const sendMail = require("../../services/mail");
 const { normalizeEmailLower, whereEmailInsensitive } = require("../../utils/email");
 
-const canSendEmail = () =>
-  !!(env.SMTP_HOST && env.SMTP_PORT && env.SMTP_USER && env.SMTP_PASSWORD && env.SMTP_FROM);
-
-const allowDevOtp = () => {
-  const enabled = String(env.ALLOW_DEV_OTP || "").toLowerCase() === "true";
-  const nodeEnv = String(env.NODE_ENV || "").toLowerCase();
-  return enabled && (nodeEnv === "development" || nodeEnv === "test");
-};
-
 const passwordResetEmailVerificationV1 = async (req, res, next) => {
   try {
     const { email } = req.body;
+    const lowerCaseEmail = normalizeEmailLower(email);
+    const allowDevOtp = String(env.ALLOW_DEV_OTP || "").toLowerCase() === "true";
+    const genericSuccessMessage = "If an account exists for this email, an OTP has been sent.";
 
-    if (!email) {
+    if (!lowerCaseEmail) {
       return res.status(400).json({ message: "Email is required" });
     }
-
-    const lowerCaseEmail = normalizeEmailLower(email);
 
     const userDoc = await User.findOne({
       where: whereEmailInsensitive(lowerCaseEmail),
     });
 
+    // Prevent user enumeration: respond with generic success even if user does not exist.
     if (!userDoc) {
-      return res.status(400).json({ message: "User not found" });
+      return res.status(200).json({ message: genericSuccessMessage, data: null });
     }
 
-    // Invalidate any previous OTPs so only the latest OTP works.
+    // Keep a single active OTP per email/type.
     await Otp.destroy({
       where: { email: lowerCaseEmail, type: OTP_TYPES.PASSWORD_RESET },
     });
@@ -44,20 +37,6 @@ const passwordResetEmailVerificationV1 = async (req, res, next) => {
       type: OTP_TYPES.PASSWORD_RESET,
     });
 
-    if (!canSendEmail()) {
-      if (allowDevOtp()) {
-        return res.status(200).json({
-          message: "OTP generated (dev)",
-          data: { otp: otpDoc.otp, devOnly: true },
-        });
-      }
-
-      return res.status(503).json({
-        message:
-          "Email service is not configured. Please set SMTP_* env vars or enable ALLOW_DEV_OTP=true for local testing.",
-      });
-    }
-
     try {
       await sendMail({
         to: lowerCaseEmail,
@@ -67,20 +46,21 @@ const passwordResetEmailVerificationV1 = async (req, res, next) => {
           otp: otpDoc.otp,
         },
       });
-    } catch (e) {
-      if (allowDevOtp()) {
+    } catch (mailError) {
+      if (allowDevOtp) {
         return res.status(200).json({
-          message: "OTP generated (dev)",
-          data: { otp: otpDoc.otp, devOnly: true },
+          message: genericSuccessMessage,
+          data: { otp: otpDoc.otp },
         });
       }
 
+      await otpDoc.destroy();
       return res.status(503).json({
-        message: "Unable to send password reset OTP email. Please try again later.",
+        message: "Email service unavailable. Please try again in a moment.",
       });
     }
 
-    return res.status(200).json({ message: "OTP sent to email", data: null });
+    return res.status(200).json({ message: genericSuccessMessage, data: null });
   } catch (error) {
     next(error);
   }

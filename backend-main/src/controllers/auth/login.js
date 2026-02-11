@@ -1,20 +1,15 @@
 const { User, Session } = require("../../models");
 const { comparePassword } = require("../../utils/bcrypt");
 const { generateJWT } = require("../../utils/jwt");
-const { normalizeEmailLower, whereEmailInsensitive } = require("../../utils/email");
 
 const loginV1 = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    const lowercaseEmail = normalizeEmailLower(email);
-
-    if (!lowercaseEmail || !password) {
-      return res.status(400).json({ message: "Email and password are required" });
-    }
+    const lowercaseEmail = email.toLowerCase();
 
     const userDoc = await User.findOne({
-      where: whereEmailInsensitive(lowercaseEmail),
+      where: { email: lowercaseEmail },
     });
 
     if (!userDoc) {
@@ -47,10 +42,15 @@ const loginV1 = async (req, res, next) => {
       }
     );
 
+    const deviceName =
+      req.headers["device-name"] || req.body?.deviceName || "unknown-device";
+    const deviceId =
+      req.headers["device-id"] || req.body?.deviceId || "unknown-device-id";
+
     await Session.create({
       userId: userDoc.id,
-      deviceName: req.headers["device-name"],
-      deviceId: req.headers["device-id"],
+      deviceName,
+      deviceId,
       active: true,
     });
 

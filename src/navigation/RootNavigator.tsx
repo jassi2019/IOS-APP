@@ -6,7 +6,7 @@ import { useAuth } from '../contexts/AuthContext';
 
 // Auth Screens
 import AskForEmail from '../screens/auth/ForgotPassword/AskForEmail';
-import OTPVerification from '../screens/auth/ForgotPassword/OTPVerification';
+import OTPVerification from '../screens/auth/ForgotPassword/ForgotOtpVerification';
 import ResetPassword from '../screens/auth/ForgotPassword/ResetPassword';
 import Landing from '../screens/auth/Landing/Landing';
 import Login from '../screens/auth/Login/Login';
@@ -21,6 +21,9 @@ import Payment from '../screens/main/Payment';
 import Plans from '../screens/main/Plans';
 import Privacy from '../screens/main/Privacy';
 import Profile from '../screens/main/Profile';
+import AboutUs from '../screens/main/AboutUs';
+import ContactUs from '../screens/main/ContactUs';
+import RefundPolicy from '../screens/main/RefundPolicy';
 import Subjects from '../screens/main/Subjects';
 import SubscriptionMessage from '../screens/main/SubscriptionMessage';
 import TermsAndConditions from '../screens/main/TermsAndConditions';
@@ -115,6 +118,9 @@ function MainStack() {
       <Stack.Screen name="Plans" component={Plans} />
       <Stack.Screen name="Payment" component={Payment} />
       <Stack.Screen name="SubscriptionMessage" component={SubscriptionMessage} />
+      <Stack.Screen name="AboutUs" component={AboutUs} />
+      <Stack.Screen name="ContactUs" component={ContactUs} />
+      <Stack.Screen name="RefundPolicy" component={RefundPolicy} />
       <Stack.Screen name="Privacy" component={Privacy} />
       <Stack.Screen name="TermsAndConditions" component={TermsAndConditions} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} />
@@ -123,7 +129,7 @@ function MainStack() {
 }
 
 export default function RootNavigator() {
-  const { user, isGuest, isLoading } = useAuth();
+  const { user, isGuest, hasSession, isLoading } = useAuth();
 
   // MOCK MODE: Set to true to bypass authentication and see main content
   // Set to false when backend is ready
@@ -147,7 +153,7 @@ export default function RootNavigator() {
     return <MainStack />;
   }
 
-  if (user || isGuest) {
+  if (user || isGuest || hasSession) {
     console.log('✅ User authenticated or guest - showing MainStack');
     return <MainStack />;
   }

@@ -38,6 +38,18 @@ const shouldBlockNavigation = (url: string): boolean => {
   return false;
 };
 
+const isTopFrameRequest = (req: any): boolean => {
+  // iOS provides `isTopFrame` and `mainDocumentURL`. Android provides `isTopFrame`.
+  if (typeof req?.isTopFrame === 'boolean') return req.isTopFrame;
+
+  const url = String(req?.url || '');
+  const mainDocumentURL = String(req?.mainDocumentURL || '');
+  if (mainDocumentURL) return mainDocumentURL === url;
+
+  // If we can't tell, assume top-frame to keep protection behavior.
+  return true;
+};
+
 const PROTECT_JS = `
 (function () {
   try {
@@ -95,6 +107,10 @@ export default function PlatformWebView({ source, style, protectedContent }: Pro
           protectedContent
             ? (req: any) => {
                 const url = String(req?.url || '');
+                // Important: Allow subresource loads (images/scripts) so embedded lesson
+                // pages (e.g. Canva) don't show broken placeholders. Only gate top-frame
+                // navigations / downloads.
+                if (!isTopFrameRequest(req)) return true;
                 if (shouldBlockNavigation(url)) {
                   Alert.alert('Blocked', 'Downloads are disabled.');
                   return false;

@@ -11,6 +11,7 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -18,7 +19,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface RegisterProps {
   navigation: any;
@@ -28,7 +29,6 @@ interface RegisterProps {
 export const SetAccountPassword = ({ navigation, route }: RegisterProps) => {
   const { email } = route.params;
   const verificationToken = route?.params?.verificationToken;
-  const insets = useSafeAreaInsets();
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -123,113 +123,118 @@ export const SetAccountPassword = ({ navigation, route }: RegisterProps) => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.container}
-      >
-        <ImageBackground
-          source={require('../../../assets/images/background-pattern.png')}
-          style={styles.background}
-          resizeMode="cover"
+    <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={styles.container}
         >
-          {/* Header */}
-          <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              style={styles.backButton}
-            >
-              <ChevronLeft size={24} color="#1e1e1e" />
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.content}>
-            {/* Title Section */}
-            <View style={styles.titleSection}>
-              <Text style={styles.title}>
-                Secure Your{'\n'}Account
-              </Text>
-              <View style={styles.titleUnderline} />
-            </View>
-
-            {/* Subtitle */}
-            <View style={styles.subtitleSection}>
-              <Text style={styles.subtitle}>
-                Set a strong password for your account associated with
-              </Text>
-              <Text style={styles.emailText}>{email}</Text>
-            </View>
-
-            {/* Input fields */}
-            <View style={styles.inputStack}>
-              <View style={styles.inputWrapper}>
-                <Lock size={20} color="#666" style={styles.inputIcon} />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Create Password"
-                  placeholderTextColor="#999"
-                  value={password}
-                  onChangeText={setPassword}
-                  secureTextEntry={!showPassword}
-                />
-                <TouchableOpacity
-                  onPress={() => setShowPassword(!showPassword)}
-                  style={styles.eyeIcon}
-                >
-                  {showPassword ? <EyeOff size={20} color="#666" /> : <Eye size={20} color="#666" />}
-                </TouchableOpacity>
-              </View>
-
-              <View style={styles.inputWrapper}>
-                <Lock size={20} color="#666" style={styles.inputIcon} />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Confirm Password"
-                  placeholderTextColor="#999"
-                  value={confirmPassword}
-                  onChangeText={setConfirmPassword}
-                  secureTextEntry={!showConfirmPassword}
-                />
-                <TouchableOpacity
-                  onPress={() => setShowConfirmPassword(!showConfirmPassword)}
-                  style={styles.eyeIcon}
-                >
-                  {showConfirmPassword ? <EyeOff size={20} color="#666" /> : <Eye size={20} color="#666" />}
-                </TouchableOpacity>
-              </View>
-            </View>
-
-            {/* Submit Button */}
-            <TouchableOpacity
-              onPress={handleSubmit}
-              style={[
-                styles.button,
-                isPending ? styles.buttonDisabled : styles.buttonEnabled
-              ]}
-              disabled={isPending}
-              activeOpacity={0.8}
-            >
-              {isPending ? (
-                <ActivityIndicator color="white" />
-              ) : (
-                <Text style={styles.buttonText}>CREATE ACCOUNT</Text>
-              )}
-            </TouchableOpacity>
-
-            <View style={styles.footer}>
-              <Text style={styles.footerText}>By creating an account, you agree to our </Text>
-              <TouchableOpacity>
-                <Text style={styles.footerLink}>Terms & Conditions</Text>
+          <ImageBackground
+            source={require('../../../assets/images/background-pattern.png')}
+            style={styles.background}
+            resizeMode="cover"
+          >
+            <View style={styles.header}>
+              <TouchableOpacity
+                onPress={() => navigation.goBack()}
+                style={styles.backButton}
+              >
+                <ChevronLeft size={24} color="#1e1e1e" />
               </TouchableOpacity>
             </View>
-          </View>
-        </ImageBackground>
-      </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+
+            <ScrollView
+              contentContainerStyle={styles.content}
+              keyboardShouldPersistTaps="handled"
+              showsVerticalScrollIndicator={false}
+            >
+              <View style={styles.titleSection}>
+                <Text style={styles.title}>
+                  Secure Your{'\n'}Account
+                </Text>
+                <View style={styles.titleUnderline} />
+              </View>
+
+              <View style={styles.subtitleSection}>
+                <Text style={styles.subtitle}>
+                  Set a strong password for your account associated with
+                </Text>
+                <Text style={styles.emailText}>{email}</Text>
+              </View>
+
+              <View style={styles.inputStack}>
+                <View style={styles.inputWrapper}>
+                  <Lock size={20} color="#666" style={styles.inputIcon} />
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Create Password"
+                    placeholderTextColor="#999"
+                    value={password}
+                    onChangeText={setPassword}
+                    secureTextEntry={!showPassword}
+                  />
+                  <TouchableOpacity
+                    onPress={() => setShowPassword(!showPassword)}
+                    style={styles.eyeIcon}
+                  >
+                    {showPassword ? <EyeOff size={20} color="#666" /> : <Eye size={20} color="#666" />}
+                  </TouchableOpacity>
+                </View>
+
+                <View style={styles.inputWrapper}>
+                  <Lock size={20} color="#666" style={styles.inputIcon} />
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Confirm Password"
+                    placeholderTextColor="#999"
+                    value={confirmPassword}
+                    onChangeText={setConfirmPassword}
+                    secureTextEntry={!showConfirmPassword}
+                  />
+                  <TouchableOpacity
+                    onPress={() => setShowConfirmPassword(!showConfirmPassword)}
+                    style={styles.eyeIcon}
+                  >
+                    {showConfirmPassword ? <EyeOff size={20} color="#666" /> : <Eye size={20} color="#666" />}
+                  </TouchableOpacity>
+                </View>
+              </View>
+
+              <TouchableOpacity
+                onPress={handleSubmit}
+                style={[
+                  styles.button,
+                  isPending ? styles.buttonDisabled : styles.buttonEnabled
+                ]}
+                disabled={isPending}
+                activeOpacity={0.8}
+              >
+                {isPending ? (
+                  <ActivityIndicator color="white" />
+                ) : (
+                  <Text style={styles.buttonText}>CREATE ACCOUNT</Text>
+                )}
+              </TouchableOpacity>
+
+              <View style={styles.footer}>
+                <Text style={styles.footerText}>By creating an account, you agree to our </Text>
+                <TouchableOpacity>
+                  <Text style={styles.footerLink}>Terms & Conditions</Text>
+                </TouchableOpacity>
+              </View>
+            </ScrollView>
+          </ImageBackground>
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#FDF6F0',
+  },
   container: {
     flex: 1,
   },
@@ -240,6 +245,7 @@ const styles = StyleSheet.create({
   },
   header: {
     paddingHorizontal: 24,
+    paddingTop: 10,
   },
   backButton: {
     width: 44,
@@ -257,9 +263,10 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   content: {
-    flex: 1,
+    flexGrow: 1,
     paddingHorizontal: 32,
-    paddingTop: 40,
+    paddingTop: 32,
+    paddingBottom: 28,
   },
   titleSection: {
     marginBottom: 32,

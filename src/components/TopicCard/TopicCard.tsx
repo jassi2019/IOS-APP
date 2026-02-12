@@ -91,23 +91,17 @@ const TopicCard = ({
       });
     }
   };
-
+  
   return (
     <TouchableOpacity activeOpacity={0.9} onPress={onPress} style={styles.card}>
       <View style={styles.row}>
         <View style={styles.thumbnailWrapper}>
-          {safeThumbnailUrl && !hasImageError ? (
+          {thumbnailUrl && !hasImageError ? (
             <>
               <Image
-                source={{ uri: safeThumbnailUrl }}
+                source={{ uri: thumbnailUrl }}
                 style={styles.thumbnail}
                 resizeMode="cover"
-                onLoadStart={() => setIsImageLoading(true)}
-                onLoadEnd={() => setIsImageLoading(false)}
-                onError={() => {
-                  setIsImageLoading(false);
-                  setHasImageError(true);
-                }}
               />
               {isImageLoading ? (
                 <View style={styles.thumbnailLoader}>

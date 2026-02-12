@@ -252,7 +252,7 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
 
     try {
       const purchase = await purchaseAppleProduct(appleProductId, storeProduct.type);
-
+      
       await createAppleSubscriptionAsync({
         planId: plan.id,
         productId: purchase.productId,

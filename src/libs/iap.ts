@@ -341,7 +341,8 @@ export async function purchaseAppleProduct(
           } catch {
             try {
               receipt = await IAP.requestReceiptRefreshIOS();
-            } catch {
+            } catch(e) {
+              console.log(e);
               receipt = null;
             }
           }

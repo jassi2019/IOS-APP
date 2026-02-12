@@ -82,23 +82,23 @@ const getExpoMetroHost = (): string | null => {
 };
 
 const resolveBackendUrl = () => {
-  const configuredRaw = (process.env.EXPO_PUBLIC_BACKEND_URL || '').trim();
-  const configured = configuredRaw ? parseUrlSafely(configuredRaw) : null;
-  const metroHost = __DEV__ ? getExpoMetroHost() : null;
+  // const configuredRaw = (process.env.EXPO_PUBLIC_BACKEND_URL || '').trim();
+  // const configured = configuredRaw ? parseUrlSafely(configuredRaw) : null;
+  // const metroHost = __DEV__ ? getExpoMetroHost() : null;
 
-  if (configuredRaw) {
-    return normalizeBaseUrl(configuredRaw);
-  }
+  // if (configuredRaw) {
+  //   return normalizeBaseUrl(configuredRaw);
+  // }
 
-  // No explicit env URL: in dev, infer LAN backend from Metro host.
-  if (__DEV__ && metroHost) {
-    const portFromEnv = configured?.port || DEFAULT_DEV_BACKEND_PORT;
-    const protocol =
-      configured && !isLocalOrPrivateHost(configured.hostname) && configured.protocol === 'https:'
-        ? 'https'
-        : 'http';
-    return normalizeBaseUrl(`${protocol}://${metroHost}:${portFromEnv}`);
-  }
+  // // No explicit env URL: in dev, infer LAN backend from Metro host.
+  // if (__DEV__ && metroHost) {
+  //   const portFromEnv = configured?.port || DEFAULT_DEV_BACKEND_PORT;
+  //   const protocol =
+  //     configured && !isLocalOrPrivateHost(configured.hostname) && configured.protocol === 'https:'
+  //       ? 'https'
+  //       : 'http';
+  //   return normalizeBaseUrl(`${protocol}://${metroHost}:${portFromEnv}`);
+  // }
 
   return normalizeBaseUrl(DEFAULT_BACKEND_URL);
 };

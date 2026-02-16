@@ -89,6 +89,12 @@ export default function PlatformWebView({ source, style, protectedContent }: Pro
   }
 
   try {
+    const isCanvaUri = 'uri' in source && /canva\.com/i.test(source.uri);
+    const canvaCompatibleUserAgent =
+      Platform.OS === 'android'
+        ? 'Mozilla/5.0 (Linux; Android 14; Mobile) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36'
+        : 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1';
+
     // Lazy require so web doesn't import native module
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const { WebView } = require('react-native-webview');
@@ -98,6 +104,17 @@ export default function PlatformWebView({ source, style, protectedContent }: Pro
         source={source as any}
         style={style}
         javaScriptEnabled={true}
+        domStorageEnabled={true}
+        allowsFullscreenVideo={true}
+        startInLoadingState={true}
+        originWhitelist={['*']}
+        mixedContentMode="always"
+        allowFileAccess={true}
+        allowUniversalAccessFromFileURLs={true}
+        thirdPartyCookiesEnabled={true}
+        sharedCookiesEnabled={true}
+        cacheEnabled={true}
+        userAgent={isCanvaUri ? canvaCompatibleUserAgent : undefined}
         injectedJavaScriptBeforeContentLoaded={protectedContent ? PROTECT_JS : undefined}
         injectedJavaScript={protectedContent ? PROTECT_JS : undefined}
         setSupportMultipleWindows={false}

@@ -162,8 +162,12 @@ export const TopicContent = ({ navigation, route }: TopicContentProps) => {
   const effectiveTopic = !isGuest ? topicResponse?.data || topic : topic;
 
   const rawURL = effectiveTopic?.contentURL || '';
+  const canvaURLWithEmbed =
+    rawURL.includes('canva.com') && !/(?:\?|&)embed(?:=|&|$)/i.test(rawURL)
+      ? `${rawURL}${rawURL.includes('?') ? '&' : '?'}embed`
+      : rawURL;
   const webViewSource = rawURL.includes('canva.com')
-    ? { uri: `${rawURL.split('?')[0]}?embed` }
+    ? { uri: canvaURLWithEmbed }
     : { uri: rawURL };
 
   return (

@@ -21,6 +21,21 @@ type TPlanCardProps = {
 
 const INR_SYMBOL = '\u20B9';
 
+const getPlanGstRate = (plan: TPlan): number => {
+  const parsed = Number(plan.gstRate);
+  return Number.isFinite(parsed) ? parsed : 18;
+};
+
+const getPlanTotalAmount = (plan: TPlan): number => {
+  const baseAmount = Number(plan.amount) || 0;
+  const gstRate = getPlanGstRate(plan);
+  return Math.round(baseAmount + (baseAmount * gstRate) / 100);
+};
+
+const formatInr = (amount: number): string => {
+  return `${INR_SYMBOL}${new Intl.NumberFormat('en-IN').format(Math.max(0, Math.round(amount)))}`;
+};
+
 const PlanCard = ({ plan, onSelect, isSelected, iapProduct }: TPlanCardProps) => {
   const features = String(plan.description || '')
     .split('\n')
@@ -38,10 +53,13 @@ const PlanCard = ({ plan, onSelect, isSelected, iapProduct }: TPlanCardProps) =>
     iapProduct?.subscriptionPeriodUnitIOS ?? null
   );
 
+  const totalAmount = getPlanTotalAmount(plan);
+  const gstRate = getPlanGstRate(plan);
+
   const priceText =
     Platform.OS === 'ios'
-      ? iapProduct?.displayPrice || `${INR_SYMBOL}${plan.amount}`
-      : `${INR_SYMBOL}${plan.amount}`;
+      ? iapProduct?.displayPrice || formatInr(totalAmount)
+      : formatInr(totalAmount);
 
   const validUntilText = `Valid until ${new Date(plan.validUntil).toLocaleDateString('en-GB', {
     day: '2-digit',
@@ -77,7 +95,7 @@ const PlanCard = ({ plan, onSelect, isSelected, iapProduct }: TPlanCardProps) =>
         </View>
         <View style={styles.planPricing}>
           <Text style={styles.planAmount}>{priceText}</Text>
-          {showGst && <Text style={styles.planGst}>+ {plan.gstRate}% GST</Text>}
+          {showGst && <Text style={styles.planGst}>incl. {gstRate}% GST</Text>}
         </View>
       </View>
 

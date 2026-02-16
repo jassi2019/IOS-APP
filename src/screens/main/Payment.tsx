@@ -384,6 +384,9 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
   const isSubscription = Platform.OS === 'ios' && storeProduct?.type === 'subs';
 
   const INR_SYMBOL = '\u20B9';
+  const gstRate = Number.isFinite(Number(plan.gstRate)) ? Number(plan.gstRate) : 18;
+  const totalAmountWithGst = Math.round((Number(plan.amount) || 0) * (1 + gstRate / 100));
+  const totalAmountText = `${INR_SYMBOL}${new Intl.NumberFormat('en-IN').format(totalAmountWithGst)}`;
 
   const validUntilText = `Valid until ${new Date(plan.validUntil).toLocaleDateString('en-GB', {
     day: '2-digit',
@@ -478,9 +481,7 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
 
               <View style={styles.summaryRow}>
                 <Text style={styles.summaryLabel}>Price</Text>
-                <Text style={styles.summaryValue}>
-                  {`${INR_SYMBOL}${plan.amount} + ${plan.gstRate}% GST`}
-                </Text>
+                <Text style={styles.summaryValue}>{`${totalAmountText} (incl. ${gstRate}% GST)`}</Text>
               </View>
             </>
           )}

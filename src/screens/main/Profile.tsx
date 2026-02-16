@@ -444,17 +444,6 @@ export const Profile = ({ navigation }: AccountProps) => {
                 </View>
                 <ChevronRight size={20} color="#4A635D" />
               </TouchableOpacity>
-
-              <TouchableOpacity
-                style={[styles.infoItem, styles.infoItemNoBorder]}
-                onPress={() => navigation.navigate('RefundPolicy')}
-              >
-                <View style={styles.settingsItemLeft}>
-                  <MaterialIcons name="request-quote" size={20} color="#4A635D" />
-                  <Text style={styles.settingsItemText}>Refund Policy</Text>
-                </View>
-                <ChevronRight size={20} color="#4A635D" />
-              </TouchableOpacity>
             </View>
           </View>
 

@@ -23,6 +23,7 @@ import React from 'react';
 import {
   ActivityIndicator,
   Alert,
+  Linking,
   Platform,
   ScrollView,
   StyleSheet,
@@ -31,6 +32,11 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
+const LEGAL_LINKS = {
+  privacyPolicy: 'https://taiyarineetki.com/privacy-policy',
+  termsOfUse: 'https://taiyarineetki.com/terms-and-conditions',
+} as const;
 
 type PaymentScreenProps = {
   navigation: any;
@@ -411,6 +417,33 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
   const payButtonLabel =
     Platform.OS === 'ios' ? (isSubscription ? 'Subscribe' : 'Buy') : Platform.OS === 'android' ? 'Pay' : 'Pay';
 
+  const durationText =
+    Platform.OS === 'ios' && isSubscription
+      ? billingPeriod
+        ? `Every ${billingPeriod}`
+        : 'Auto-renewing'
+      : validUntilText;
+
+  const openLegalLink = async (url: string, label: string) => {
+    try {
+      const canOpen = await Linking.canOpenURL(url);
+      if (!canOpen) {
+        throw new Error(`${label} URL could not be opened.`);
+      }
+
+      await Linking.openURL(url);
+    } catch (error: unknown) {
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : `${label} link could not be opened. Please try again.`;
+      Alert.alert(
+        'Unable to Open Link',
+        errorMessage
+      );
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <View style={styles.header}>
@@ -426,23 +459,16 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
           <Text style={styles.summaryTitle}>Payment Summary</Text>
 
           <View style={styles.summaryRow}>
-            <Text style={styles.summaryLabel}>Subscription</Text>
+            <Text style={styles.summaryLabel}>Subscription name</Text>
             <Text style={styles.summaryValue}>{subscriptionTitle}</Text>
           </View>
 
           {Platform.OS === 'ios' && (
             <>
-              {isSubscription ? (
-                <View style={styles.summaryRow}>
-                  <Text style={styles.summaryLabel}>Billing period</Text>
-                  <Text style={styles.summaryValue}>{billingPeriod || 'Auto-renewing'}</Text>
-                </View>
-              ) : (
-                <View style={styles.summaryRow}>
-                  <Text style={styles.summaryLabel}>Access</Text>
-                  <Text style={styles.summaryValue}>{validUntilText}</Text>
-                </View>
-              )}
+              <View style={styles.summaryRow}>
+                <Text style={styles.summaryLabel}>Duration</Text>
+                <Text style={styles.summaryValue}>{durationText}</Text>
+              </View>
 
               <View style={styles.summaryRow}>
                 <Text style={styles.summaryLabel}>Price</Text>
@@ -475,8 +501,8 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
           {Platform.OS === 'android' && (
             <>
               <View style={styles.summaryRow}>
-                <Text style={styles.summaryLabel}>Access</Text>
-                <Text style={styles.summaryValue}>{validUntilText}</Text>
+                <Text style={styles.summaryLabel}>Duration</Text>
+                <Text style={styles.summaryValue}>{durationText}</Text>
               </View>
 
               <View style={styles.summaryRow}>
@@ -504,14 +530,20 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
 
             <View style={styles.linksRow}>
               <TouchableOpacity
-                onPress={() => navigation.navigate('Privacy')}
+                onPress={() => openLegalLink(LEGAL_LINKS.privacyPolicy, 'Privacy Policy')}
                 style={styles.linkButton}
+                accessibilityRole="link"
+                accessibilityLabel="Open Privacy Policy in browser"
+                hitSlop={8}
               >
                 <Text style={styles.linkText}>Privacy Policy</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => navigation.navigate('TermsAndConditions')}
+                onPress={() => openLegalLink(LEGAL_LINKS.termsOfUse, 'Terms of Use')}
                 style={styles.linkButton}
+                accessibilityRole="link"
+                accessibilityLabel="Open Terms of Use in browser"
+                hitSlop={8}
               >
                 <Text style={styles.linkText}>Terms of Use</Text>
               </TouchableOpacity>
@@ -529,14 +561,20 @@ export const PaymentScreen = ({ navigation, route }: PaymentScreenProps) => {
 
             <View style={styles.linksRow}>
               <TouchableOpacity
-                onPress={() => navigation.navigate('Privacy')}
+                onPress={() => openLegalLink(LEGAL_LINKS.privacyPolicy, 'Privacy Policy')}
                 style={styles.linkButton}
+                accessibilityRole="link"
+                accessibilityLabel="Open Privacy Policy in browser"
+                hitSlop={8}
               >
                 <Text style={styles.linkText}>Privacy Policy</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => navigation.navigate('TermsAndConditions')}
+                onPress={() => openLegalLink(LEGAL_LINKS.termsOfUse, 'Terms of Use')}
                 style={styles.linkButton}
+                accessibilityRole="link"
+                accessibilityLabel="Open Terms of Use in browser"
+                hitSlop={8}
               >
                 <Text style={styles.linkText}>Terms of Use</Text>
               </TouchableOpacity>
@@ -683,17 +721,21 @@ const styles = StyleSheet.create({
   },
   linkButton: {
     flex: 1,
-    paddingVertical: 10,
+    minHeight: 44,
+    paddingVertical: 12,
+    paddingHorizontal: 12,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#E5E7EB',
     alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: '#F9FAFB',
   },
   linkText: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: '#111827',
+    fontSize: 14,
+    fontWeight: '700',
+    textDecorationLine: 'underline',
+    color: '#1D4ED8',
   },
   payButton: {
     backgroundColor: '#F1BB3E',

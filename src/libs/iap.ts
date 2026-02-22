@@ -83,6 +83,11 @@ export type TAppleIapPurchase = {
   receipt: string;
 };
 
+type TAppleReceiptFetchOptions = {
+  attempts?: number;
+  delayMs?: number;
+};
+
 function requireIap() {
   if (!IapSdk) {
     throw new Error(IAP_NOT_AVAILABLE_MESSAGE);
@@ -92,6 +97,12 @@ function requireIap() {
 
 export function isIapAvailable() {
   return !!IapSdk;
+}
+
+function sleep(ms: number) {
+  return new Promise<void>((resolve) => {
+    setTimeout(resolve, ms);
+  });
 }
 
 export function formatAppleSubscriptionPeriod(
@@ -174,24 +185,42 @@ export async function fetchAppleSubscriptionProducts(
   }
 }
 
-async function getAppleReceiptInternal(IAP: any): Promise<string | null> {
-  let receipt: string | null = null;
+async function getAppleReceiptInternal(
+  IAP: any,
+  options?: TAppleReceiptFetchOptions
+): Promise<string | null> {
+  const attempts = Math.max(1, Math.trunc(options?.attempts ?? 1));
+  const delayMs = Math.max(0, Math.trunc(options?.delayMs ?? 0));
 
-  try {
-    receipt = await IAP.getReceiptIOS();
-  } catch {
-    receipt = null;
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    let receipt: string | null = null;
+
+    try {
+      receipt = await IAP.getReceiptIOS();
+    } catch {
+      receipt = null;
+    }
+
+    if (receipt) return receipt;
+
+    // Refresh on the first and last attempts. The first helps create a receipt on fresh installs,
+    // and the last gives one final App Store sync after a short retry window.
+    if (attempt === 1 || attempt === attempts) {
+      try {
+        receipt = await IAP.requestReceiptRefreshIOS();
+      } catch {
+        receipt = null;
+      }
+
+      if (receipt) return receipt;
+    }
+
+    if (attempt < attempts && delayMs > 0) {
+      await sleep(delayMs);
+    }
   }
 
-  if (receipt) return receipt;
-
-  try {
-    receipt = await IAP.requestReceiptRefreshIOS();
-  } catch {
-    receipt = null;
-  }
-
-  return receipt;
+  return null;
 }
 
 export async function restoreAppleReceipt(): Promise<string> {
@@ -213,7 +242,10 @@ export async function restoreAppleReceipt(): Promise<string> {
       // Restore can fail for reasons unrelated to receipt availability; continue to receipt fetch.
     }
 
-    const receipt = await getAppleReceiptInternal(IAP);
+    const receipt = await getAppleReceiptInternal(IAP, {
+      attempts: 3,
+      delayMs: 1200,
+    });
     if (!receipt) {
       throw new Error('Could not fetch App Store receipt. Please try again.');
     }
@@ -335,17 +367,10 @@ export async function purchaseAppleProduct(
             throw new Error('Missing transaction ID from App Store purchase.');
           }
 
-          let receipt: string | null = null;
-          try {
-            receipt = await IAP.getReceiptIOS();
-          } catch {
-            try {
-              receipt = await IAP.requestReceiptRefreshIOS();
-            } catch(e) {
-              console.log(e);
-              receipt = null;
-            }
-          }
+          const receipt = await getAppleReceiptInternal(IAP, {
+            attempts: 5,
+            delayMs: 1200,
+          });
 
           if (!receipt) {
             throw new Error('Could not fetch App Store receipt. Please try again.');

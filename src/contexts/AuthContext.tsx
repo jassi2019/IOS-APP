@@ -2,7 +2,8 @@ import api from '@/lib/api';
 import tokenManager from '@/lib/tokenManager';
 import { TUser } from '@/types/User';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
+import { AppState } from 'react-native';
 
 const USER_KEY = '@auth_user';
 const GUEST_KEY = '@auth_guest_mode';
@@ -32,6 +33,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isGuest, setIsGuest] = useState(false);
   const [hasSession, setHasSession] = useState(false);
+  const appState = useRef(AppState.currentState);
 
   const parseCachedUser = (raw: string | null): TUser | null => {
     if (!raw) return null;
@@ -162,6 +164,35 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     initAuth();
+  }, []);
+
+  // Re-validate session when app comes to foreground (single device login enforcement)
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', async (nextState) => {
+      if (appState.current.match(/inactive|background/) && nextState === 'active') {
+        const token = await tokenManager.loadToken();
+        if (!token) return;
+        try {
+          const profileResult: any = await api.get('/api/v1/users/me', {
+            timeout: BOOT_PROFILE_TIMEOUT_MS,
+            skipRetry: true,
+            suppressErrorLogging: true,
+          } as any);
+          const freshUser = profileResult?.data || null;
+          if (freshUser) {
+            await AsyncStorage.setItem(USER_KEY, JSON.stringify(freshUser));
+            setUser(freshUser);
+          }
+        } catch (error) {
+          const status = getErrorStatus(error);
+          if (status === 401 || status === 403) {
+            await persistUser(null);
+          }
+        }
+      }
+      appState.current = nextState;
+    });
+    return () => subscription.remove();
   }, []);
 
   return (

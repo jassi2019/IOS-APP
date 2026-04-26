@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
   const pathname = usePathname();
 
   return (
-    <html lang="en" className="overflow-hidden">
+    <html lang="en" className={pathname.includes("landing") ? "" : "overflow-hidden"}>
       <title>Taiyari NEET ki | Dashboard</title>
       <link rel="icon" href="/favicon.ico" />
       <body
@@ -40,7 +40,8 @@ export default function RootLayout({ children }) {
             {!pathname.includes("auth") &&
               !pathname.includes("privacy") &&
               !pathname.includes("terms") &&
-              !pathname.includes("deletion") && <Sidebar />}
+              !pathname.includes("deletion") &&
+              !pathname.includes("landing") && <Sidebar />}
             <main className="flex-1 overflow-y-auto">{children}</main>
           </div>
         </SidebarProvider>

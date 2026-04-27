@@ -1,0 +1,25 @@
+# ─────────────────────────────────────────────────────────────
+# Taiyari NEET Ki - Caddy Reverse Proxy Config
+# Caddy auto-renews SSL certs from Let's Encrypt for free.
+# ─────────────────────────────────────────────────────────────
+
+# Backend API
+api.taiyarineetki.com {
+    reverse_proxy backend:8000
+    log {
+        output file /data/logs/api-access.log
+    }
+}
+
+# Main Website (Landing + Admin Panel)
+taiyarineetki.com {
+    reverse_proxy portal:3000
+    log {
+        output file /data/logs/portal-access.log
+    }
+}
+
+# Admin Portal (legacy subdomain — redirect to main)
+admin.taiyarineetki.com {
+    redir https://taiyarineetki.com/admin{uri} permanent
+}

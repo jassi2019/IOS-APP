@@ -1,14 +1,10 @@
 "use client";
 
-import localFont from "next/font/local";
 import "./globals.css";
 import Sidebar from "@/components/custom/sidebar";
 import { SidebarProvider } from "@/components/custom/sidebar-provider";
 import { Toaster } from "sonner";
 import { usePathname } from "next/navigation";
-
-const geistSans = { variable: "" };
-const geistMono = { variable: "" };
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
@@ -30,7 +26,7 @@ export default function RootLayout({ children }) {
         </>
       )}
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
+        className="antialiased min-h-screen font-sans"
       >
         <Toaster
           richColors

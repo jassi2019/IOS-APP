@@ -10,19 +10,25 @@ const parseEmails = (value) =>
 const canSendEmail = () =>
   !!(env.SMTP_HOST && env.SMTP_PORT && env.SMTP_USER && env.SMTP_PASSWORD && env.SMTP_FROM);
 
+const formatDate = (d) => {
+  if (!d) return "N/A";
+  return new Date(d).toLocaleDateString("en-IN", {
+    day: "2-digit", month: "short", year: "numeric",
+  });
+};
+
 /**
  * Sends a non-blocking purchase notification email to DEVELOPER_EMAILS.
- * This is intended for internal bookkeeping/alerts (not a user-facing invoice).
  */
 const sendPurchaseNotification = async ({ platform, user, plan, subscription, extra }) => {
-  const to = parseEmails(env.DEVELOPER_EMAILS);
-  if (to.length === 0) return;
   if (!canSendEmail()) return;
 
-  const subject = `[${platform}] New purchase: ${plan?.name || plan?.id || "Plan"}`;
-  const content = {
+  const adminTo = parseEmails(env.DEVELOPER_EMAILS);
+  const now = new Date();
+
+  const adminContent = {
     platform,
-    timestamp: new Date().toISOString(),
+    timestamp: now.toISOString(),
     userName: user?.name || null,
     userEmail: user?.email || null,
     userId: user?.id || null,
@@ -38,16 +44,35 @@ const sendPurchaseNotification = async ({ platform, user, plan, subscription, ex
     extraJson: extra ? JSON.stringify(extra, null, 2) : null,
   };
 
-  try {
-    await sendMail({
-      to,
-      subject,
+  // Send admin notification
+  if (adminTo.length > 0) {
+    sendMail({
+      to: adminTo,
+      subject: `[${platform}] New purchase: ${plan?.name || plan?.id || "Plan"} by ${user?.name || user?.email || "User"}`,
       viewFileName: "billing/purchase.notification",
-      content,
-    });
-  } catch (e) {
-    // Never fail the purchase flow due to an internal email failure.
-    console.log("purchase notification email failed", e?.message || e);
+      content: adminContent,
+    }).catch((e) => console.log("admin notification email failed", e?.message || e));
+  }
+
+  // Send invoice to student
+  if (user?.email) {
+    const invoiceNo = `TNK-${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, "0")}${String(now.getDate()).padStart(2, "0")}-${String(subscription?.id || "").slice(-6).toUpperCase()}`;
+    sendMail({
+      to: [user.email],
+      subject: `Payment Receipt - ${plan?.name || "Subscription"} | Taiyari NEET Ki`,
+      viewFileName: "billing/invoice",
+      content: {
+        userName: user?.name || "Student",
+        invoiceNo,
+        date: formatDate(now),
+        planName: plan?.name || "Subscription Plan",
+        validUntil: formatDate(subscription?.endDate),
+        paymentId: subscription?.paymentId || extra?.paymentId || "N/A",
+        platform: platform || "Online",
+        amount: subscription?.amount ?? "N/A",
+        year: now.getFullYear(),
+      },
+    }).catch((e) => console.log("student invoice email failed", e?.message || e));
   }
 };
 

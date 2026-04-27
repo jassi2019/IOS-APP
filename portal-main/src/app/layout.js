@@ -1,21 +1,14 @@
 "use client";
 
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import Sidebar from "@/components/custom/sidebar";
 import { SidebarProvider } from "@/components/custom/sidebar-provider";
 import { Toaster } from "sonner";
 import { usePathname } from "next/navigation";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const geistSans = { variable: "" };
+const geistMono = { variable: "" };
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();

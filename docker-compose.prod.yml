@@ -1,0 +1,79 @@
+services:
+
+  # ─────────────────────────────────────────────
+  # PostgreSQL Database
+  # ─────────────────────────────────────────────
+  postgres:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: education_app
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 7aec2989a427cad7ab0bedcab0642f64
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─────────────────────────────────────────────
+  # Backend API (Express.js)
+  # ─────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend-main
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - ./backend-main/.env
+    networks:
+      - app_network
+
+  # ─────────────────────────────────────────────
+  # Admin Portal (Next.js)
+  # ─────────────────────────────────────────────
+  portal:
+    build:
+      context: ./portal-main
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: https://api.taiyarineetki.com
+    restart: unless-stopped
+    networks:
+      - app_network
+
+  # ─────────────────────────────────────────────
+  # Caddy - Reverse Proxy + Auto SSL (Let's Encrypt)
+  # ─────────────────────────────────────────────
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - app_network
+    depends_on:
+      - backend
+      - portal
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  caddy_data:
+  caddy_config:

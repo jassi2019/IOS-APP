@@ -32,7 +32,7 @@ export default function LoginPage() {
       const { data: { token } } = await login(email, password);
       showSuccess("Login successful");
       localStorage.setItem("token", token);
-      router.push("/");
+      router.push("/admin");
     } catch (error) {
       showError(error);
     } finally {

@@ -1,0 +1,122 @@
+import { TTopic } from '@/types/Topic';
+
+import { TApiPromise, TMutationOpts, TQueryOpts } from '@/types/api';
+
+import api from '@/lib/api';
+import { TLastRead } from '@/types/LastRead';
+import { useMutation, useQuery } from '@tanstack/react-query';
+
+type TGetTopicsParams = {
+  chapterId: string;
+  subjectId: string;
+};
+
+const getTopicsByChapterIdAndSubjectId = (params: TGetTopicsParams): TApiPromise<TTopic[]> => {
+  return api.get(`/api/v1/topics`, { params });
+};
+
+const getFreeTopics = (): TApiPromise<TTopic[]> => {
+  return api.get(`/api/v1/topics/free`);
+};
+
+const getTopicByTopicId = (topicId: string): TApiPromise<TTopic> => {
+  return api.get(`/api/v1/topics/${topicId}`);
+};
+
+export type TFeatureType =
+  | 'explanation'
+  | 'revision_recall'
+  | 'hidden_links'
+  | 'exercise_revival'
+  | 'master_exemplar'
+  | 'pyq'
+  | 'chapter_checkpoint';
+
+export type TFeatureContent = {
+  topicId: string;
+  topicName: string;
+  featureType: TFeatureType;
+  url: string | null;
+  thumbnail: string | null;
+  contentId: string | null;
+  description: string;
+  serviceType: 'PREMIUM' | 'FREE';
+};
+
+const getTopicFeatureContent = (
+  topicId: string,
+  featureType: TFeatureType
+): TApiPromise<TFeatureContent> => {
+  return api.get(`/api/v1/topics/${topicId}/feature/${featureType}`);
+};
+
+const markTopicAsLastRead = (topicId: string): TApiPromise<TTopic> => {
+  // Validate topicId before making API call
+  if (!topicId || typeof topicId !== 'string' || topicId.trim() === '') {
+    return Promise.reject(new Error('Invalid topicId: topicId must be a non-empty string'));
+  }
+
+  // Non-critical background update; avoid noisy logs + retries if backend is flaky.
+  return api.post(`/api/v1/lastreads`, { topicId }, { skipRetry: true, suppressErrorLogging: true });
+};
+
+const getLastReadTopic = (): TApiPromise<TLastRead> => {
+  // Non-critical read; if backend is slow/unavailable, don't create noisy retries.
+  return api.get(`/api/v1/lastreads`, { skipRetry: true, suppressErrorLogging: true });
+};
+
+export const useGetTopicsByChapterIdAndSubjectId = (
+  data: TGetTopicsParams,
+  options?: TQueryOpts<TTopic[]>
+) => {
+  return useQuery({
+    queryKey: ['topics', data.chapterId, data.subjectId],
+    queryFn: () => getTopicsByChapterIdAndSubjectId(data),
+    ...options,
+  });
+};
+
+export const useGetLastReadTopic = (options?: TQueryOpts<TLastRead>) => {
+  return useQuery({
+    queryKey: ['last-read-topic'],
+    queryFn: () => getLastReadTopic(),
+    ...options,
+  });
+};
+
+export const useGetTopicById = (topicId: string, options?: TQueryOpts<TTopic>) => {
+  return useQuery({
+    queryKey: ['topics', topicId],
+    queryFn: () => getTopicByTopicId(topicId),
+    ...options,
+  });
+};
+
+export const useMarkTopicAsLastRead = (options?: TMutationOpts<string, TTopic>) => {
+  return useMutation({
+    mutationKey: ['mark-topic-as-last-read'],
+    mutationFn: (topicId: string) => markTopicAsLastRead(topicId),
+    ...options,
+  });
+};
+
+export const useGetFreeTopics = (options?: TQueryOpts<TTopic[]>) => {
+  return useQuery({
+    queryKey: ['free-topics'],
+    queryFn: () => getFreeTopics(),
+    ...options,
+  });
+};
+
+export const useGetTopicFeatureContent = (
+  topicId: string,
+  featureType: TFeatureType,
+  options?: TQueryOpts<TFeatureContent>
+) => {
+  return useQuery({
+    queryKey: ['topic-feature', topicId, featureType],
+    queryFn: () => getTopicFeatureContent(topicId, featureType),
+    enabled: !!topicId && !!featureType,
+    ...options,
+  });
+};

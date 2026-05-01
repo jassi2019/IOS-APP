@@ -1,0 +1,74 @@
+{
+  "expo": {
+    "name": "Taiyari NEET ki",
+    "slug": "taiyari-neet-ki",
+    "version": "1.0.4",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#F59E0B"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/e55c6314-0b1e-43af-a737-ce4557b6f804",
+      "fallbackToCacheTimeout": 0,
+      "checkAutomatically": "ON_LOAD"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "plugins": [
+      "./plugins/withRazorpayConfig"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.taiyarineetki.educationapp",
+      "buildNumber": "1.0.4",
+      "jsEngine": "hermes",
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app requires camera access for user uploads and verification.",
+        "NSPhotoLibraryUsageDescription": "This app needs access to your photo library to attach images.",
+        "NSMicrophoneUsageDescription": "This app requires microphone access for audio features.",
+        "UIBackgroundModes": [
+          "fetch"
+        ],
+        "LSApplicationQueriesSchemes": [
+          "razorpay"
+        ]
+      },
+      "config": {
+        "usesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "com.taiyarineetki.app",
+      "versionCode": 4,
+      "jsEngine": "hermes",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "permissions": [
+        "INTERNET",
+        "ACCESS_NETWORK_STATE",
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ],
+      "blockedPermissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e55c6314-0b1e-43af-a737-ce4557b6f804"
+      }
+    },
+    "owner": "jassi2018"
+  }
+}
